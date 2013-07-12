@@ -1,0 +1,97 @@
+<html>
+  <head>
+    <title>tLunter.com</title>
+    <meta name="viewport" content="width=device-width">
+    <link href="http://fonts.googleapis.com/css?family=Source+Code+Pro:400,500|Open+Sans:300,400,600" rel="stylesheet">
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <link rel="stylesheet" href="/css/font-awesome.css">
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <script type="text/javascript" src="/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/js/angular.min.js"></script>
+  </head>
+  <body>
+    <div id="container">
+      <div id="nav">
+        <div class="center-nav">
+          <ul class="nav">
+            <li>
+              <span class="icon-3x icon-stack">
+                <i class="icon-check-empty icon-stack-base"></i>
+                <a href="/">
+                  <i class="icon-home"></i>
+                </a>
+              </span>
+            </li>
+            <% unless logged_in? %>
+            <li>
+              <span class="icon-3x icon-stack">
+                <i class="icon-check-empty icon-stack-base"></i>
+                <a href="/login">
+                  <i class="icon-signin"></i>
+                </a>
+              </span>
+            </li>
+            <% else %>
+            <li>
+              <span class="icon-3x icon-stack">
+                <i class="icon-check-empty icon-stack-base"></i>
+                <a href="/users/<%=current_user.id%>/edit">
+                  <i class="icon-edit"></i>
+                </a>
+              </span>
+            </li>
+            <li>
+              <span class="icon-3x icon-stack">
+                <i class="icon-check-empty icon-stack-base"></i>
+                <a href="/logout">
+                  <i class="icon-signout"></i>
+                </a>
+              </span>
+            </li>
+            <% end %>
+            <li>
+              <span class="icon-3x icon-stack">
+                <i class="icon-check-empty icon-stack-base"></i>
+                <a href="http://www.github.com/tlunter" target="_blank">
+                  <i class="icon-github"></i>
+                </a>
+              </span>
+            </li>
+            <li>
+              <span class="icon-3x icon-stack">
+                <i class="icon-check-empty icon-stack-base"></i>
+                <a href="http://www.twitter.com/tlunter" target="_blank">
+                  <i class="icon-twitter"></i>
+                </a>
+              </span>
+            </li>
+            <li>
+              <span class="icon-3x icon-stack">
+                <i class="icon-check-empty icon-stack-base"></i>
+                <a href="mailto:tlunter@gmail.com" target="_blank">
+                  <i class="icon-envelope"></i>
+                </a>
+              </span>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div id="content">
+        <% if flash.has?(:notice) %>
+        <div class="alert alert-success fade in">
+          <a href="#" class="close" data-dismiss="alert">&times;</a>
+          <strong>Well done!</strong> <%=flash[:notice]%>
+        </div>
+        <% end %>
+        <% if flash.has?(:error) %>
+        <div class="alert alert-error fade in">
+          <a href="#" class="close" data-dismiss="alert">&times;</a>
+          <strong>Oh no!</strong> <%=flash[:error]%>
+        </div>
+        <% end %>
+        <%= yield %>
+      </div>
+    </div>
+  </body>
+</html>

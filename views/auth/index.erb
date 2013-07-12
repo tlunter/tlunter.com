@@ -1,0 +1,30 @@
+<h2>Users</h2>
+<table>
+  <tr>
+    <th>User</th>
+    <% if current_user.admin? %>
+    <th>Permission Level</th>
+    <% end %>
+  </tr>
+  <% @users.each do |user| %>
+  <tr>
+    <td><%=user.email%></td>
+    <% if current_user.admin? %>
+    <td><%=user.permission_level%></td>
+    <% end %>
+    <td><a href="/users/<%=user.id%>">Show</a></td>
+    <% if current_user.admin? %>
+    <td><a href="/users/<%=user.id%>/edit">Edit</a></td>
+    <td>
+      <% unless user.site_admin? %>
+        <a href="/users/<%=user.id%>/delete" onclick="return confirm('You sure?')">
+          Delete
+        </a>
+      <% else %>
+        Site Admin
+      <% end %>
+    </td>
+    <% end %>
+  </tr>
+  <% end %>
+</table>
