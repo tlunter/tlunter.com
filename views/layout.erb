@@ -26,33 +26,6 @@
                 </a>
               </span>
             </li>
-            <% unless logged_in? %>
-            <li>
-              <span class="icon-3x icon-stack">
-                <i class="icon-check-empty icon-stack-base"></i>
-                <a href="/login">
-                  <i class="icon-signin"></i>
-                </a>
-              </span>
-            </li>
-            <% else %>
-            <li>
-              <span class="icon-3x icon-stack">
-                <i class="icon-check-empty icon-stack-base"></i>
-                <a href="/users/<%=current_user.id%>/edit">
-                  <i class="icon-edit"></i>
-                </a>
-              </span>
-            </li>
-            <li>
-              <span class="icon-3x icon-stack">
-                <i class="icon-check-empty icon-stack-base"></i>
-                <a href="/logout">
-                  <i class="icon-signout"></i>
-                </a>
-              </span>
-            </li>
-            <% end %>
             <li>
               <span class="icon-3x icon-stack">
                 <i class="icon-check-empty icon-stack-base"></i>

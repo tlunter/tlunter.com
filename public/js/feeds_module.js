@@ -1,5 +1,7 @@
 var feed_module = angular.module('feed_module', []);
 
+feed_module.value('$anchorScroll', angular.noop);
+
 feed_module.config(function($locationProvider, $routeProvider) {
   $locationProvider.html5Mode(true).hashPrefix('!');
   $routeProvider.
