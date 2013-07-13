@@ -9,6 +9,10 @@ class App < Sinatra::Application
   set :template_engine, 'erb'
   set :sinatra_authentication_view_path, File.join(self.root, "views/auth/")
   set :protection, :origin_whitelist => ['http://localhost', 'http://home.tlunter.com']
+
+  before %r{.+\.json$} do
+        content_type 'application/json'
+  end
 end
 
 Dir[File.join(App.root, "config/**/*.rb")].each {|f| require f}

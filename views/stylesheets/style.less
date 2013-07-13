@@ -11,6 +11,7 @@
 html, body {
   padding: 0;
   margin: 0;
+  height: 100%;
 
   background: @content-background-color;
   color: @content-text-color;
@@ -26,7 +27,7 @@ table {
 }
 #container {
   width: 100%;
-  height: ~"calc(100% - 5px)";
+  height: 100%;
 
   font-family: @content-font;
   font-weight: 400;
@@ -141,8 +142,6 @@ table {
   border-left: 94px solid #222222;
   padding: 5px;
 
-  height: auto;
-
   text-shadow: 0 2px @content-text-shadow-color;
   text-align: center;
 
@@ -154,7 +153,19 @@ table {
     border-left: 45px solid #222222;
   }
 
-  .section-row {
+  #content-container {
+    margin: 0 auto;
+    width: 755px;
+      
+    @media (max-width: 875px) {
+      width: 350px;
+    }
+
+    .feeds-section {
+      .section;
+      width: 100%;
+    }
+
     .section {
       margin: 12.5px 7.5px 12.5px 7.5px;
       padding: 0 5px 0 5px;
@@ -175,11 +186,11 @@ table {
         line-height: 30px;
         margin: 0 0 20px 0;
       }
-      ul {
+      ul:not(.nav) {
         margin: 0;
         padding: 0;
         list-style: none;
-        li {
+        > li {
           h3 {
             font-size: 18px;
             line-height: 18px;
@@ -189,14 +200,14 @@ table {
           }
         }
       }
-    }
-    
-    .picture {
-      img {
-        border-radius: 10px;
-      }
-      @media (max-width: 857px) {
-        display: none;
+      
+      .picture {
+        img {
+          border-radius: 10px;
+        }
+        @media (max-width: 857px) {
+          display: none;
+        }
       }
     }
   }

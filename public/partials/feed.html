@@ -1,0 +1,11 @@
+<h3>Feeds</h3>
+<ul class="nav nav-tabs">
+  <li class="{{github}}"><a href="/feed/github">GitHub</a></li>
+  <li class="{{twitter}}"><a href="/feed/twitter">Twitter</a></li>
+  <li class="{{stack_overflow}}"><a href="/feed/stack_overflow">StackOverflow</a></li>
+</ul>
+<ul>
+  <li ng-repeat="item in feed">
+  <a href="{{ item.link }}">{{ item.title }}</a> on {{ item.pretty_date }}
+  </li>
+</ul>
