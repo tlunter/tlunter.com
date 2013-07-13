@@ -21,6 +21,9 @@ require 'digest/sha1'
 require 'sinatra-authentication'
 
 Dir[File.join(App.root, "models/**/*.rb")].each {|f| require f}
+
+DataMapper.finalize
+
 Dir[File.join(App.root, "routes/**/*.rb")].each {|f| require f}
 
 use Rack::Session::Cookie, :secret => 'A1 sauce 1s so good you should use 1t on a11 yr st34ksssss'
