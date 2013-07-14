@@ -12,9 +12,6 @@ gem 'rake'
 gem 'rack-flash3'
 gem 'resque'
 gem 'sinatra'
-gem 'sinatra-authentication',
-  :github => "maxjustus/sinatra-authentication",
-  :branch => "master"
 gem 'sqlite3'
 gem 'therubyracer'
 gem 'unicorn'

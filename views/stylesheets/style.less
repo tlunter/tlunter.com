@@ -93,16 +93,8 @@ table {
         margin-top: -2px;
       }
     }
-    .icon-signin {
-      margin-top: -2px;
-    }
-    .icon-signout {
+    .icon-user {
       margin-top: -3px;
-      margin-left: 2px;
-    }
-    .icon-edit {
-      margin-top: -1px;
-      margin-left: 3px;
     }
     .icon-github {
       margin-top: -3px;
@@ -160,11 +152,27 @@ table {
     @media (max-width: 875px) {
       width: 350px;
     }
+    
+    @media (max-width: 640px) {
+    }
+
+    @media (max-width: 360px) {
+      width: 305px;
+    }
+
+    .post-section {
+      .section;
+      width: 100%;
+    }
 
     .feeds-section {
       .section;
       width: 100%;
       min-height: 450px;
+      
+      @media (max-width: 875px) {
+        min-height: 550px;
+      }
     }
 
     .section {
@@ -182,20 +190,11 @@ table {
         margin: 7.5px 5px 7.5px 5px;
       }
 
-      h2 {
-        font-size: 22px;
-        line-height: 30px;
-        margin: 0 0 20px 0;
-      }
       ul:not(.nav) {
         margin: 0;
         padding: 0;
         list-style: none;
         > li {
-          h3 {
-            font-size: 18px;
-            line-height: 18px;
-          }
           &:last-child {
             padding-bottom: 25px;
           }
@@ -214,16 +213,42 @@ table {
   }
 }
 
+h2 {
+  font-size: 22px;
+  line-height: 30px;
+  margin: 0 0 20px 0;
+}
+
+h3 {
+  font-size: 18px;
+  line-height: 18px;
+}
+
 .form-horizontal {
   .control-label {
     width: 100px;
     text-align: left;
     float: none;
-    font-size: 18px;
-    line-height: 18px;
   }
   
   .controls {
     margin-left: 0;
+
+    textarea {
+      width: 715px;
+      height: 250px;
+
+      @media (max-width: 875px) {
+        width: 320px;
+      }
+
+      @media (max-width: 360px) {
+        width: 270px;
+      }
+    }
   }
+}
+
+.alert {
+  text-align: left;
 }

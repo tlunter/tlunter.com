@@ -1,14 +1,20 @@
+require 'json'
+
 class App < Sinatra::Application
   get '/' do
-    erb :index
+    redirect to('/posts')
   end
 
-  get '/feed/*' do
-    call env.merge("PATH_INFO" => '/')
+  get '/requests' do
+    request.ip
   end
 
   get '/about' do
     erb :about
+  end
+
+  get '/about/feed/*' do
+    call env.merge("PATH_INFO" => '/about')
   end
 end
 
