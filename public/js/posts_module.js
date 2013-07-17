@@ -30,9 +30,9 @@ function PostsController($scope, $route, $routeParams, $http) {
   $http.get(post_route).
     success(function (data, status, headers, config) {
       $.each(data, setupPost);
-      $scope['previous'] = (data['previous'] !== null) ? 'block' : 'none';
-      $scope['next'] = (data['next'] !== null) ? 'block' : 'none';
-      $scope['post'] = data;
+      $scope['previous'] = data['previous'];
+      $scope['next'] = data['next'];
+      $scope['post'] = data['current'];
     }).
     error(function (data, status, headers, config) {
       $scope['post'] = null;

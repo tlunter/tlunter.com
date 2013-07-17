@@ -1,15 +1,17 @@
 <div ng-show="post">
   <h2>Posts</h2>
-  <h3>{{ post.current.title }}</h3>
-  <p><small>posted on {{ post.current.date }}</small></p>
-  <p>{{ post.current.body }}</p>
-  <span style="float:left; display: {{ previous }}">
-    <a ng-href="/posts/i/{{ post.previous.link }}">Previous</a>
+  <h3>{{ post.title }}</h3>
+  <p><small>posted on {{ post.date }}</small></p>
+  <p>{{ post.body }}</p>
+  <span ng-show="previous" style="float:left;">
+    <a ng-href="/posts/i/{{ previous.link }}">Previous</a>
   </span>
-  <span style="float:right; display: {{ next }}">
-    <a ng-href="/posts/i/{{ post.next.link }}">Next</a>
+  <span ng-show="next" style="float:right;">
+    <a ng-href="/posts/i/{{ next.link }}">Next</a>
   </span>
 </div>
 <div ng-hide="post">
-  It looks like I'm lazy and haven't posted anything yet!
+  <div style="text-align: center;">
+    It looks like I'm lazy and haven't posted anything yet!
+  </div>
 </div>
