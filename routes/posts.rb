@@ -54,7 +54,9 @@ class App < Sinatra::Application
   end
 
   get '/post/latest.json' do
-    posts = Post.latest
+    posts = Post.latest.each do |post|
+      post.body = @markdown.render post.body
+    end
     {
       :next => nil,
       :current => posts[0],
@@ -67,10 +69,15 @@ class App < Sinatra::Application
     halt 404 unless post
     next_post       = Post.first(:updated_at.gt => post.updated_at, :order => :updated_at.asc)
     previous_post   = Post.first(:updated_at.lt => post.updated_at, :order => :updated_at.desc)
-    {
+    posts = {
       :next => next_post,
       :current => post,
       :previous => previous_post
-    }.to_json
+    }
+
+    posts.each do |key, p|
+      p.body = @markdown.render p.body
+      posts[key] = p
+    end
   end
 end

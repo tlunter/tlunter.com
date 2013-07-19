@@ -2,7 +2,7 @@
   <h2>Posts</h2>
   <h3>{{ post.title }}</h3>
   <p><small>posted on {{ post.date }}</small></p>
-  <p>{{ post.body }}</p>
+  <p ng-bind-html-unsafe="post.body"></p>
   <span ng-show="previous" style="float:left;">
     <a ng-href="/posts/i/{{ previous.link }}">Previous</a>
   </span>

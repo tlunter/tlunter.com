@@ -3,6 +3,7 @@ $LOAD_PATH << File.dirname(__FILE__)
 require 'rubygems'
 require 'sinatra'
 require 'rack-flash'
+require 'redcarpet'
 require 'pry'
 
 class App < Sinatra::Application
@@ -10,6 +11,10 @@ class App < Sinatra::Application
 
   before %r{.*\.json$} do
     content_type :json
+  end
+
+  before "*" do
+    @markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, :autolink => true, :space_after_headers => true)
   end
 end
 

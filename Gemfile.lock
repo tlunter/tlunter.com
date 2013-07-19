@@ -99,6 +99,7 @@ GEM
       rack
     raindrops (0.11.0)
     rake (10.1.0)
+    redcarpet (3.0.0)
     redis (2.2.2)
     redis-namespace (1.1.0)
       redis (< 3.0.0)
@@ -147,6 +148,7 @@ DEPENDENCIES
   pry
   rack-flash3
   rake
+  redcarpet
   resque
   sinatra
   sqlite3
