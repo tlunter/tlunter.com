@@ -14,4 +14,4 @@ end
 
 class GitHub        < Feed; end
 class StackOverflow < Feed; end
-class Twitter       < Feed; end
+class TwitterItem   < Feed; end

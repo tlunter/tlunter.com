@@ -61,6 +61,8 @@ GEM
     dm-validations (1.2.0)
       dm-core (~> 1.2.0)
     dotenv (0.8.0)
+    faraday (0.8.7)
+      multipart-post (~> 1.1)
     fastercsv (1.5.5)
     feedzirra (0.2.0.rc2)
       curb (~> 0.8.0)
@@ -86,6 +88,7 @@ GEM
     method_source (0.8.1)
     minitest (4.7.5)
     multi_json (1.7.7)
+    multipart-post (1.2.0)
     nokogiri (1.5.10)
     pry (0.9.12.2)
       coderay (~> 1.0.5)
@@ -111,6 +114,7 @@ GEM
       vegas (~> 0.1.2)
     sax-machine (0.2.0.rc1)
       nokogiri (~> 1.5.2)
+    simple_oauth (0.2.0)
     sinatra (1.4.3)
       rack (~> 1.4)
       rack-protection (~> 1.4)
@@ -125,6 +129,10 @@ GEM
     thread_safe (0.1.0)
       atomic
     tilt (1.4.1)
+    twitter (4.8.1)
+      faraday (~> 0.8, < 0.10)
+      multi_json (~> 1.0)
+      simple_oauth (~> 0.2)
     tzinfo (0.3.37)
     unicorn (4.6.3)
       kgio (~> 2.6)
@@ -153,4 +161,5 @@ DEPENDENCIES
   sinatra
   sqlite3
   therubyracer
+  twitter
   unicorn

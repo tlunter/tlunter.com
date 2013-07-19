@@ -8,7 +8,7 @@ class App < Sinatra::Application
   end
 
   get '/twitter.json' do
-    Twitter.latest.to_json
+    TwitterItem.latest.to_json
   end
 end
 
