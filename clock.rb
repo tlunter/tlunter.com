@@ -17,18 +17,16 @@ module Clockwork
         url    = entry.url || entry.links[0]
         record = type.first(:link => url) || type.new
 
-        unless record.id
-          if options[:title]
-            record.title   = options[:title].call(entry)
-          else
-            record.title   = entry.title
-          end
-          record.link      = url
-          record.published = entry.published.to_s
-          unless record.save
-            record.errors.each do |error|
-              puts error
-            end
+        if options[:title]
+          record.title   = options[:title].call(entry)
+        else
+          record.title   = entry.title
+        end
+        record.link      = url
+        record.published = entry.published.to_s
+        unless record.save
+          record.errors.each do |error|
+            puts error
           end
         end
       end
@@ -53,14 +51,19 @@ module Clockwork
       :on_success => lambda { |url, feed| feed_success(url, feed, StackOverflow) },
       :on_failure => method(:feed_failure)
     )
+    
+    Twitter.user_timeline('tlunter').each do |raw_tweet|
+      url = "https://www.twitter.com/tlunter/statuses/#{raw_tweet['id']}"
+      record = TwitterItem.first(:link => url) || TwitterItem.new
 
-    Feedzirra::Feed.fetch_and_parse(
-      "http://rss4twitter.appspot.com/getrss?name=tlunter",
-      :on_success => lambda do |url, feed|
-        feed_success(url, feed, Twitter,
-                     { :title => lambda { |e| e.summer } })
-      end,
-      :on_failure => method(:feed_failure)
-    )
+      record.title = raw_tweet['text']
+      record.link = url
+      record.published = raw_tweet['created_at']
+      unless record.save
+        record.errors.each do |error|
+          puts error
+        end
+      end
+    end
   end
 end
