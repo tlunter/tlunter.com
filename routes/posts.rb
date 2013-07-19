@@ -1,8 +1,8 @@
-require 'json'
+#require 'json'
 
 class App < Sinatra::Application
   before '/posts/new' do
-    halt 404 unless request.ip == "127.0.0.1"
+    halt 404 unless request.env["HTTP_X_REAL_IP"] =~ /192\.168\.1\.\d{1,3}/
   end
 
   get '/posts/new' do
