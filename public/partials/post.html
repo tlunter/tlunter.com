@@ -1,8 +1,8 @@
-<div ng-show="post">
-  <h2>Posts</h2>
-  <h3>{{ post.title }}</h3>
+<div class="post" ng-show="post">
+  <h1>Posts</h1>
+  <h2 class="title">{{ post.title }}</h2>
   <p><small>posted on {{ post.date }}</small></p>
-  <p ng-bind-html-unsafe="post.body"></p>
+  <div class="body" ng-bind-html-unsafe="post.body"></div>
   <span ng-show="previous" style="float:left;">
     <a ng-href="/posts/i/{{ previous.link }}">Previous</a>
   </span>
