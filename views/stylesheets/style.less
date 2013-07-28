@@ -146,67 +146,71 @@ table {
   }
 
   #content-container {
-    margin: 0 auto;
-    width: 755px;
-      
-    @media (max-width: 875px) {
-      width: 350px;
-    }
-    
-    @media (max-width: 640px) {
-    }
+    text-align: center;
 
-    @media (max-width: 360px) {
-      width: 305px;
-    }
-
-    .post-section {
-      .section;
-      width: 100%;
-    }
-
-    .feeds-section {
-      .section;
-      width: 100%;
-      min-height: 460px;
-      
-      @media (max-width: 875px) {
-        min-height: 550px;
-      }
-    }
-
-    .section {
-      margin: 12.5px 7.5px 12.5px 7.5px;
-      padding: 0 5px 0 5px;
-      text-align: left;
-      vertical-align: top;
+    .section-row {
       display: inline-block;
-      width: 350px;
-
-      word-wrap: break-word;
+      width: 755px;
+        
+      @media (max-width: 875px) {
+        width: 350px;
+      }
+      
+      @media (max-width: 640px) {
+      }
 
       @media (max-width: 360px) {
-        max-width: 275px;
-        margin: 7.5px 5px 7.5px 5px;
+        width: 305px;
       }
 
-      ul:not(.nav) {
-        margin: 0;
-        padding: 0;
-        list-style: none;
-        > li {
-          &:last-child {
-            padding-bottom: 25px;
-          }
+      .post-section {
+        .section;
+        width: 100%;
+      }
+
+      .feeds-section {
+        .section;
+        width: 100%;
+        min-height: 460px;
+        
+        @media (max-width: 875px) {
+          min-height: 550px;
         }
       }
-      
-      .picture {
-        img {
-          border-radius: 10px;
+
+      .section {
+        margin: 12.5px 7.5px 12.5px 7.5px;
+        padding: 0 5px 0 5px;
+        text-align: left;
+        vertical-align: top;
+        display: inline-block;
+        width: 350px;
+
+        word-wrap: break-word;
+
+        @media (max-width: 360px) {
+          max-width: 275px;
+          margin: 7.5px 5px 7.5px 5px;
         }
-        @media (max-width: 857px) {
-          display: none;
+
+        ul:not(.nav) {
+          margin: 0;
+          padding: 0;
+          list-style: none;
+          > li {
+            &:last-child {
+              padding-bottom: 25px;
+            }
+          }
+        }
+        
+        .picture {
+          img {
+            border-radius: 10px;
+          }
+          @media (max-width: 857px) {
+            display: none;
+          }
         }
       }
     }
