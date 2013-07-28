@@ -1,6 +1,5 @@
 <div class="post" ng-show="post">
-  <h1>Posts</h1>
-  <h2 class="title">{{ post.title }}</h2>
+  <h1 class="title">{{ post.title }}</h1>
   <p><small>posted on {{ post.date }}</small></p>
   <div class="body" ng-bind-html-unsafe="post.body"></div>
   <span ng-show="previous" style="float:left;">
