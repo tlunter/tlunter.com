@@ -5,12 +5,12 @@ class Post
   property :title,      String,  :required => true, :length => 255, :index => true
   property :body,       Text,    :required => true, :lazy => false
   property :link,       String,  :length => 255, :index => true
-  property :published,  Boolean, :default => false
+  property :published,  Boolean, :default => false, :index => true
   property :created_at, DateTime
   property :updated_at, DateTime, :index => true
 
   def self.latest
-    all(:order => :updated_at.desc, :limit => 2)
+    all(:published => true, :order => :updated_at.desc, :limit => 2)
   end
 
   before :create do |post|

@@ -1,8 +1,8 @@
-#require 'json'
-
 class App < Sinatra::Application
   before '/posts/new' do
-    halt 404 unless request.env["HTTP_X_REAL_IP"] =~ /192\.168\.1\.\d{1,3}/
+    unless request.env['HTTP_X_REAL_IP'] =~ /127\.0\.0\.1/ || request.env['HTTP_X_REAL_IP'] =~ /192\.168\.1\.\d{1,3}/
+      halt 404
+    end
   end
 
   get %r{/posts/edit/([\w-]+)} do |post_link|
@@ -105,9 +105,12 @@ class App < Sinatra::Application
   end
 
   get '/post/latest.json' do
-    posts = Post.latest.each do |post|
-      post.body = @markdown.render post.body
+    posts = Post.latest.map do |p|
+      post = p.as_json
+      post[:body] = @markdown.render post[:body]
+      post
     end
+    
     {
       :next => nil,
       :current => posts[0],
@@ -118,8 +121,8 @@ class App < Sinatra::Application
   get %r{/post/i/([\w-]+)\.json} do |post_link|
     post            = Post.first(:link => post_link)
     halt 404 unless post
-    next_post       = Post.first(:updated_at.gt => post.updated_at, :order => :updated_at.asc)
-    previous_post   = Post.first(:updated_at.lt => post.updated_at, :order => :updated_at.desc)
+    next_post       = Post.first(:published => true, :updated_at.gt => post.updated_at, :order => :updated_at.asc)
+    previous_post   = Post.first(:published => true, :updated_at.lt => post.updated_at, :order => :updated_at.desc)
     posts = {
       :next => next_post,
       :current => post,
@@ -127,8 +130,10 @@ class App < Sinatra::Application
     }
 
     posts.each do |key, p|
-      p.body = @markdown.render p.body unless p.nil?
-      posts[key] = p
+      next nil if p.nil?
+      post = p.as_json
+      post[:body] = @markdown.render post[:body]
+      posts[key] = post
     end.to_json
   end
 end
