@@ -4,7 +4,7 @@
   <li class="{{twitter}}"><a ng-href="/about/feed/twitter">Twitter</a></li>
   <li class="{{stack_overflow}}"><a ng-href="/about/feed/stack_overflow">StackOverflow</a></li>
 </ul>
-<ul>
+<ul class="feed-content">
   <li ng-repeat="item in feed">
   <h3>
       <a href="{{ item.link }}" target="_blank">{{ item.title }}</a>
