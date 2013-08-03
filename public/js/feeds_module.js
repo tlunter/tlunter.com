@@ -9,7 +9,7 @@ feeds_module.config(function($locationProvider, $routeProvider) {
       templateUrl: '/partials/feed.html',
       controller: FeedsController
     }).
-    otherwise({ redirectTo: '/about/feed/github' });
+    otherwise({ redirectTo: '/about/feed/twitter' });
 });
 
 function FeedsController($scope, $route, $routeParams, $http) {
