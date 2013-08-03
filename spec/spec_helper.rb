@@ -6,11 +6,12 @@ set :environment, :test
 set :run, false
 set :raise_errors, true
 set :logging, false
-set :views, Proc.new { File.join(Dir.pwd, 'spec', 'views') }
 
 def app
   App
 end
+
+set :views, Proc.new { File.join(App.root, 'spec', 'views') }
 
 RSpec.configure do |config|
   config.include Rack::Test::Methods
