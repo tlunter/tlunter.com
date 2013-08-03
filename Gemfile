@@ -17,3 +17,8 @@ gem 'sqlite3'
 gem 'therubyracer'
 gem 'twitter'
 gem 'unicorn'
+
+group :test do
+  gem 'rack-test'
+  gem 'rspec'
+end

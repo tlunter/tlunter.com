@@ -1,4 +1,5 @@
 require 'resque/tasks'
+require 'rspec/core/rake_task'
 
 task "resque:setup" do
     ENV['QUEUE'] = '*'
@@ -10,3 +11,7 @@ task "jobs:work" do
   Rake::Task["resque:setup"].invoke
   Rake::Task["resque:work"].invoke
 end
+
+RSpec::Core::RakeTask.new(:spec)
+task :default => :spec
+
