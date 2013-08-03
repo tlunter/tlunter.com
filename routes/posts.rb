@@ -5,6 +5,12 @@ class App < Sinatra::Application
     end
   end
 
+  before %{/posts/edit/([\w-]+)} do
+    unless request.env['HTTP_X_REAL_IP'] =~ /127\.0\.0\.1/ || request.env['HTTP_X_REAL_IP'] =~ /192\.168\.1\.\d{1,3}/
+      halt 404
+    end
+  end
+
   get %r{/posts/edit/([\w-]+)} do |post_link|
     p = Post.first(:link => post_link)
     action = "/posts/edit/#{post_link}"
