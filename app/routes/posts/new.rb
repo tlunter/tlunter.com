@@ -7,16 +7,10 @@ class App < Sinatra::Application
 
   get '/posts/new' do
     action = '/posts/new'
-    title = ''
-    body = ''
-    published = true
     erb :new_post, :locals => {
       :action => action,
-      :title => title,
-      :body => body,
-      :published => published
+      :post => Post.new
     }
-
   end
 
   post '/posts/new' do
@@ -41,9 +35,7 @@ class App < Sinatra::Application
     end
     erb :new_post, :locals => {
       :action => action,
-      :title => title,
-      :body => body,
-      :published => published
+      :post => p || Post.new
     }
   end
 end
