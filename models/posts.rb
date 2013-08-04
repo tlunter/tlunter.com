@@ -13,9 +13,14 @@ class Post
     all(:published => true, :order => :updated_at.desc, :limit => 2)
   end
 
+  def linkify_title
+    title.tr('^A-Za-z0-9 ', '').tr(' ', '-')
+  end
+
   before :create do |post|
     post.created_at = DateTime.now
     post.updated_at = post.created_at
+    post.link = linkify_title
   end
 
   before :update do |post|

@@ -24,12 +24,10 @@ class App < Sinatra::Application
     title     = params['title']
     body      = params['body']
     published = true if params['published'] == "on"
-    link      = title.tr('^A-Za-z0-9 ', '').tr(' ', '-')
     unless title.empty? || body.empty?
       p = Post.new(:title => title,
                    :body => body,
-                   :published => published,
-                   :link => link)
+                   :published => published)
       if p.save
         redirect "/posts/i/#{p.link}"
       else
