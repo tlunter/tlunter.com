@@ -1,7 +1,0 @@
-{
-  "name": "tlunter.com",
-  "version": "0.0.1",
-  "dependencies": {
-    "less": ">= 0"
-  }
-}
