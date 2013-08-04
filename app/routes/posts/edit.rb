@@ -6,16 +6,11 @@ class App < Sinatra::Application
   end
 
   get %r{/posts/edit/([\w-]+)} do |post_link|
-    p = Post.first(:link => post_link)
+    post = Post.first(:link => post_link)
     action = "/posts/edit/#{post_link}"
-    title = p.title
-    body = p.body
-    published = p.published
     erb :new_post, :locals => {
       :action => action,
-      :title => title,
-      :body => body,
-      :published => published
+      :post => post
     }
   end
 
@@ -24,7 +19,6 @@ class App < Sinatra::Application
     title     = params['title']
     body      = params['body']
     published = true if params['published'] == "on"
-    link      = title.tr('^A-Za-z0-9 ', '').tr(' ', '-')
     unless title.empty? || body.empty?
       p = Post.first(:link => post_link)
       
@@ -46,9 +40,7 @@ class App < Sinatra::Application
     end
     erb :new_post, :locals => {
       :action => action,
-      :title => title,
-      :body => body,
-      :published => published
+      :post => p || Post.new
     }
   end
 end
