@@ -1,11 +1,11 @@
 require 'spec_helper'
 
 describe Post do
-  let(:post) { FactoryGirl.build(:post) }
+  let(:post) { FactoryGirl.build :post }
 
   subject { post }
 
-  context 'post is valid' do
+  context 'is valid' do
     its(:valid?) { should be_true }
   end
 

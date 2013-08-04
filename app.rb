@@ -23,11 +23,11 @@ Dir[File.join(App.root, "config/**/*.rb")].each {|f| require f}
 
 require 'digest/sha1'
 
-Dir[File.join(App.root, "models/**/*.rb")].each {|f| require f}
+Dir[File.join(App.root, "app/models/**/*.rb")].each {|f| require f}
 
 DataMapper.finalize
 
-Dir[File.join(App.root, "routes/**/*.rb")].each {|f| require f}
+Dir[File.join(App.root, "app/routes/**/*.rb")].each {|f| require f}
 
 use Rack::Session::Cookie, :secret => 'A1 sauce 1s so good you should use 1t on a11 yr st34ksssss'
 use Rack::Flash;
