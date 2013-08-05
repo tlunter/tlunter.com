@@ -29,3 +29,4 @@ class Post
     post.updated_at = DateTime.now
   end
 end
+
