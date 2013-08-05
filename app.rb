@@ -10,7 +10,6 @@ require 'pry'
 class App < Sinatra::Application
   set :protection, :origin_whitelist => ['http://localhost']
   set :views, File.join(App.root, 'app', 'views')
-  set :show_exceptions, false if ENV['TLUNTER_ENV'] == 'production'
 
   before %r{.*\.json$} do
     content_type :json
