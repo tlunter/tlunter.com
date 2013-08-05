@@ -18,3 +18,4 @@ class Comment
     post.updated_at = DateTime.now
   end
 end
+
