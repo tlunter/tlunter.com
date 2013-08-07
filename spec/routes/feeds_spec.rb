@@ -34,9 +34,9 @@ describe 'feeds routes' do
 
     it 'properly returns a GitHub json response' do
       get '/feeds/github.json'
-      last_response.should be_ok
-      last_response.content_type.should include "application/json"
-      last_response.body.should == [ feed_item1, feed_item2 ].to_json
+      expect(last_response).to be_ok
+      expect(last_response.content_type).to include "application/json"
+      expect(last_response.body).to be == [ feed_item1, feed_item2 ].to_json
     end
   end
 
@@ -54,9 +54,9 @@ describe 'feeds routes' do
 
     it 'properly returns a GitHub json response' do
       get '/feeds/stack_overflow.json'
-      last_response.should be_ok
-      last_response.content_type.should include "application/json"
-      last_response.body.should == [ feed_item1, feed_item2 ].to_json
+      expect(last_response).to be_ok
+      expect(last_response.content_type).to include "application/json"
+      expect(last_response.body).to be == [ feed_item1, feed_item2 ].to_json
     end
   end
 
@@ -74,9 +74,9 @@ describe 'feeds routes' do
 
     it 'properly returns a GitHub json response' do
       get '/feeds/twitter.json'
-      last_response.should be_ok
-      last_response.content_type.should include "application/json"
-      last_response.body.should == [ feed_item1, feed_item2 ].to_json
+      expect(last_response).to be_ok
+      expect(last_response.content_type).to include "application/json"
+      expect(last_response.body).to be == [ feed_item1, feed_item2 ].to_json
     end
   end
 end
