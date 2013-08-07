@@ -8,34 +8,32 @@ describe Comment do
   subject { comment }
 
   fields.each do |field|
-    it { should respond_to field }
+    it "responds to #{field}" do
+      expect(subject).to respond_to field
+    end
   end
 
-  context 'is valid' do
-    its(:valid?) { should be_true }
+  it "is valid" do
+    expect(subject.valid?).to be_true
   end
 
   required_fields.each do |field|
-    context "without #{field} is not valid" do
-      before do
-        subject.send(:"#{field}=", nil)
-      end
+    it "without #{field} is not valid" do
+      subject.send(:"#{field}=", nil)
 
-      its(:valid?) { should be_false }
+      expect(subject.valid?).to be_false
     end
   end
 
-  context 'before save has no timestamps' do
-    its(:created_at) { should be_nil }
-    its(:updated_at) { should be_nil }
+  it 'before save has no timestamps' do
+    expect(subject.created_at).to be_nil
+    expect(subject.updated_at).to be_nil
   end
 
-  context 'after save has timestamps' do
-    before do
-      subject.save
-    end
+  it 'after save has timestamps' do
+    subject.save
 
-    its(:created_at) { should_not be_nil }
-    its(:updated_at) { should_not be_nil }
+    expect(subject.created_at).to_not be_nil
+    expect(subject.updated_at).to_not be_nil
   end
 end
