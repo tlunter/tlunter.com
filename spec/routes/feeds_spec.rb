@@ -33,7 +33,7 @@ describe 'feeds routes' do
     end
 
     it 'properly returns a GitHub json response' do
-      get '/github.json'
+      get '/feeds/github.json'
       last_response.should be_ok
       last_response.content_type.should include "application/json"
       last_response.body.should == [ feed_item1, feed_item2 ].to_json
@@ -53,7 +53,7 @@ describe 'feeds routes' do
     end
 
     it 'properly returns a GitHub json response' do
-      get '/stack_overflow.json'
+      get '/feeds/stack_overflow.json'
       last_response.should be_ok
       last_response.content_type.should include "application/json"
       last_response.body.should == [ feed_item1, feed_item2 ].to_json
@@ -73,7 +73,7 @@ describe 'feeds routes' do
     end
 
     it 'properly returns a GitHub json response' do
-      get '/twitter.json'
+      get '/feeds/twitter.json'
       last_response.should be_ok
       last_response.content_type.should include "application/json"
       last_response.body.should == [ feed_item1, feed_item2 ].to_json

@@ -1,12 +1,12 @@
-get '/github.json' do
+get '/feeds/github.json' do
   GitHub.latest.to_json
 end
 
-get '/stack_overflow.json' do
+get '/feeds/stack_overflow.json' do
   StackOverflow.latest.to_json
 end
 
-get '/twitter.json' do
+get '/feeds/twitter.json' do
   TwitterItem.latest.to_json
 end
 

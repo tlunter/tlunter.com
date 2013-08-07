@@ -14,7 +14,7 @@ feeds_module.config(function($locationProvider, $routeProvider) {
 
 function FeedsController($scope, $route, $routeParams, $http) {
   feed = $routeParams['feed'];
-  feed_route = '/' + feed + '.json';
+  feed_route = '/feeds/' + feed + '.json';
   $http.get(feed_route).
     success(function(data, status, headers, config) {
       data.forEach(function(item) {
