@@ -1,3 +1,3 @@
 require 'data_mapper'
 
-DataMapper.setup(:default, :adapter => "redis")
+DataMapper.setup(:default, 'mysql://tluntercom:@localhost/tluntercom')
