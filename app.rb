@@ -16,8 +16,8 @@ class App < Sinatra::Application
     content_type :json
   end
 
-  before "*" do
-    @markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, :autolink => true, :space_after_headers => true)
+  def self.markdown
+    @@markdown ||= Redcarpet::Markdown.new(Redcarpet::Render::HTML, :autolink => true, :space_after_headers => true)
   end
 
   Dir[File.join(App.root, "config/**/*.rb")].each {|f| require f}
