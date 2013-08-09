@@ -21,5 +21,17 @@ end
 RSpec.configure do |config|
   config.include FactoryGirl::Syntax::Methods
   config.include Rack::Test::Methods
+
+  config.before(:each) do
+    repository(:default) do
+      transaction = DataMapper::Transaction.new(repository)
+      transaction.begin
+      repository.adapter.push_transaction(transaction)
+    end 
+  end
+ 
+  config.after(:each) do
+    repository(:default).adapter.pop_transaction.rollback
+  end
 end
 
