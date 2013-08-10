@@ -245,19 +245,24 @@ h3 {
     float: none;
   }
   
-  .controls {
-    margin-left: 0;
+  .control-group {
+    .controls {
+      margin-left: 0;
 
-    textarea {
-      width: 715px;
-      height: 250px;
+      textarea {
+        width: 715px;
+        height: 250px;
 
-      @media (max-width: 875px) {
-        width: 320px;
-      }
+        @media (max-width: 875px) {
+          width: 320px;
+        }
 
-      @media (max-width: 360px) {
-        width: 270px;
+        @media (max-width: 360px) {
+          width: 270px;
+        }
+        &.comment {
+          height: 100px;
+        }
       }
     }
   }

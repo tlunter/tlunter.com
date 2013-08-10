@@ -1,15 +1,46 @@
-<div class="post" ng-show="post">
-  <h1 class="title">{{ post.title }}</h1>
-  <p><small>posted on {{ post.date }}</small></p>
-  <div class="body" ng-bind-html-unsafe="post.body"></div>
+<div class="post" ng-show="current">
+  <h1 class="title">{{ current.title }}</h1>
+  <p><small>posted on {{ current.date }}</small></p>
+  <div class="body" ng-bind-html-unsafe="current.body"></div>
   <span ng-show="previous" style="float:left;">
     <a ng-href="/posts/i/{{ previous.link }}">Previous</a>
   </span>
   <span ng-show="next" style="float:right;">
     <a ng-href="/posts/i/{{ next.link }}">Next</a>
   </span>
+  <p>&nbsp;</p>
+  <span style="font-weight: bold;">Comments:</span>
+  <div class="comments">
+    <ul ng-repeat="comment in comments">
+      <li>
+        {{ comment }}
+      </li>
+    </ul>
+    <p ng-hide="comments">No comments yet!</p>
+  </div>
+  <div class="comments-form form-horizontal">
+    <div class="control-group">
+      <label class="control-label" for="email">Email:</label>
+      <div class="controls">
+        <input id="email" ng-model="comment_email" type="text">
+      </div>
+    </div>
+    <div class="control-group">
+      <label class="control-label" for="comment">Comment:</label>
+      <div class="controls">
+        <textarea class="comment" id="comment" ng-model="comment_body"></textarea>
+      </div>
+    </div>
+    <div class="control-group">
+      <div class="controls">
+        <input name="comment" value="Comment" type="button" ng-click="postComment()">
+      </div>
+    </div>
+  </div>
 </div>
-<div ng-hide="post">
+<div class="test" ng-bind-html-unsafe="test">
+</div>
+<div ng-hide="current">
   <div style="text-align: center;">
     It looks like I'm lazy and haven't posted anything yet!
   </div>

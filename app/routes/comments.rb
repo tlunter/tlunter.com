@@ -1,3 +1,5 @@
+require 'json'
+
 get %r{/comments/([\w-]+)\.json} do |post_link|
   post = Post.first(:link => post_link)
 
@@ -21,4 +23,14 @@ get %r{/comments/([\w-]+)/(\d+)\.json} do |post_link, comment_id|
 
   comment[:body] = App.markdown.render comment[:body]
   comment.to_json
+end
+
+get %r{/comments/([\w-]+)/new\.json} do |post_link|
+  { :csrf_token => csrf_token }.to_json
+end
+
+post %r{/comments/([\w-]+)/new\.json} do |post_link|
+  post = Post.first(:link => post_link)
+
+  { :test => 'returns' }.to_json
 end
