@@ -116,6 +116,7 @@ posts_module.controller('PostsController',
     CommentsFactory.postComment($scope['current']['link'],
       $scope.comment_email, $scope.comment_body, csrf_token,
       function (success, data) {
+        $scope.comment_body = "";
         $scope.loadComments($scope['current']['link']);
       });
   }
