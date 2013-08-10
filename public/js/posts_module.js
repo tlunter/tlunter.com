@@ -15,7 +15,7 @@ posts_module.factory('PostsFactory', ['$http', function ($http) {
 
       $http.get(post_route).
         success(function (data, status, headers, config) {
-          $.each(data, setupPost);
+          $.each(data, setupDate);
           callback(true, data);
         }).
         error(function (data, status, headers, config) {
@@ -36,6 +36,7 @@ posts_module.factory('CommentsFactory', ['$http', function ($http) {
 
       $http.get(comments_route).
         success(function(data, status, headers, config) {
+          $.each(data, setupDate);
           callback(true, data);
         }).
         error(function (data, status, headers, config) {
@@ -82,37 +83,44 @@ posts_module.controller('PostsController',
   var post = $routeParams['id']
   var csrf_token;
 
-  PostsFactory.getData(post, function(success, data) {
-    if (!success) {
-      $scope['current'] = null;
-      return;
-    }
-
-    $.extend($scope, data);
-
-    var link = data['current']['link'];
-
+  $scope.loadComments = function (link) {
     CommentsFactory.getData(link,
       function(success, commentData) {
       if (!success) {
         $scope['comments'] = null;
       }
 
-      $.extend($scope, commentData);
+      $scope['comments'] = commentData;
     });
 
     CommentsFactory.getCsrf(link, function (ct) {
       csrf_token = ct;
     });
-  });
+  }
+
+  $scope.loadPost = function () {
+    PostsFactory.getData(post, function(success, data) {
+      if (!success) {
+        $scope['current'] = null;
+        return;
+      }
+
+      $.extend($scope, data);
+
+      var link = data['current']['link'];
+      $scope.loadComments(link);
+    });
+  }
 
   $scope.postComment = function () {
-    CommentsFactory.postComment($scope.current['link'],
+    CommentsFactory.postComment($scope['current']['link'],
       $scope.comment_email, $scope.comment_body, csrf_token,
       function (success, data) {
-        console.log(data);
+        $scope.loadComments($scope['current']['link']);
       });
-  };
+  }
+
+  $scope.loadPost();
 }]);
 
 posts_module.config(function($locationProvider, $routeProvider) {
@@ -129,7 +137,7 @@ posts_module.config(function($locationProvider, $routeProvider) {
     otherwise({ redirectTo: '/posts/latest' });
 });
 
-function setupPost(key, value) {
+function setupDate(key, value) {
   if (value !== null) {
     value['updated_at_date'] = new Date(value['updated_at']);
     value['date'] = parseDate(value['updated_at_date']);
