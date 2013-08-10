@@ -32,5 +32,17 @@ end
 post %r{/comments/([\w-]+)/new\.json} do |post_link|
   post = Post.first(:link => post_link)
 
-  { :test => 'returns' }.to_json
+  halt 404 unless post
+
+  comment = Comment.new({
+    :post => post,
+    :email => params[:email],
+    :body => params[:body]
+  })
+
+  if comment.save
+    ""
+  else
+    halt 400
+  end
 end

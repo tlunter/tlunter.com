@@ -1,19 +1,23 @@
 <div class="post" ng-show="current">
+  <p class="clearfix">
+    <span ng-show="previous" style="float:left;">
+      <a ng-href="/posts/i/{{ previous.link }}">Previous</a>
+    </span>
+    <span ng-show="next" style="float:right;">
+      <a ng-href="/posts/i/{{ next.link }}">Next</a>
+    </span>
+  </p>
   <h1 class="title">{{ current.title }}</h1>
   <p><small>posted on {{ current.date }}</small></p>
   <div class="body" ng-bind-html-unsafe="current.body"></div>
-  <span ng-show="previous" style="float:left;">
-    <a ng-href="/posts/i/{{ previous.link }}">Previous</a>
-  </span>
-  <span ng-show="next" style="float:right;">
-    <a ng-href="/posts/i/{{ next.link }}">Next</a>
-  </span>
   <p>&nbsp;</p>
   <span style="font-weight: bold;">Comments:</span>
   <div class="comments">
     <ul ng-repeat="comment in comments">
       <li>
-        {{ comment }}
+        <p>{{ comment.email }} says:</p>
+        <p ng-bind-html-unsafe="comment.body"></p>
+        <p><small>at {{ comment.date }}</small></p>
       </li>
     </ul>
     <p ng-hide="comments">No comments yet!</p>
@@ -37,8 +41,12 @@
       </div>
     </div>
   </div>
-</div>
-<div class="test" ng-bind-html-unsafe="test">
+  <span ng-show="previous" style="float:left;">
+    <a ng-href="/posts/i/{{ previous.link }}">Previous</a>
+  </span>
+  <span ng-show="next" style="float:right;">
+    <a ng-href="/posts/i/{{ next.link }}">Next</a>
+  </span>
 </div>
 <div ng-hide="current">
   <div style="text-align: center;">
