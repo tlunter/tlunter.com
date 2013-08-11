@@ -24,7 +24,6 @@ post %r{/posts/edit/([\w-]+)} do |post_link|
     p.title = title
     p.body = body
     p.published = published
-    p.link = link
 
     if p.save
       redirect "/posts/i/#{p.link}"

@@ -27,6 +27,8 @@ GEM
       dm-transactions (~> 1.2.0)
       dm-types (~> 1.2.0)
       dm-validations (~> 1.2.0)
+    data_objects (0.10.13)
+      addressable (~> 2.1)
     diff-lcs (1.2.4)
     dm-aggregates (1.2.0)
       dm-core (~> 1.2.0)
@@ -34,13 +36,14 @@ GEM
       dm-core (~> 1.2.0)
     dm-core (1.2.1)
       addressable (~> 2.3)
+    dm-do-adapter (1.2.0)
+      data_objects (~> 0.10.6)
+      dm-core (~> 1.2.0)
     dm-migrations (1.2.0)
       dm-core (~> 1.2.0)
-    dm-redis-adapter (0.8.2)
-      dm-core (>= 1.2.0)
-      dm-types (>= 1.2.0)
-      hiredis (~> 0.4.0)
-      redis (~> 2.2)
+    dm-mysql-adapter (1.2.0)
+      dm-do-adapter (~> 1.2.0)
+      do_mysql (~> 0.10.6)
     dm-serializer (1.2.2)
       dm-core (~> 1.2.0)
       fastercsv (~> 1.5)
@@ -61,6 +64,8 @@ GEM
       uuidtools (~> 2.1)
     dm-validations (1.2.0)
       dm-core (~> 1.2.0)
+    do_mysql (0.10.13)
+      data_objects (= 0.10.13)
     dotenv (0.8.0)
     factory_girl (4.2.0)
       activesupport (>= 3.0.0)
@@ -78,7 +83,6 @@ GEM
       thor (>= 0.13.6)
     gorillib (0.1.11)
       json
-    hiredis (0.4.5)
     i18n (0.6.4)
     json (1.8.0)
     json_pure (1.8.0)
@@ -164,7 +168,7 @@ DEPENDENCIES
   clockwork
   daemons
   data_mapper
-  dm-redis-adapter
+  dm-mysql-adapter
   factory_girl
   feedzirra (= 0.2.0.rc2)
   foreman
