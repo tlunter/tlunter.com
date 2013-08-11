@@ -1,7 +1,5 @@
 var posts_module = angular.module('posts_module', [])
 
-posts_module.value('$anchorScroll', angular.noop);
-
 posts_module.factory('PostsFactory', ['$http', function ($http) {
   return {
     getData: function (post, callback) {
@@ -77,8 +75,8 @@ posts_module.factory('CommentsFactory', ['$http', function ($http) {
 }]);
 
 posts_module.controller('PostsController',
-    ['$scope', '$routeParams', '$http', 'PostsFactory', 'CommentsFactory',
-    function ($scope, $routeParams, $http, PostsFactory, CommentsFactory) {
+    ['$scope', '$routeParams', '$http', 'PostsFactory', 'CommentsFactory', '$location', '$anchorScroll',
+    function ($scope, $routeParams, $http, PostsFactory, CommentsFactory, $location, $anchorScroll) {
 
   var post = $routeParams['id']
   var csrf_token;
@@ -86,11 +84,16 @@ posts_module.controller('PostsController',
   $scope.loadComments = function (link) {
     CommentsFactory.getData(link,
       function(success, commentData) {
-      if (!success) {
+      if (success) {
+        $scope['comments'] = commentData;
+        window.setTimeout(function () {
+          if ($location.hash()) {
+            $anchorScroll();
+          }
+        }, 0);
+      } else {
         $scope['comments'] = null;
       }
-
-      $scope['comments'] = commentData;
     });
 
     CommentsFactory.getCsrf(link, function (ct) {
@@ -116,8 +119,11 @@ posts_module.controller('PostsController',
     CommentsFactory.postComment($scope['current']['link'],
       $scope.comment_email, $scope.comment_body, csrf_token,
       function (success, data) {
-        $scope.comment_body = "";
-        $scope.loadComments($scope['current']['link']);
+        if (success) {
+          $scope.comment_body = "";
+          $scope.loadComments($scope['current']['link']);
+          $location.hash('comment-' + data['id']);
+        }
       });
   }
 
