@@ -15,32 +15,35 @@
   <div class="comments">
     <ul ng-repeat="comment in comments">
       <li>
-        <p>{{ comment.email }} says:</p>
+        <p id="comment-{{ comment.id }}">{{ comment.email }} says:</p>
         <p ng-bind-html-unsafe="comment.body"></p>
         <p><small>at {{ comment.date }}</small></p>
       </li>
     </ul>
     <p ng-hide="comments">No comments yet!</p>
   </div>
-  <div class="comments-form form-horizontal">
+  <form name="comments_form" class="form-horizontal">
     <div class="control-group">
-      <label class="control-label" for="email">Email:</label>
+      <label class="control-label" for="comment_email">Email:</label>
       <div class="controls">
-        <input id="email" ng-model="comment_email" type="text">
+        <input id="comment_email" name="comment_email" ng-model="comment_email" type="text" required>
       </div>
+      <span class="help-inline" ng-show="comments_form.comment_email.$error.required">* Required</span>
     </div>
     <div class="control-group">
-      <label class="control-label" for="comment">Comment:</label>
+      <label class="control-label" for="comment_body">Comment:</label>
       <div class="controls">
-        <textarea class="comment" id="comment" ng-model="comment_body"></textarea>
+        <textarea id="comment_body" name="comment_body" ng-model="comment_body" class="comment" required></textarea>
       </div>
+      <span class="help-inline pull-right">Supports Markdown</span>
+      <span class="help-inline" ng-show="comments_form.comment_body.$error.required">* Required</span>
     </div>
     <div class="control-group">
       <div class="controls">
         <input name="comment" value="Comment" type="button" ng-click="postComment()">
       </div>
     </div>
-  </div>
+  </form>
   <span ng-show="previous" style="float:left;">
     <a ng-href="/posts/i/{{ previous.link }}">Previous</a>
   </span>

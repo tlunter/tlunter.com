@@ -41,7 +41,7 @@ post %r{/comments/([\w-]+)/new\.json} do |post_link|
   })
 
   if comment.save
-    ""
+    { :id => comment.id }.to_json
   else
     halt 400
   end
