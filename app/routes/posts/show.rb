@@ -5,10 +5,8 @@
 end
 
 get '/post/latest.json' do
-  posts = Post.latest.map do |p|
-    post = p.as_json
-    post[:body] = @markdown.render post[:body]
-    post
+  posts = Post.latest.each do |p|
+    p[:body] = App.markdown.render p[:body]
   end
   
   {
@@ -31,9 +29,7 @@ get %r{/post/i/([\w-]+)\.json} do |post_link|
 
   posts.each do |key, p|
     next nil if p.nil?
-    post = p.as_json
-    post[:body] = @markdown.render post[:body]
-    posts[key] = post
+    p[:body] = App.markdown.render p[:body]
   end.to_json
 end
 

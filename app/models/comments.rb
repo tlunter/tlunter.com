@@ -2,7 +2,7 @@ class Comment
   include DataMapper::Resource
 
   property :id, Serial
-  property :email, String, :length => 255, :index => true
+  property :email, String, :length => 255, :required => true, :index => true
   property :body, Text, :required => true, :lazy => false
   property :created_at, DateTime
   property :updated_at, DateTime, :index => true
