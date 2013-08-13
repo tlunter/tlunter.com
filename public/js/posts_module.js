@@ -74,6 +74,18 @@ posts_module.factory('CommentsFactory', ['$http', function ($http) {
   }
 }]);
 
+posts_module.directive('comment-scroll',
+    ['$anchorScroll', '$location',
+    function ($anchorScroll, $location) {
+      return {
+        restrict: 'C',
+        link: function (scope, elem, attrs) {
+          if ($location.hash())
+            $anchorScroll();
+        }
+      };
+}]);
+
 posts_module.controller('PostsController',
     ['$scope', '$routeParams', '$http', 'PostsFactory', 'CommentsFactory', '$location', '$anchorScroll',
     function ($scope, $routeParams, $http, PostsFactory, CommentsFactory, $location, $anchorScroll) {
