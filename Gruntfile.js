@@ -8,53 +8,23 @@ module.exports = function(grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     copy: {
-      angular: {
+      vendor: {
         files: [
           {
             expand: true,
-            cwd: "vendor/angular/js/",
+            cwd: 'vendor/**/js/',
             src: '**',
             dest: 'public/js/'
-          }
-        ]
-      },
-      bootstrap: {
-        files: [
+          },
           {
             expand: true,
-            cwd: 'vendor/bootstrap/css/',
+            cwd: 'vendor/**/css/',
             src: '**',
             dest: 'public/css/'
           },
           {
             expand: true,
-            cwd: 'vendor/bootstrap/js/',
-            src: '**',
-            dest: 'public/js/'
-          }
-        ]
-      },
-      jquery: {
-        files: [
-          {
-            expand: true,
-            cwd: 'vendor/jquery/js/',
-            src: '**',
-            dest: 'public/js/'
-          }
-        ]
-      },
-      font_awesome: {
-        files: [
-          {
-            expand: true,
-            cwd: 'vendor/font-awesome/css/',
-            src: '**',
-            dest: 'public/css/'
-          },
-          {
-            expand: true,
-            cwd: 'vendor/font-awesome/font/',
+            cwd: 'vendor/**/font/',
             src: '**',
             dest: 'public/font/'
           }
