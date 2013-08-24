@@ -1,0 +1,11 @@
+{
+  "author": "Todd Lunter",
+  "name": "tlunter.com", 
+  "version": "1.0.0",
+  "dependencies": {
+    "bootstrap": "~2.3.2",
+    "jquery": "~2.0.3",
+    "angular": "~1.0.8",
+    "font-awesome": "~3.2.1"
+  }
+}
