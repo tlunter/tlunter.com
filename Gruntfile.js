@@ -1,11 +1,66 @@
 module.exports = function(grunt) {
+  grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('grunt-contrib-less');
+  grunt.loadNpmTasks('grunt-recess');
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
+    copy: {
+      angular: {
+        files: [
+          {
+            expand: true,
+            cwd: "vendor/angular/js/",
+            src: '**',
+            dest: 'public/js/'
+          }
+        ]
+      },
+      bootstrap: {
+        files: [
+          {
+            expand: true,
+            cwd: 'vendor/bootstrap/css/',
+            src: '**',
+            dest: 'public/css/'
+          },
+          {
+            expand: true,
+            cwd: 'vendor/bootstrap/js/',
+            src: '**',
+            dest: 'public/js/'
+          }
+        ]
+      },
+      jquery: {
+        files: [
+          {
+            expand: true,
+            cwd: 'vendor/jquery/js/',
+            src: '**',
+            dest: 'public/js/'
+          }
+        ]
+      },
+      font_awesome: {
+        files: [
+          {
+            expand: true,
+            cwd: 'vendor/font-awesome/css/',
+            src: '**',
+            dest: 'public/css/'
+          },
+          {
+            expand: true,
+            cwd: 'vendor/font-awesome/font/',
+            src: '**',
+            dest: 'public/font/'
+          }
+        ]
+      }
+    },
     concat: {
       options: {
         // define a string to put between each file in the concatenated output
@@ -36,16 +91,27 @@ module.exports = function(grunt) {
         tasks: ['default', 'timestamp']
       }
     },
-    less: {
-      all: {
+    recess: {
+      dist: {
+        options: {
+          compile: true
+        },
         files: {
           'public/css/<%= pkg.name %>.css': 'tmp/less/<%= pkg.name %>.less'
+        }
+      },
+      min: {
+        options: {
+          compress: true
+        },
+        files: {
+          'public/css/<%= pkg.name %>.min.css': 'public/css/<%= pkg.name %>.css'
         }
       }
     }
   });
 
-  grunt.registerTask('default', ['concat', 'uglify', 'less']);
+  grunt.registerTask('default', ['copy', 'concat', 'uglify', 'recess']);
 
   grunt.registerTask('timestamp', function() {
     grunt.log.subhead(Date());
