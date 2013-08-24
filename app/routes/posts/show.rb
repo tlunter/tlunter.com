@@ -1,9 +1,3 @@
-['/posts', '/posts/latest', %r{/posts/i/([\w-]+)}].each do |r|
-  get r do
-    erb :index
-  end
-end
-
 get '/post/latest.json' do
   posts = Post.latest.each do |p|
     p[:body] = App.markdown.render p[:body]

@@ -1,6 +1,6 @@
-var posts_module = angular.module('posts_module', [])
+angular.module('posts', [])
 
-posts_module.factory('PostsFactory', ['$http', function ($http) {
+angular.module('posts').factory('PostsFactory', ['$http', function ($http) {
   return {
     getData: function (post, callback) {
       if (post === undefined) {
@@ -23,7 +23,7 @@ posts_module.factory('PostsFactory', ['$http', function ($http) {
   }
 }]);
 
-posts_module.factory('CommentsFactory', ['$http', function ($http) {
+angular.module('posts').factory('CommentsFactory', ['$http', function ($http) {
   return {
     getData: function (post, callback) {
       if (post === undefined) {
@@ -74,7 +74,7 @@ posts_module.factory('CommentsFactory', ['$http', function ($http) {
   }
 }]);
 
-posts_module.directive('comment-scroll',
+angular.module('posts').directive('comment-scroll',
     ['$anchorScroll', '$location',
     function ($anchorScroll, $location) {
       return {
@@ -86,7 +86,7 @@ posts_module.directive('comment-scroll',
       };
 }]);
 
-posts_module.controller('PostsController',
+angular.module('posts').controller('PostsController',
     ['$scope', '$routeParams', '$http', 'PostsFactory', 'CommentsFactory', '$location', '$anchorScroll',
     function ($scope, $routeParams, $http, PostsFactory, CommentsFactory, $location, $anchorScroll) {
 
@@ -142,7 +142,7 @@ posts_module.controller('PostsController',
   $scope.loadPost();
 }]);
 
-posts_module.config(
+angular.module('posts').config(
   ['$locationProvider', '$routeProvider', 
   function($locationProvider, $routeProvider) {
   $locationProvider.html5Mode(true).hashPrefix('!');

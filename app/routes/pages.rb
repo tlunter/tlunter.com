@@ -1,18 +1,12 @@
 require 'json'
 
+before '*' do
+  unless request.path_info.end_with?(".json")
+    request.path_info = '/'
+  end
+end
+
 get '/' do
-  redirect to('/posts')
-end
-
-get '/requests' do
-  request.ip
-end
-
-get '/about' do
-  erb :about
-end
-
-get '/about/feed/*' do
-  call env.merge("PATH_INFO" => '/about')
+  erb :index
 end
 

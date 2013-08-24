@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="app">
   <head>
     <title>tLunter.com</title>
     <meta name="viewport" content="width=device-width">
@@ -9,9 +9,9 @@
     <link rel="stylesheet" href="/css/font-awesome.min.css">
     <link rel="stylesheet" href="/css/tlunter.com.min.css">
     <script type="text/javascript" src="/js/jquery.min.js"></script>
-    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.js"></script>
     <script type="text/javascript" src="/js/angular.js"></script>
-    <script type="text/javascript" src="/js/tlunter.com.min.js"></script>
+    <script type="text/javascript" src="/js/tlunter.com.js"></script>
   </head>
   <body>
     <div id="container">
@@ -21,7 +21,7 @@
             <li>
               <span class="icon-3x icon-stack">
                 <i class="icon-check-empty icon-stack-base"></i>
-                <a href="/">
+                <a ng-href="/">
                   <i class="icon-home"></i>
                 </a>
               </span>
@@ -29,7 +29,7 @@
             <li>
               <span class="icon-3x icon-stack">
                 <i class="icon-check-empty icon-stack-base"></i>
-                <a href="/about">
+                <a ng-href="/about/feed/twitter">
                   <i class="icon-user"></i>
                 </a>
               </span>
@@ -75,7 +75,9 @@
             <strong>Oh no!</strong> <%=flash[:error]%>
           </div>
           <% end %>
-          <%= yield %>
+          <!-- <%= yield %> -->
+          <div ng-view>
+          </div>
         </div>
       </div>
     </div>
