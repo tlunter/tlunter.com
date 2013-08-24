@@ -12,7 +12,7 @@ month_names[month_names.length] = "Oct";
 month_names[month_names.length] = "Nov";
 month_names[month_names.length] = "Dec";
 
-function parseDate(d) {
+var parseDate = function(d) {
   return "" + d.getDate() +
         " " + month_names[d.getMonth()] +
         " " + d.getFullYear() +

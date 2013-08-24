@@ -142,7 +142,9 @@ posts_module.controller('PostsController',
   $scope.loadPost();
 }]);
 
-posts_module.config(function($locationProvider, $routeProvider) {
+posts_module.config(
+  ['$locationProvider', '$routeProvider', 
+  function($locationProvider, $routeProvider) {
   $locationProvider.html5Mode(true).hashPrefix('!');
   $routeProvider.
     when('/posts/latest', {
@@ -154,7 +156,7 @@ posts_module.config(function($locationProvider, $routeProvider) {
       templateUrl: '/partials/post.html'
     }).
     otherwise({ redirectTo: '/posts/latest' });
-});
+}]);
 
 function setupDate(key, value) {
   if (value !== null) {

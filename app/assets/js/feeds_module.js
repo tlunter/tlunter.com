@@ -2,17 +2,9 @@ var feeds_module = angular.module('feeds_module', []);
 
 feeds_module.value('$anchorScroll', angular.noop);
 
-feeds_module.config(function($locationProvider, $routeProvider) {
-  $locationProvider.html5Mode(true).hashPrefix('!');
-  $routeProvider.
-    when('/about/feed/:feed', {
-      templateUrl: '/partials/feed.html',
-      controller: FeedsController
-    }).
-    otherwise({ redirectTo: '/about/feed/twitter' });
-});
-
-function FeedsController($scope, $route, $routeParams, $http) {
+feeds_module.controller('FeedsController',
+    ['$scope', '$route', '$routeParams', '$http',
+    function($scope, $route, $routeParams, $http) {
   feed = $routeParams['feed'];
   feed_route = '/feeds/' + feed + '.json';
   $http.get(feed_route).
@@ -27,4 +19,16 @@ function FeedsController($scope, $route, $routeParams, $http) {
     error(function(data, status, headers, config) {
       $scope['feed'] = [];
     });
-}
+}]);
+
+feeds_module.config(
+  ['$locationProvider', '$routeProvider',
+  function($locationProvider, $routeProvider) {
+  $locationProvider.html5Mode(true).hashPrefix('!');
+  $routeProvider.
+    when('/about/feed/:feed', {
+      templateUrl: '/partials/feed.html',
+      controller: 'FeedsController'
+    }).
+    otherwise({ redirectTo: '/about/feed/twitter' });
+}]);
