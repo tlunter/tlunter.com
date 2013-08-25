@@ -1,4 +1,4 @@
-angular.module('feeds', ['ngResource']);
+angular.module('feeds', ['resource.feed']);
 
 angular.module('feeds').value('$anchorScroll', angular.noop);
 
@@ -15,13 +15,6 @@ angular.module('feeds').controller('FeedsController',
     $scope[feed] = 'active';
     $scope['feed'] = data;
   });
-}]);
-
-angular.module('feeds').factory('Feed', ['$resource', function ($resource) {
-  return $resource('/feeds/:feed\.json', {}, 
-    {
-      'get': {method: 'GET', isArray: true}
-    });
 }]);
 
 angular.module('feeds').config(

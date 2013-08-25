@@ -1,27 +1,4 @@
-angular.module('posts', [])
-
-angular.module('posts').factory('PostsFactory', ['$http', function ($http) {
-  return {
-    getData: function (post, callback) {
-      if (post === undefined) {
-        post = 'latest';
-      } else {
-        post = 'i/' + post;
-      }
-
-      post_route = '/post/' + post + '.json';
-
-      $http.get(post_route).
-        success(function (data, status, headers, config) {
-          $.each(data, setupDate);
-          callback(true, data);
-        }).
-        error(function (data, status, headers, config) {
-          callback(false, data);
-        });
-    }
-  }
-}]);
+angular.module('posts', ['resource.post'])
 
 angular.module('posts').factory('CommentsFactory', ['$http', function ($http) {
   return {
@@ -87,10 +64,10 @@ angular.module('posts').directive('comment-scroll',
 }]);
 
 angular.module('posts').controller('PostsController',
-    ['$scope', '$routeParams', '$http', 'PostsFactory', 'CommentsFactory', '$location', '$anchorScroll',
-    function ($scope, $routeParams, $http, PostsFactory, CommentsFactory, $location, $anchorScroll) {
+    ['$scope', '$routeParams', '$http', 'CommentsFactory', '$location', '$anchorScroll', 'Post',
+    function ($scope, $routeParams, $http, CommentsFactory, $location, $anchorScroll, Post) {
 
-  var post = $routeParams['id']
+  var post = $routeParams['id'] || 'latest';
   var csrf_token;
 
   $scope.loadComments = function (link) {
@@ -114,16 +91,11 @@ angular.module('posts').controller('PostsController',
   }
 
   $scope.loadPost = function () {
-    PostsFactory.getData(post, function(success, data) {
-      if (!success) {
-        $scope['current'] = null;
-        return;
-      }
+    var data = Post.get({link: post}, function() {
+      setupDate(null, data);
+      $scope['post'] = data;
 
-      $.extend($scope, data);
-
-      var link = data['current']['link'];
-      $scope.loadComments(link);
+      $scope.loadComments(data['link']);
     });
   }
 
@@ -143,19 +115,16 @@ angular.module('posts').controller('PostsController',
 }]);
 
 angular.module('posts').config(
-  ['$locationProvider', '$routeProvider', 
-  function($locationProvider, $routeProvider) {
-  $locationProvider.html5Mode(true).hashPrefix('!');
-  $routeProvider.
-    when('/posts/latest', {
-      controller: 'PostsController',
-      templateUrl: '/partials/post.html'
-    }).
-    when('/posts/i/:id', {
-      controller: 'PostsController',
-      templateUrl: '/partials/post.html'
-    }).
-    otherwise({ redirectTo: '/posts/latest' });
+    ['$routeProvider', 
+    function($routeProvider) {
+  $routeProvider.when('/posts/latest', {
+    controller: 'PostsController',
+    templateUrl: '/partials/post.html'
+  }).
+  when('/posts/:id', {
+    controller: 'PostsController',
+    templateUrl: '/partials/post.html'
+  });
 }]);
 
 function setupDate(key, value) {

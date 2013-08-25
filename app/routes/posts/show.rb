@@ -1,29 +1,22 @@
-get '/post/latest.json' do
-  posts = Post.latest.each do |p|
-    p[:body] = App.markdown.render p[:body]
-  end
+get '/posts/latest.json' do
+  posts = Post.latest
+
+  post = posts[0].as_json
+  post[:body] = App.markdown.render post[:body]
   
-  {
-    :next => nil,
-    :current => posts[0],
-    :previous => posts[1]
-  }.to_json
+  post[:previous] = posts[1].link unless posts[1].nil?
+  post.to_json
 end
 
-get %r{/post/i/([\w-]+)\.json} do |post_link|
-  post            = Post.first(:link => post_link)
-  halt 404 unless post
-  next_post       = Post.first(:published => true, :updated_at.gt => post.updated_at, :order => :updated_at.asc)
-  previous_post   = Post.first(:published => true, :updated_at.lt => post.updated_at, :order => :updated_at.desc)
-  posts = {
-    :next => next_post,
-    :current => post,
-    :previous => previous_post
-  }
+get %r{/posts/([\w-]+)\.json} do |link|
+  post            = Post.first(:link => link).as_json
+  halt 404 if post.nil?
+  next_post       = Post.first(:published => true, :updated_at.gt => post[:updated_at], :order => :updated_at.asc)
+  previous_post   = Post.first(:published => true, :updated_at.lt => post[:updated_at], :order => :updated_at.desc)
 
-  posts.each do |key, p|
-    next nil if p.nil?
-    p[:body] = App.markdown.render p[:body]
-  end.to_json
+  post[:body] = App.markdown.render post[:body]
+  post[:next] = next_post.link unless next_post.nil?
+  post[:previous] = previous_post.link unless previous_post.nil?
+  post.to_json
 end
 
