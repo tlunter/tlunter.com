@@ -10,16 +10,16 @@
         </span>
       </p>
       <h1 class="title">{{ post.title }}</h1>
-      <p><small>posted on {{ post.date }}</small></p>
-      <div class="body" ng-bind-html-unsafe="post.body"></div>
+      <p><small>posted on {{ post.updated_at }}</small></p>
+      <div class="body" ng-bind-html="post.body"></div>
       <p>&nbsp;</p>
       <span style="font-weight: bold;">Comments:</span>
       <div class="comments">
         <ul ng-repeat="comment in comments">
           <li>
             <p id="comment-{{ comment.id }}">{{ comment.email }} says:</p>
-            <p ng-bind-html-unsafe="comment.body"></p>
-            <p><small>at {{ comment.date }}</small></p>
+            <p ng-bind-html="comment.body"></p>
+            <p><small>at {{ comment.updated_at }}</small></p>
           </li>
         </ul>
         <div class="comment-scroll" ng-show="comments"></div>
@@ -56,8 +56,9 @@
     </div>
     <div ng-hide="post">
       <div style="text-align: center;">
-        It looks like I'm lazy and haven't posted anything yet!
+        This seems like a bad post link! Try <a ng-href="/posts/latest">these</a> instead?
       </div>
     </div>
   </div>
 </div>
+
