@@ -15,7 +15,7 @@
       <p>&nbsp;</p>
       <span style="font-weight: bold;">Comments:</span>
       <div class="comments">
-        <ul ng-repeat="comment in comments">
+        <ul ng-repeat="comment in post.comments">
           <li>
             <p id="comment-{{ comment.id }}">{{ comment.email }} says:</p>
             <p ng-bind-html="comment.body"></p>

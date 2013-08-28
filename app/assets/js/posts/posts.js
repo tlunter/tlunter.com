@@ -1,4 +1,4 @@
-angular.module('posts', ['ngRoute', 'resource.post', 'services.date', 'ngSanitize'])
+angular.module('posts', ['ngRoute', 'ngSanitize', 'resource.post', 'resource.comment', 'services.date'])
 
 angular.module('posts').controller('PostsListController',
     ['$scope', 'posts', function ($scope, posts) {
@@ -10,9 +10,15 @@ angular.module('posts').controller('PostsShowController',
   $scope.post = post;
 }]);
 
-angular.module('posts').controller('PostsShowController',
-    ['$scope', 'post', function ($scope, post) {
+angular.module('posts').controller('PostsNewController',
+    ['$scope', '$location', 'post', function ($scope, $location, post) {
   $scope.post = post;
+
+  $scope.save = function () {
+    this.post.$save(function(post, putResponseHeaders) {
+      $location.path('/posts/' + post.link);
+    });
+  };
 }]);
 
 angular.module('posts').config(
@@ -23,10 +29,13 @@ angular.module('posts').config(
       controller: 'PostsListController',
       templateUrl: '/partials/posts/index.html',
       resolve: {
-        posts: ['Post', 'DateFormatter', function (Post, DateFormatter) {
+        // Get posts, setup dates, get comments
+        posts: ['Post', 'Comment', 'DateFormatter',
+               function (Post, Comment, DateFormatter) {
           var posts = Post.query(function () {
             angular.forEach(posts, function (post) {
               post = DateFormatter.setupDate(post, 'updated_at');
+              post.comments = Comment.query({link: post.link});
             });
           });
           return posts;
@@ -38,7 +47,7 @@ angular.module('posts').config(
       templateUrl: '/partials/posts/new.html',
       resolve: {
         post: ['Post', function (Post) {
-          return new Post();
+          return new Post({published: true});
         }]
       }
     }).
@@ -46,9 +55,16 @@ angular.module('posts').config(
       controller: 'PostsShowController',
       templateUrl: '/partials/posts/show.html',
       resolve: {
-        post: ['$route', 'Post', 'DateFormatter', function ($route, Post, DateFormatter) {
+        // Get post, setup date, get comments, setup dates
+        post: ['$route', 'Post', 'Comment', 'DateFormatter',
+              function ($route, Post, Comment, DateFormatter) {
           var post = Post.get({link: $route.current.params.id}, function() {
             post = DateFormatter.setupDate(post, 'updated_at');
+            post.comments = Comment.query({link: post.link}, function () {
+              angular.forEach(post.comments, function (comment) {
+                comment = DateFormatter.setupDate(comment, 'updated_at');
+              });
+            });
           });
           return post;
         }]

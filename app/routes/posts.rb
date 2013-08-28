@@ -1,4 +1,6 @@
-ALLOWED_FIELDS = ['title', 'body', 'published']
+require 'json'
+
+ALLOWED_POST_FIELDS = ['title', 'body', 'published']
 
 # index
 get '/posts.json' do
@@ -12,9 +14,12 @@ get '/posts.json' do
 end
 
 # new
-post "/posts/new.json" do
-  fields = params['post'].select { |key, val| ALLOWED_FIELDS.include? key }
+post '/posts.json' do
+  puts "Request: #{}"
+  data = JSON.parse request.body.read
+  fields = data.select { |key, val| ALLOWED_POST_FIELDS.include? key }
   post = Post.new(fields)
+  post.save
 
   post.to_json
 end
@@ -25,7 +30,7 @@ end
 
 # show
 get %r{/posts/([\w-]+)\.json} do |link|
-  post            = Post.first(:link => link)
+  post = Post.first(:link => link)
   halt 404 if post.nil?
 
   post.body = App.markdown.render post.body

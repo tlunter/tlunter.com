@@ -33,6 +33,6 @@ class App < Sinatra::Application
 
   set :sessions, true
   use Rack::Flash;
-  use Rack::Csrf, :raise => true
+  #use Rack::Csrf, :raise => true
 end
 

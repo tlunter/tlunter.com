@@ -3,7 +3,8 @@
     <h1 class="title">{{ post.title }}</h1>
     <p><small>posted on {{ post.updated_at }}</small></p>
     <div class="body" ng-bind-html="post.body"></div>
-    <a ng-href="/posts/{{ post.link }}">Comments</a>
+    <p>&nbsp;</p>
+    <a ng-href="/posts/{{ post.link }}">Comments ({{ post.comments.length }})</a>
     <p class="line">&nbsp;</p>
   </div>
 </div>
