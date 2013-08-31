@@ -6,8 +6,16 @@ angular.module('posts').controller('PostsListController',
 }]);
 
 angular.module('posts').controller('PostsShowController',
-    ['$scope', 'post', function ($scope, post) {
+    ['$scope', '$route', 'post', 'comment',
+    function ($scope, $route, post, comment) {
   $scope.post = post;
+  $scope.comment = comment;
+
+  $scope.save = function () {
+    this.comment.$save({post: this.post.link}, function(comment, putResponseHeaders) {
+      $route.reload();
+    });
+  };
 }]);
 
 angular.module('posts').controller('PostsNewController',
@@ -35,7 +43,7 @@ angular.module('posts').config(
           var posts = Post.query(function () {
             angular.forEach(posts, function (post) {
               post = DateFormatter.setupDate(post, 'updated_at');
-              post.comments = Comment.query({link: post.link});
+              post.comments = Comment.query({post: post.link});
             });
           });
           return posts;
@@ -60,13 +68,16 @@ angular.module('posts').config(
               function ($route, Post, Comment, DateFormatter) {
           var post = Post.get({link: $route.current.params.id}, function() {
             post = DateFormatter.setupDate(post, 'updated_at');
-            post.comments = Comment.query({link: post.link}, function () {
+            post.comments = Comment.query({post: post.link}, function () {
               angular.forEach(post.comments, function (comment) {
                 comment = DateFormatter.setupDate(comment, 'updated_at');
               });
             });
           });
           return post;
+        }],
+        comment: ['Comment', function (Comment) {
+          return new Comment();
         }]
       }
     });
