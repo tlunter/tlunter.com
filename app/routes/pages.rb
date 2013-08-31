@@ -20,3 +20,7 @@ get '/' do
   erb :index
 end
 
+after '*' do
+  response.set_cookie(:'XSRF-TOKEN', value: Rack::Csrf.token(request.env), expires: Time.now + 3600*24)
+end
+
