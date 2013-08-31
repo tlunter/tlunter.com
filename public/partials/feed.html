@@ -44,16 +44,16 @@
           <div class="feeds-section">
             <h1>Feeds</h1>
             <ul class="nav nav-tabs">
-              <li class="{{twitter}}"><a ng-href="/about/feed/twitter">Twitter</a></li>
-              <li class="{{github}}"><a ng-href="/about/feed/github">GitHub</a></li>
-              <li class="{{stack_overflow}}"><a ng-href="/about/feed/stack_overflow">StackOverflow</a></li>
+              <li ng-class="{active:feed=='twitter'}"><a ng-href="/about/feed/twitter">Twitter</a></li>
+              <li ng-class="{active:feed=='github'}"><a ng-href="/about/feed/github">GitHub</a></li>
+              <li ng-class="{active:feed=='stack_overflow'}"><a ng-href="/about/feed/stack_overflow">StackOverflow</a></li>
             </ul>
             <ul class="feed-content">
-              <li ng-repeat="item in feed">
+              <li ng-repeat="item in feedItems">
               <h3>
                   <a href="{{ item.link }}" target="_blank">{{ item.title }}</a>
               </h3>
-              on {{ item.pretty_date }}
+              on {{ item.published }}
               </li>
             </ul>
           </div>
