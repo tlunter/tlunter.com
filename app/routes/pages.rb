@@ -1,12 +1,21 @@
 require 'json'
 
 IP_WHITELIST_PAGES = ['/posts/new']
+IP_WHITELIST = [
+  /127.0.0.1/,
+  /192\.168\.1\.\d{1,3}/,
+  /24.218.39.32/
+]
 
 IP_WHITELIST_PAGES.each do |page|
   before page do
-    unless request.env['HTTP_X_REAL_IP'] == '127.0.0.1' || request.env['HTTP_X_REAL_IP'] =~ /192\.168\.1\.\d{1,3}/
-      redirect '/'
+    send_home = true
+    IP_WHITELIST.each do |ip|
+      if request.env['HTTP_X_REAL_IP'] =~ ip
+        send_home = false
+      end
     end
+    redirect '/' if send_home
   end
 end
 
