@@ -1,135 +1,84 @@
-angular.module('posts', ['resource.post'])
+angular.module('posts', ['ngRoute', 'ngSanitize', 'resource.post', 'resource.comment', 'services.date'])
 
-angular.module('posts').factory('CommentsFactory', ['$http', function ($http) {
-  return {
-    getData: function (post, callback) {
-      if (post === undefined) {
-        return;
-      }
-
-      comments_route = '/comments/' + post + '.json';
-
-      $http.get(comments_route).
-        success(function(data, status, headers, config) {
-          $.each(data, setupDate);
-          callback(true, data);
-        }).
-        error(function (data, status, headers, config) {
-          callback(false, data);
-        });
-    },
-    getCsrf: function (post, callback) {
-      if (post === undefined) {
-        return;
-      }
-
-      comments_route = '/comments/' + post + '/new.json';
-
-      $http.get(comments_route).
-        success(function(data, status, headers, config) {
-          callback(data['csrf_token']);
-        });
-    },
-    postComment: function(post, email, body, csrf, callback) {
-      if (post === undefined) {
-        return;
-      }
-
-      comments_route = '/comments/' + post + '/new.json';
-
-      $http.post(
-          comments_route,
-          $.param({ 'email': email, 'body': body, '_csrf': csrf }),
-          { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }).
-        success(function(data, status, headers, config) {
-          callback(true, data);
-        }).
-        error(function (data, status, headers, config) {
-          callback(false, data);
-        });
-    }
-  }
+angular.module('posts').controller('PostsListController',
+    ['$scope', 'posts', function ($scope, posts) {
+  $scope.posts = posts;
 }]);
 
-angular.module('posts').directive('comment-scroll',
-    ['$anchorScroll', '$location',
-    function ($anchorScroll, $location) {
-      return {
-        restrict: 'C',
-        link: function (scope, elem, attrs) {
-          if ($location.hash())
-            $anchorScroll();
-        }
-      };
+angular.module('posts').controller('PostsShowController',
+    ['$scope', '$route', 'post', 'comment',
+    function ($scope, $route, post, comment) {
+  $scope.post = post;
+  $scope.comment = comment;
+
+  $scope.save = function () {
+    this.comment.$save({post: this.post.link}, function(comment, putResponseHeaders) {
+      $route.reload();
+    });
+  };
 }]);
 
-angular.module('posts').controller('PostsController',
-    ['$scope', '$routeParams', '$http', 'CommentsFactory', '$location', '$anchorScroll', 'Post',
-    function ($scope, $routeParams, $http, CommentsFactory, $location, $anchorScroll, Post) {
+angular.module('posts').controller('PostsNewController',
+    ['$scope', '$location', 'post', function ($scope, $location, post) {
+  $scope.post = post;
 
-  var post = $routeParams['id'] || 'latest';
-  var csrf_token;
-
-  $scope.loadComments = function (link) {
-    CommentsFactory.getData(link,
-      function(success, commentData) {
-      if (success) {
-        $scope['comments'] = commentData;
-        window.setTimeout(function () {
-          if ($location.hash()) {
-            $anchorScroll();
-          }
-        }, 0);
-      } else {
-        $scope['comments'] = null;
-      }
+  $scope.save = function () {
+    this.post.$save(function(post, putResponseHeaders) {
+      $location.path('/posts/' + post.link);
     });
-
-    CommentsFactory.getCsrf(link, function (ct) {
-      csrf_token = ct;
-    });
-  }
-
-  $scope.loadPost = function () {
-    var data = Post.get({link: post}, function() {
-      setupDate(null, data);
-      $scope['post'] = data;
-
-      $scope.loadComments(data['link']);
-    });
-  }
-
-  $scope.postComment = function () {
-    CommentsFactory.postComment($scope['current']['link'],
-      $scope.comment_email, $scope.comment_body, csrf_token,
-      function (success, data) {
-        if (success) {
-          $scope.comment_body = "";
-          $scope.loadComments($scope['current']['link']);
-          $location.hash('comment-' + data['id']);
-        }
-      });
-  }
-
-  $scope.loadPost();
+  };
 }]);
 
 angular.module('posts').config(
     ['$routeProvider', 
     function($routeProvider) {
-  $routeProvider.when('/posts/latest', {
-    controller: 'PostsController',
-    templateUrl: '/partials/post.html'
-  }).
-  when('/posts/:id', {
-    controller: 'PostsController',
-    templateUrl: '/partials/post.html'
-  });
+  $routeProvider.
+    when('/posts/latest', {
+      controller: 'PostsListController',
+      templateUrl: '/partials/posts/index.html',
+      resolve: {
+        // Get posts, setup dates, get comments
+        posts: ['Post', 'Comment', 'DateFormatter',
+               function (Post, Comment, DateFormatter) {
+          var posts = Post.query(function () {
+            angular.forEach(posts, function (post) {
+              post = DateFormatter.setupDate(post, 'updated_at');
+              post.comments = Comment.query({post: post.link});
+            });
+          });
+          return posts;
+        }]
+      }
+    }).
+    when('/posts/new', {
+      controller: 'PostsNewController',
+      templateUrl: '/partials/posts/new.html',
+      resolve: {
+        post: ['Post', function (Post) {
+          return new Post({published: true});
+        }]
+      }
+    }).
+    when('/posts/:id', {
+      controller: 'PostsShowController',
+      templateUrl: '/partials/posts/show.html',
+      resolve: {
+        // Get post, setup date, get comments, setup dates
+        post: ['$route', 'Post', 'Comment', 'DateFormatter',
+              function ($route, Post, Comment, DateFormatter) {
+          var post = Post.get({link: $route.current.params.id}, function() {
+            post = DateFormatter.setupDate(post, 'updated_at');
+            post.comments = Comment.query({post: post.link}, function () {
+              angular.forEach(post.comments, function (comment) {
+                comment = DateFormatter.setupDate(comment, 'updated_at');
+              });
+            });
+          });
+          return post;
+        }],
+        comment: ['Comment', function (Comment) {
+          return new Comment();
+        }]
+      }
+    });
 }]);
-
-function setupDate(key, value) {
-  if (value !== null) {
-    value['updated_at_date'] = new Date(value['updated_at']);
-    value['date'] = parseDate(value['updated_at_date']);
-  }
-}

@@ -1,16 +1,13 @@
-angular.module('feeds', ['resource.feed']);
-
-angular.module('feeds').value('$anchorScroll', angular.noop);
+angular.module('feeds', ['resource.feed', 'services.date']);
 
 angular.module('feeds').controller('FeedsController',
-    ['$scope', '$route', '$routeParams', '$http', 'Feed',
-    function($scope, $route, $routeParams, $http, Feed) {
+    ['$scope', '$route', '$routeParams', '$http', 'Feed', 'DateFormatter',
+    function($scope, $route, $routeParams, $http, Feed, DateFormatter) {
   feed = $routeParams['feed'];
 
   var data = Feed.get({ feed: feed }, function () {
-    data.forEach(function(item) {
-      item['published_date'] = new Date(item['published']);
-      item['pretty_date'] = parseDate(item['published_date']);
+    angular.forEach(data, function(item) {
+      item = DateFormatter.setupDate(item, 'published_date');
     });
     $scope[feed] = 'active';
     $scope['feed'] = data;
