@@ -1,0 +1,10 @@
+      <div class="comments">
+        <ul ng-show="post.comments.length">
+          <li ng-repeat="c in post.comments">
+            <p id="comment-{{ c.id }}">{{ c.email }} says:</p>
+            <p ng-bind-html="c.body"></p>
+            <p><small>at {{ c.updated_at }}</small></p>
+          </li>
+        </ul>
+        <p ng-hide="post.comments.length">No comments yet!</p>
+      </div>

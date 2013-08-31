@@ -28,12 +28,32 @@ module.exports = function(grunt) {
           }
         ]
       },
-      angular_res: {
+      angular_resource: {
         files: [
           {
             expand: true,
             cwd: 'bower_components/angular-resource/',
             src: ['angular-resource.js'],
+            dest: 'tmp/angular/'
+          }
+        ] 
+      },
+      angular_route: {
+        files: [
+          {
+            expand: true,
+            cwd: 'bower_components/angular-route/',
+            src: ['angular-route.js'],
+            dest: 'tmp/angular/'
+          }
+        ] 
+      },
+      angular_sanitize: {
+        files: [
+          {
+            expand: true,
+            cwd: 'bower_components/angular-sanitize/',
+            src: ['angular-sanitize.js'],
             dest: 'tmp/angular/'
           }
         ] 
@@ -61,7 +81,7 @@ module.exports = function(grunt) {
         separator: ';'
       },
       angular: {
-        src: ['tmp/angular/angular.js', 'tmp/angular/angular-resource.js'],
+        src: ['tmp/angular/angular.js', 'tmp/angular/angular-resource.js', 'tmp/angular/angular-route.js', 'tmp/angular/angular-sanitize.js'],
         dest: 'public/js/angular.js'
       },
       bootstrap: {
