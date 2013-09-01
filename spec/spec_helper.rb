@@ -11,8 +11,7 @@ set :raise_errors, true
 set :logging, false
 
 class App < Sinatra::Application
-  DataMapper.setup(:default, 'mysql://tluntercom:@localhost/test_tluntercom')
-  DataMapper.auto_migrate!
+  Dir[File.join(App.root, "spec/config/**/*.rb")].each {|f| require f}
 end
 
 def app
