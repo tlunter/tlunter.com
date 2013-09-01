@@ -10,6 +10,11 @@ set :run, false
 set :raise_errors, true
 set :logging, false
 
+class App < Sinatra::Application
+  DataMapper.setup(:default, 'mysql://tluntercom:@localhost/test_tluntercom')
+  DataMapper.auto_migrate!
+end
+
 def app
   App
 end

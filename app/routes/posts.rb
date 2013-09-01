@@ -15,13 +15,14 @@ end
 
 # new
 post '/posts.json' do
-  puts "Request: #{}"
   data = JSON.parse request.body.read
   fields = data.select { |key, val| ALLOWED_POST_FIELDS.include? key }
   post = Post.new(fields)
-  post.save
-
-  post.to_json
+  if post.save
+    post.to_json
+  else
+    halt 400
+  end
 end
 
 # edit

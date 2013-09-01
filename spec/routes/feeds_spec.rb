@@ -21,7 +21,7 @@ describe 'feeds routes' do
   end
 
   context 'for a GitHub feed' do
-    let(:feed_type) { GitHub }
+    let(:feed_type) { GitHubItem }
 
     before do
       feed_type.stub(:latest) do
@@ -41,7 +41,7 @@ describe 'feeds routes' do
   end
 
   context 'for a StackOverflow feed' do
-    let(:feed_type) { StackOverflow }
+    let(:feed_type) { StackOverflowItem }
 
     before do
       feed_type.stub(:latest) do

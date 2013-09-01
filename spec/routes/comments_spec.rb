@@ -98,7 +98,7 @@ describe 'comments routes' do
         context 'with good data' do
           let (:attrs) { {:email => 'test', :body => 'full test'} }
 
-          it "responds with client error" do
+          it "responds with ok" do
             expect(new_comment).to be_ok
             change(Comment.count).by(1)
           end

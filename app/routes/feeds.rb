@@ -1,9 +1,9 @@
 get '/feeds/github.json' do
-  GitHub.latest.to_json
+  GitHubItem.latest.to_json
 end
 
 get '/feeds/stack_overflow.json' do
-  StackOverflow.latest.to_json
+  StackOverflowItem.latest.to_json
 end
 
 get '/feeds/twitter.json' do
