@@ -1,8 +1,0 @@
-<h2>
-  <%=@user.email%>
-</h2>
-<% if current_user.admin? %>
-  <h2><%=@user.permission_level%>
-<% end %>
-<br>
-<a href="javascript:history.back();">Back</a>
