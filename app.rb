@@ -2,7 +2,6 @@ $LOAD_PATH << File.dirname(__FILE__)
 
 require 'rubygems'
 require 'sinatra'
-require 'rack-flash'
 require 'rack/csrf'
 require 'redcarpet'
 require 'twitter'
@@ -32,7 +31,6 @@ class App < Sinatra::Application
   Dir[File.join(App.root, "app/routes/**/*.rb")].each {|f| require f}
 
   use Rack::Session::Cookie, :secret => 'A1 sauce 1s so good you should use 1t on a11 yr st34ksssss'
-  use Rack::Flash
   use Rack::Csrf, :raise => true, :header => 'X_XSRF_TOKEN'
 end
 
