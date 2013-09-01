@@ -10,10 +10,6 @@ set :run, false
 set :raise_errors, true
 set :logging, false
 
-class App < Sinatra::Application
-  set :views, Proc.new { File.join(App.root, 'spec', 'views') }
-end
-
 def app
   App
 end
