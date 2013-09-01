@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'json'
 
-describe 'comments routes' do
+describe 'comments' do
   let!(:new_post) { FactoryGirl.build(:post).tap { |p| p.save } }
   let!(:comment1) { FactoryGirl.build(:comment, :post => new_post).tap { |c| c.save } }
   let!(:comment2) { FactoryGirl.build(:comment, :post => new_post).tap { |c| c.save } }
@@ -12,7 +12,7 @@ describe 'comments routes' do
     end
   end
 
-  context 'for a posts comment index' do
+  describe '#index' do
     context 'with a good post-link' do
       before do
         get "/comments/#{new_post.link}.json"
@@ -42,7 +42,7 @@ describe 'comments routes' do
     end
   end
 
-  context 'for a posts comment show' do
+  describe '#show' do
     context 'with a good post-link' do
       context 'with a good comment-id' do
         before do
@@ -80,18 +80,15 @@ describe 'comments routes' do
     end
   end
 
-  context 'for a posts comment new' do
+  describe '#create' do
+    let (:post_link) { '' }
+    let (:attrs) { {} }
+    let (:env) { {} }
     let (:new_comment) do
-      post "/comments/#{post_link}.json", {}, {
-        'rack.input' => StringIO.new(attrs.to_json),
-        'rack.session' => { 'csrf.token' => 'token' },
-        'HTTP_X_XSRF_TOKEN' => csrf_token
-      }
+      post "/comments/#{post_link}.json", {}, csrf_env.merge(env).merge('rack.input' => StringIO.new(attrs.to_json))
     end
 
     context 'with a csrf token' do
-      let (:csrf_token) { 'token' }
-
       context 'with a good post-link' do
         let (:post_link) { new_post.link }
 
@@ -130,9 +127,7 @@ describe 'comments routes' do
     end
 
     context 'without a csrf token' do
-      let (:csrf_token) { 'asjf' }
-      let (:post_link) { "a-known-bad-link" }
-      let (:attrs) { {} }
+      let (:env) { { 'rack.session' => { 'csrf.token' => '' } } }
       it 'raises an error' do
         expect { new_comment }.to raise_error(Rack::Csrf::InvalidCsrfToken)
       end

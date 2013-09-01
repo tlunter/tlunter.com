@@ -2,12 +2,12 @@ class Post
   include DataMapper::Resource
 
   property :id,         Serial
-  property :title,      String,  :required => true, :length => 255, :index => true
+  property :title,      String,  :required => true, :length => 255
   property :body,       Text,    :required => true, :lazy => false
-  property :link,       String,  :length => 255, :index => true
-  property :published,  Boolean, :default => false, :index => true
+  property :link,       String,  :length => 255
+  property :published,  Boolean, :default => false
   property :created_at, DateTime
-  property :updated_at, DateTime, :index => true
+  property :updated_at, DateTime
 
   has n, :comments
 

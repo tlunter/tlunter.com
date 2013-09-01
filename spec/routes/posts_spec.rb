@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'json'
 
-describe 'posts routes' do
+describe 'posts' do
   let!(:post1) { FactoryGirl.build(:post).tap { |c| c.save } }
   let!(:post2) { FactoryGirl.build(:post).tap { |c| c.save } }
 
@@ -11,7 +11,7 @@ describe 'posts routes' do
     end
   end
 
-  context 'for the posts index' do
+  describe '#index' do
     before do
       get '/posts.json'
     end
@@ -29,7 +29,7 @@ describe 'posts routes' do
     end
   end
 
-  context 'for a posts show' do
+  describe '#show' do
     context 'with a good post-link' do
       before do
         get "/posts/#{post1.link}.json"
@@ -55,18 +55,14 @@ describe 'posts routes' do
     end
   end
 
-  context 'for a posts new' do
+  describe '#create' do
+    let (:attrs) { {} }
+    let (:env) { {} }
     let (:new_post) do
-      post "/posts.json", {}, {
-        'rack.input' => StringIO.new(attrs.to_json),
-        'rack.session' => { 'csrf.token' => 'token' },
-        'HTTP_X_XSRF_TOKEN' => csrf_token
-      }
+      post "/posts.json", {}, csrf_env.merge(env).merge('rack.input' => StringIO.new(attrs.to_json))
     end
 
     context 'with a csrf token' do
-      let (:csrf_token) { 'token' }
-
       context 'with good data' do
         let (:attrs) { {:title => 'test', :body => 'full test'} }
 
@@ -92,8 +88,7 @@ describe 'posts routes' do
     end
 
     context 'without a csrf token' do
-      let (:csrf_token) { 'asjf' }
-      let (:attrs) { {} }
+      let (:env) { { 'rack.session' => { 'csrf.token' => '' } } }
       it 'raises an error' do
         expect { new_post }.to raise_error(Rack::Csrf::InvalidCsrfToken)
       end

@@ -35,3 +35,9 @@ RSpec.configure do |config|
   end
 end
 
+def csrf_env
+  {
+    'rack.session' => { 'csrf.token' => 'token' },
+    'HTTP_X_XSRF_TOKEN' => 'token' 
+  }
+end
