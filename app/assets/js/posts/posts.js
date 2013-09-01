@@ -12,8 +12,10 @@ angular.module('posts').controller('PostsShowController',
   $scope.comment = comment;
 
   $scope.save = function () {
-    this.comment.$save({post: this.post.link}, function(comment, putResponseHeaders) {
+    this.comment.$save({post: this.post.link}, function(comment) {
       $route.reload();
+    }, function () {
+      $scope.addError('You seem to be missing some information!');
     });
   };
 }]);
@@ -23,8 +25,10 @@ angular.module('posts').controller('PostsNewController',
   $scope.post = post;
 
   $scope.save = function () {
-    this.post.$save(function(post, putResponseHeaders) {
+    this.post.$save(function(post) {
       $location.path('/posts/' + post.link);
+    }, function () {
+      $scope.addError('You seem to be missing some information!');
     });
   };
 }]);

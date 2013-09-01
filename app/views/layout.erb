@@ -62,20 +62,15 @@
         </div>
       </div>
       <div id="content">
-        <div id="content-container">
-          <% if flash.has?(:notice) %>
-          <div class="alert alert-success fade in">
-            <a href="#" class="close" data-dismiss="alert">&times;</a>
-            <strong>Well done!</strong> <%=flash[:notice]%>
+        <div id="content-container" ng-controller="NoticesController">
+          <div class="alert alert-success fade in" ng-repeat="flash in notices">
+            <a href="#" class="close" ng-click="removeNotice(flash.id)" data-dismiss="alert">&times;</a>
+            <strong>Well done!</strong>{{ flash.text }}
           </div>
-          <% end %>
-          <% if flash.has?(:error) %>
-          <div class="alert alert-error fade in">
-            <a href="#" class="close" data-dismiss="alert">&times;</a>
-            <strong>Oh no!</strong> <%=flash[:error]%>
+          <div class="alert alert-error fade in" ng-repeat="flash in errors">
+            <a href="#" class="close" ng-click="removeError(flash.id)" data-dismiss="alert">&times;</a>
+            <strong>Oh no!</strong> {{ flash.text }}
           </div>
-          <% end %>
-          <!-- <%= yield %> -->
           <div ng-view>
           </div>
         </div>
