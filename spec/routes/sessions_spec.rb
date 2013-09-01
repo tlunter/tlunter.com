@@ -56,4 +56,25 @@ describe 'sessions' do
       end
     end
   end
+
+  describe '#destroy' do
+    let (:env) { {} }
+    let (:destroy) do
+      delete "/sessions.json", {}, csrf_env.merge(env)
+    end
+
+    context 'with a csrf token' do
+      let (:env) { { 'rack.session' => csrf_env['rack.session'].merge(:user => user.id) } }
+      it 'deletes the user session' do
+        expect(destroy).to be_ok
+      end
+    end
+
+    context 'without a csrf token' do
+      let (:env) { { 'rack.session' => { 'csrf.token' => '' } } }
+      it 'raises an error' do
+        expect { destroy }.to raise_error(Rack::Csrf::InvalidCsrfToken)
+      end
+    end
+  end
 end

@@ -17,3 +17,8 @@ post '/sessions.json' do
     halt 400
   end
 end
+
+delete '/sessions.json' do
+  session[:user] = nil
+end
+
