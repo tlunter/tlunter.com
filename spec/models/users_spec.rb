@@ -1,11 +1,11 @@
 require 'spec_helper'
 
-describe Post do
-  let(:post) { FactoryGirl.build :post }
-  fields = [:id, :title, :body, :created_at, :updated_at, :link]
-  required_fields = [:title, :body]
+describe User do
+  let(:user) { FactoryGirl.build :user }
+  fields = [ :id, :email, :password_encrypted, :created_at, :updated_at]
+  required_fields = [ :email, :password_encrypted ]
 
-  subject { post }
+  subject { user }
 
   describe 'fields' do
     fields.each do |field|
@@ -35,10 +35,6 @@ describe Post do
         expect(subject.created_at).to be_nil
         expect(subject.updated_at).to be_nil
       end
-
-      it 'has no link' do
-        expect(subject.link).to be_nil
-      end
     end
 
     context 'after :save' do
@@ -50,10 +46,29 @@ describe Post do
         expect(subject.created_at).to_not be_nil
         expect(subject.updated_at).to_not be_nil
       end
+    end
+  end
 
-      it 'has link' do
-        expect(subject.link).to be == post.linkify_title
+  describe '#authenticate' do
+    context 'with a valid password' do
+      before do
+        user.password_encrypted = User.encrypt_password("password")
+      end
+
+      it 'returns a successful authentication' do
+        expect(user.authenticate('password')).to be_true
+      end
+    end
+
+    context 'with an invalid password' do
+      before do
+        user.password_encrypted = User.encrypt_password("password")
+      end
+
+      it 'returns a successful authentication' do
+        expect(user.authenticate('password2')).to be_false
       end
     end
   end
 end
+
