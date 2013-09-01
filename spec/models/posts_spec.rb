@@ -2,36 +2,58 @@ require 'spec_helper'
 
 describe Post do
   let(:post) { FactoryGirl.build :post }
+  fields = [:id, :title, :body, :created_at, :updated_at, :link]
+  required_fields = [:title, :body]
 
   subject { post }
 
-  context 'is valid' do
-    its(:valid?) { should be_true }
+  describe 'fields' do
+    fields.each do |field|
+      it "responds to #{field}" do
+        expect(subject).to respond_to field
+      end
+    end
   end
 
-  context 'before save has no timestamps' do
-    its(:created_at) { should be_nil }
-    its(:updated_at) { should be_nil }
+  it 'is valid' do
+    expect(subject.valid?).to be_true
   end
 
-  context 'after save has timestamps' do
-    before do
-      subject.save
+  describe 'required_fields' do
+    required_fields.each do |field|
+      it "without #{field} is not valid" do
+        subject.send(:"#{field}=", nil)
+
+        expect(subject.valid?).to be_false
+      end
+    end
+  end
+
+  describe '#save' do
+    context 'before :save' do
+      it 'has no timestamps' do
+        expect(subject.created_at).to be_nil
+        expect(subject.updated_at).to be_nil
+      end
+
+      it 'has no link' do
+        expect(subject.link).to be_nil
+      end
     end
 
-    its(:created_at) { should_not be_nil }
-    its(:updated_at) { should_not be_nil }
-  end
+    context 'after :save' do
+      before do
+        subject.save
+      end
 
-  context 'before save has no link' do
-    its(:link) { should be_nil }
-  end
+      it 'has timestamps' do
+        expect(subject.created_at).to_not be_nil
+        expect(subject.updated_at).to_not be_nil
+      end
 
-  context 'after save has link' do
-    before do
-      post.save
+      it 'has link' do
+        expect(subject.link).to be == post.linkify_title
+      end
     end
-
-    its(:link) { should == post.linkify_title }
   end
 end
