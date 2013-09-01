@@ -27,6 +27,14 @@ class User
     BCrypt::Password.new(self.password_encrypted) == password
   end
 
+  def to_json
+    self.as_json.reject { |k, v| k == :password_encrypted }.to_json
+  end
+  
+  def to_json_with_password
+    self.as_json.to_json
+  end
+
   before :create do |user|
     if user.password != user.password_confirmation
       throw :halt
