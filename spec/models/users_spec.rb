@@ -51,20 +51,12 @@ describe User do
 
   describe '#authenticate' do
     context 'with a valid password' do
-      before do
-        user.password_encrypted = User.encrypt_password("password")
-      end
-
       it 'returns a successful authentication' do
         expect(user.authenticate('password')).to be_true
       end
     end
 
     context 'with an invalid password' do
-      before do
-        user.password_encrypted = User.encrypt_password("password")
-      end
-
       it 'returns a successful authentication' do
         expect(user.authenticate('password2')).to be_false
       end

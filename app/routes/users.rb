@@ -7,7 +7,7 @@ get %r{/users/(\d+)\.json} do |user_id|
   
   halt 404 unless user
 
-  user.as_json.reject { |k, v| k == :password_encrypted }.to_json
+  user.to_json
 end
 
 post '/users.json' do
