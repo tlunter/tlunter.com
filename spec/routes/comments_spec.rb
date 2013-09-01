@@ -79,5 +79,64 @@ describe 'comments routes' do
       end
     end
   end
+
+  context 'for a posts comment new' do
+    let (:new_comment) do
+      post "/comments/#{post_link}.json", {}, {
+        'rack.input' => StringIO.new(attrs.to_json),
+        'rack.session' => { 'csrf.token' => 'token' },
+        'HTTP_X_XSRF_TOKEN' => csrf_token
+      }
+    end
+
+    context 'with a csrf token' do
+      let (:csrf_token) { 'token' }
+
+      context 'with a good post-link' do
+        let (:post_link) { new_post.link }
+
+        context 'with good data' do
+          let (:attrs) { {:email => 'test', :body => 'full test'} }
+
+          it "responds with client error" do
+            expect(new_comment).to be_ok
+            change(Comment.count).by(1)
+          end
+        end
+
+        context 'with missing email' do
+          let (:attrs) { {:body => 'test'} }
+          it "responds with client error" do
+            expect(new_comment).to be_client_error
+          end
+        end
+
+        context 'with missing body' do
+          let (:attrs) { {:email => 'test'} }
+          it "responds with client error" do
+            expect(new_comment).to be_client_error
+          end
+        end
+      end
+
+      context 'with a bad post-link' do
+        let (:post_link) { "a-known-bad-link" }
+        let (:attrs) { {} }
+
+        it "responds not found" do
+          expect(new_comment).to be_not_found
+        end
+      end
+    end
+
+    context 'without a csrf token' do
+      let (:csrf_token) { 'asjf' }
+      let (:post_link) { "a-known-bad-link" }
+      let (:attrs) { {} }
+      it 'raises an error' do
+        expect { new_comment }.to raise_error(Rack::Csrf::InvalidCsrfToken)
+      end
+    end
+  end
 end
 
