@@ -42,13 +42,13 @@ module Clockwork
   every(15.minute, 'feeds.refresh') do
     Feedzirra::Feed.fetch_and_parse(
       "https://www.github.com/tlunter.atom",
-      :on_success => lambda { |url, feed| feed_success(url, feed, GitHub) },
+      :on_success => lambda { |url, feed| feed_success(url, feed, GitHubItem) },
       :on_failure => method(:feed_failure)
     )
 
     Feedzirra::Feed.fetch_and_parse(
       "http://stackoverflow.com/feeds/user/714452",
-      :on_success => lambda { |url, feed| feed_success(url, feed, StackOverflow) },
+      :on_success => lambda { |url, feed| feed_success(url, feed, StackOverflowItem) },
       :on_failure => method(:feed_failure)
     )
     
