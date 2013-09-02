@@ -2,8 +2,8 @@ require 'spec_helper'
 
 describe Post do
   let(:post) { FactoryGirl.build :post }
-  fields = [:id, :title, :body, :created_at, :updated_at, :link]
-  required_fields = [:title, :body]
+  fields = [:id, :user, :title, :body, :created_at, :updated_at, :link]
+  required_fields = [:user, :title, :body]
 
   subject { post }
 

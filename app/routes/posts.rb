@@ -15,9 +15,12 @@ end
 
 # new
 post '/posts.json' do
+  halt 400 unless session[:user]
+
   data = JSON.parse request.body.read
   fields = data.select { |key, val| ALLOWED_POST_FIELDS.include? key }
-  post = Post.new(fields)
+  user = User.first(:id => session[:user])
+  post = Post.new(fields.merge(:user => user))
   if post.save
     post.to_json
   else

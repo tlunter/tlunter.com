@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :comment do
-    sequence(:email) { |n| "commenter-#{n}@example.com" }
+    user
     sequence(:body) { |n| "Body of comment-#{n}" }
     post
   end

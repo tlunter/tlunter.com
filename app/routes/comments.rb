@@ -1,6 +1,6 @@
 require 'json'
 
-ALLOWED_FIELDS = ['email', 'body']
+ALLOWED_FIELDS = ['body']
 
 get %r{/comments/([\w-]+)\.json} do |post_link|
   post = Post.first(:link => post_link)
@@ -36,9 +36,12 @@ post %r{/comments/([\w-]+)\.json} do |post_link|
 
   halt 404 unless post
 
+  halt 400 unless session[:user]
+
   data = JSON.parse request.body.read
   fields = data.select { |key, val| ALLOWED_FIELDS.include? key }
-  comment = Comment.new(fields.merge(:post => post))
+  user = User.first(:id => session[:user])
+  comment = Comment.new(fields.merge(:post => post, :user => user))
 
   if comment.save
     comment.to_json

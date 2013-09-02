@@ -1,7 +1,7 @@
       <div class="comments">
         <ul ng-show="post.comments.length">
           <li ng-repeat="c in post.comments">
-            <p id="comment-{{ c.id }}">{{ c.email }} says:</p>
+            <p id="comment-{{ c.id }}"><a href="mailto:{{ c.user.email }}">{{ c.user.username }}</a> says:</p>
             <p ng-bind-html="c.body"></p>
             <p><small>at {{ c.updated_at }}</small></p>
           </li>
