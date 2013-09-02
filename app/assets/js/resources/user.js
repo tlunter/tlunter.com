@@ -14,15 +14,23 @@ angular.module('resource.user', ['ngResource']).factory('User',
       }, function (response) {
         (error||noop)(response);
       });
-      
   };
 
-  User.prototype.logout = function(success, error) {
+  User.logout = function(success, error) {
     $http.delete('/sessions.json', {}).
       then(function (response) {
-        console.log("success");
+        (success||noop)(response);
       }, function (response) {
-        console.log("failure");
+        (error||noop)(response);
+      });
+  };
+
+  User.check = function(success, error) {
+    $http.get('/sessions.json').
+      then(function (response) {
+        (success||noop)(response);
+      }, function (response) {
+        (error||noop)(response);
       });
   };
 

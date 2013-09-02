@@ -14,7 +14,7 @@
     <script type="text/javascript" src="/js/tlunter.com.js"></script>
   </head>
   <body>
-    <div id="container" ng-controller="MainController">
+    <div id="container" ng-controller="AppController">
       <div id="nav">
         <div class="center-nav">
           <ul class="nav">
@@ -34,7 +34,15 @@
                 </a>
               </span>
             </li>
-            <li ng-hide="user">
+            <li ng-show="isAuthenticated()">
+              <span class="icon-3x icon-stack">
+                <i class="icon-check-empty icon-stack-base"></i>
+                <a ng-href="/logout">
+                  <i class="icon-user"></i>
+                </a>
+              </span>
+            </li>
+            <li ng-hide="isAuthenticated()">
               <span class="icon-3x icon-stack">
                 <i class="icon-check-empty icon-stack-base"></i>
                 <a ng-href="/login">
@@ -70,7 +78,7 @@
         </div>
       </div>
       <div id="content">
-        <div id="content-container">
+        <div id="content-container" ng-controller="MainController">
           <div class="alert alert-success fade in" ng-repeat="flash in notices">
             <a href="#" class="close" ng-click="removeNotice(flash.id)" data-dismiss="alert">&times;</a>
             <strong>Well done!</strong>{{ flash.text }}

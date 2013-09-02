@@ -1,10 +1,9 @@
-angular.module('main', ['resource.user'])
+angular.module('main', [])
 
 angular.module('main').controller('MainController',
-    ['$scope', 'User', function ($scope, User) {
+    ['$scope', function ($scope) {
   $scope.notices = [];
   $scope.errors = [];
-  $scope.user = null;
 
   $scope.removeItem = function (array, id) {
     var toRemove = [];

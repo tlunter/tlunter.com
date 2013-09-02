@@ -6,6 +6,7 @@ get '/sessions.json' do
   user = User.first(:id => session[:user])
 
   halt 400 unless user
+  puts "User: #{user}"
   user.to_json
 end
 

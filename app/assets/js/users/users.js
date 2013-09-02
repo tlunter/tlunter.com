@@ -7,12 +7,24 @@ angular.module('users').controller('UsersLoginController',
 
   $scope.login = function () {
     this.credentials.login(function (response) {
-      this.user = new User(response.data);
-      $location.path('/posts/latest');
+      $scope.$parent.$parent.user = new User(response.data);
+      $location.path('/');
     }, function (response) {
       $scope.addError('Account does not exist or email/password incorrectly spelled!');
     });
   };
+}]);
+
+angular.module('users').controller('UsersLogoutController',
+    ['$scope', '$location', 'User',
+    function ($scope, $location, User) {
+  User.logout(function (response) {
+    console.log($scope.user);
+    $scope.$parent.$parent.user = null;
+    $location.path('/');
+  }, function (response) {
+    $location.path('/');
+  });
 }]);
 
 angular.module('users').config(
@@ -27,5 +39,9 @@ angular.module('users').config(
           return new User();
         }]
       }
+    }).
+    when('/logout', {
+      controller: 'UsersLogoutController',
+      templateUrl: '/partials/users/logout.html'
     });
 }]);
