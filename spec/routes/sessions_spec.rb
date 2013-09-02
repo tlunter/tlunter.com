@@ -4,6 +4,29 @@ require 'json'
 describe 'sessions' do
   let (:user) { FactoryGirl.create(:user) }
 
+  describe '#show' do
+    context 'with a session' do
+      before do
+        get '/sessions.json', {}, { 'rack.session' => { 'user' => user.id } }
+      end
+
+      it 'returns the current user' do
+        expect(last_response).to be_ok
+        expect(last_response.body).to be == user.to_json
+      end
+    end
+
+    context 'without a session' do
+      before do
+        get '/sessions.json'
+      end
+
+      it 'returns the current user' do
+        expect(last_response).to be_client_error
+      end
+    end
+  end
+
   describe '#create' do
     let (:attrs) { {} }
     let (:env) { {} }

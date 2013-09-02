@@ -127,8 +127,8 @@ module.exports = function(grunt) {
     },
     watch: {
       all: {
-        files: ['<%= concat.js.src %>'],
-        tasks: ['default', 'timestamp']
+        files: ['<%= concat.js.src %>', '<%= concat.css.src %>'],
+        tasks: ['concat:js', 'concat:css', 'uglify:js', 'recess:dist', 'recess:min', 'timestamp']
       }
     },
     recess: {
