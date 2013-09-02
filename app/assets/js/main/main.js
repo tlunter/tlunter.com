@@ -1,6 +1,6 @@
-angular.module('notices', [])
+angular.module('main', [])
 
-angular.module('notices').controller('NoticesController',
+angular.module('main').controller('MainController',
     ['$scope', function ($scope) {
   $scope.notices = [];
   $scope.errors = [];

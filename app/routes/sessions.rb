@@ -2,6 +2,13 @@ require 'json'
 
 ALLOWED_SESSION_FIELDS = ['email', 'password']
 
+get '/sessions.json' do
+  user = User.first(:id => session[:user])
+
+  halt 400 unless user
+  user.to_json
+end
+
 post '/sessions.json' do
   data = JSON.parse request.body.read
   fields = data.select { |key, val| ALLOWED_SESSION_FIELDS.include? key }
