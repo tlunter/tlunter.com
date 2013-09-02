@@ -10,10 +10,10 @@ angular.module('app').controller('AppController',
     function ($scope, User) {
 
   User.check(function (response) {
-    $scope.user = new User(response.data);
+    $scope.current_user = new User(response.data);
   });
 
   $scope.isAuthenticated = function () {
-    return !!$scope.user;
+    return !!$scope.current_user;
   };
 }]);
