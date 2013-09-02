@@ -14,7 +14,6 @@ angular.module('app').controller('AppController',
   });
 
   $scope.isAuthenticated = function () {
-    console.log('check');
     return !!$scope.user;
   };
 }]);
