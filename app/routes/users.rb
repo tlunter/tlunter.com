@@ -1,6 +1,6 @@
 require 'json'
 
-ALLOWED_USER_FIELDS = ['email', 'password', 'password_confirmation']
+ALLOWED_USER_FIELDS = ['username', 'email', 'password', 'password_confirmation']
 
 get %r{/users/(\d+)\.json} do |user_id|
   user = User.first(:id => user_id)

@@ -2,8 +2,8 @@ require 'spec_helper'
 
 describe User do
   let(:user) { FactoryGirl.build :user }
-  fields = [ :id, :email, :password_encrypted, :created_at, :updated_at]
-  required_fields = [ :email, :password_encrypted ]
+  fields = [ :id, :username, :email, :password_encrypted, :created_at, :updated_at]
+  required_fields = [ :username, :email, :password_encrypted ]
 
   subject { user }
 

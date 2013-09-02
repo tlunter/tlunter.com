@@ -42,11 +42,12 @@ angular.module('posts').config(
       templateUrl: '/partials/posts/index.html',
       resolve: {
         // Get posts, setup dates, get comments
-        posts: ['Post', 'Comment', 'DateFormatter',
-               function (Post, Comment, DateFormatter) {
+        posts: ['Post', 'Comment', 'User', 'DateFormatter',
+               function (Post, Comment, User, DateFormatter) {
           var posts = Post.query(function () {
             angular.forEach(posts, function (post) {
               post = DateFormatter.setupDate(post, 'updated_at');
+              post.user = User.get({id: post.user_id});
               post.comments = Comment.query({post: post.link});
             });
           });
@@ -68,13 +69,15 @@ angular.module('posts').config(
       templateUrl: '/partials/posts/show.html',
       resolve: {
         // Get post, setup date, get comments, setup dates
-        post: ['$route', 'Post', 'Comment', 'DateFormatter',
-              function ($route, Post, Comment, DateFormatter) {
+        post: ['$route', 'Post', 'Comment', 'User', 'DateFormatter',
+              function ($route, Post, Comment, User, DateFormatter) {
           var post = Post.get({link: $route.current.params.id}, function() {
             post = DateFormatter.setupDate(post, 'updated_at');
+            post.user = User.get({id: post.user_id});
             post.comments = Comment.query({post: post.link}, function () {
               angular.forEach(post.comments, function (comment) {
                 comment = DateFormatter.setupDate(comment, 'updated_at');
+                comment.user = User.get({id: comment.user_id});
               });
             });
           });

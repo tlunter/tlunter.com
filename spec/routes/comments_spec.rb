@@ -84,16 +84,19 @@ describe 'comments' do
     let (:post_link) { '' }
     let (:attrs) { {} }
     let (:env) { {} }
+    let (:user) { FactoryGirl.create(:user) }
     let (:new_comment) do
-      post "/comments/#{post_link}.json", {}, csrf_env.merge(env).merge('rack.input' => StringIO.new(attrs.to_json))
+      post "/comments/#{post_link}.json", {}, env.merge('rack.input' => StringIO.new(attrs.to_json))
     end
 
     context 'with a csrf token' do
+      let (:env) { csrf_env.merge('rack.session' => csrf_env['rack.session'].merge(:user => user.id)) }
+
       context 'with a good post-link' do
         let (:post_link) { new_post.link }
 
         context 'with good data' do
-          let (:attrs) { {:email => 'test', :body => 'full test'} }
+          let (:attrs) { {:body => 'full test'} }
 
           it "responds with ok" do
             expect(new_comment).to be_ok
@@ -101,7 +104,8 @@ describe 'comments' do
           end
         end
 
-        context 'with missing email' do
+        context 'with missing user' do
+          let (:env) { csrf_env }
           let (:attrs) { {:body => 'test'} }
           it "responds with client error" do
             expect(new_comment).to be_client_error
@@ -109,7 +113,7 @@ describe 'comments' do
         end
 
         context 'with missing body' do
-          let (:attrs) { {:email => 'test'} }
+          let (:attrs) { {} }
           it "responds with client error" do
             expect(new_comment).to be_client_error
           end
