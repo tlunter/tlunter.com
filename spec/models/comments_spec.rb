@@ -2,8 +2,8 @@ require 'spec_helper'
 
 describe Comment do
   let(:comment) { FactoryGirl.build :comment }
-  fields = [ :id, :email, :post, :body, :created_at, :updated_at]
-  required_fields = [ :post, :body ]
+  fields = [ :id, :user, :post, :body, :created_at, :updated_at]
+  required_fields = [ :user, :post, :body ]
 
   subject { comment }
 

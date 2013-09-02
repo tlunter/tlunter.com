@@ -11,6 +11,8 @@ class User
   property :created_at, DateTime
   property :updated_at, DateTime
 
+  has n, :comments
+
   def self.create(fields)
     user = User.new(fields)
     user.password_encrypted = User.encrypt_password(user.password)
