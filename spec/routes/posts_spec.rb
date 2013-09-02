@@ -56,19 +56,29 @@ describe 'posts' do
   end
 
   describe '#create' do
+    let (:user) { FactoryGirl.create(:user) }
     let (:attrs) { {} }
     let (:env) { {} }
     let (:new_post) do
-      post "/posts.json", {}, csrf_env.merge(env).merge('rack.input' => StringIO.new(attrs.to_json))
+      post "/posts.json", {}, env.merge('rack.input' => StringIO.new(attrs.to_json))
     end
 
     context 'with a csrf token' do
+      let (:env) { csrf_env.merge('rack.session' => csrf_env['rack.session'].merge(:user => user.id)) }
       context 'with good data' do
         let (:attrs) { {:title => 'test', :body => 'full test'} }
 
         it "responds with ok" do
           expect(new_post).to be_ok
           change(Post.count).by(1)
+        end
+      end
+
+      context 'with missing user' do
+        let (:env) { csrf_env }
+        let (:attrs) { {:body => 'test'} }
+        it "responds with client error" do
+          expect(new_post).to be_client_error
         end
       end
 

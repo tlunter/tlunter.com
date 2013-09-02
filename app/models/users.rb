@@ -11,6 +11,7 @@ class User
   property :created_at, DateTime
   property :updated_at, DateTime
 
+  has n, :posts
   has n, :comments
 
   def self.create(fields)
