@@ -15,7 +15,7 @@
       <p>&nbsp;</p>
       <span style="font-weight: bold;">Comments:</span>
       <ng-include src="'/partials/comments/inline_index.html'"></ng-include>
-      <ng-include src="'/partials/comments/inline_form.html'"></ng-include>
+      <ng-include ng-show="user" src="'/partials/comments/inline_form.html'"></ng-include>
       <span ng-show="post.previous" style="float:left;">
         <a ng-href="/posts/{{ post.previous }}">Previous</a>
       </span>
