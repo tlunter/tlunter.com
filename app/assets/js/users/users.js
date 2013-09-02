@@ -27,6 +27,18 @@ angular.module('users').controller('UsersLogoutController',
   });
 }]);
 
+angular.module('users').controller('UsersRegisterController',
+    ['$scope', '$location', 'user',
+    function ($scope, $location, user) {
+  $scope.user = user;
+  $scope.register = function () {
+    $scope.user.$save(function () {
+      $location.path('/login');
+    }, function () {
+    });
+  };
+}]);
+
 angular.module('users').config(
     ['$routeProvider',
     function ($routeProvider) {
@@ -43,5 +55,14 @@ angular.module('users').config(
     when('/logout', {
       controller: 'UsersLogoutController',
       templateUrl: '/partials/users/logout.html'
+    }).
+    when('/register', {
+      controller: 'UsersRegisterController',
+      templateUrl: '/partials/users/register.html',
+      resolve: {
+        user: ['User', function (User) {
+          return new User();
+        }]
+      }
     });
 }]);
