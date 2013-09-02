@@ -25,5 +25,6 @@ angular.module('feeds').config(
         return $route.current.params.feed;
       }]
     }
-  });
+  }).
+  when('/about', {redirectTo: '/about/feed/twitter' });
 }]);
