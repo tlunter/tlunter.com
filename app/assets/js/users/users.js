@@ -7,7 +7,7 @@ angular.module('users').controller('UsersLoginController',
 
   $scope.login = function () {
     this.credentials.login(function (response) {
-      $scope.$parent.$parent.user = new User(response.data);
+      $scope.$parent.$parent.current_user = new User(response.data);
       $location.path('/');
     }, function (response) {
       $scope.addError('Account does not exist or email/password incorrectly spelled!');
@@ -20,7 +20,7 @@ angular.module('users').controller('UsersLogoutController',
     function ($scope, $location, User) {
   User.logout(function (response) {
     console.log($scope.user);
-    $scope.$parent.$parent.user = null;
+    $scope.$parent.$parent.current_user = null;
     $location.path('/');
   }, function (response) {
     $location.path('/');
