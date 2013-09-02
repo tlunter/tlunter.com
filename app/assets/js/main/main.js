@@ -1,7 +1,7 @@
-angular.module('notices', [])
+angular.module('main', ['resource.user'])
 
-angular.module('notices').controller('NoticesController',
-    ['$scope', function ($scope) {
+angular.module('main').controller('MainController',
+    ['$scope', 'User', function ($scope, User) {
   $scope.notices = [];
   $scope.errors = [];
 

@@ -62,7 +62,7 @@
         </div>
       </div>
       <div id="content">
-        <div id="content-container" ng-controller="NoticesController">
+        <div id="content-container" ng-controller="MainController">
           <div class="alert alert-success fade in" ng-repeat="flash in notices">
             <a href="#" class="close" ng-click="removeNotice(flash.id)" data-dismiss="alert">&times;</a>
             <strong>Well done!</strong>{{ flash.text }}
