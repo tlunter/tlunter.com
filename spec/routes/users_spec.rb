@@ -44,7 +44,7 @@ describe 'users' do
 
     context 'with a csrf token' do
       context 'with good data' do
-        let (:attrs) { {:email => 'test@test.com', :password => 'password', :password_confirmation => 'password'} }
+        let (:attrs) { {:username => "testname", :email => 'test@test.com', :password => 'password', :password_confirmation => 'password'} }
 
         it "responds with ok" do
           expect(new_user).to be_ok
@@ -52,43 +52,50 @@ describe 'users' do
         end
       end
 
+      context 'with missing username' do
+        let (:attrs) { {:email => "test@example.com", :password => 'password', :password_confirmation => 'password'} }
+        it "responds with client error" do
+          expect(new_user).to be_client_error
+        end
+      end
+
       context 'with missing email' do
-        let (:attrs) { {:password => 'password', :password_confirmation => 'password'} }
+        let (:attrs) { {:username => "testname", :password => 'password', :password_confirmation => 'password'} }
         it "responds with client error" do
           expect(new_user).to be_client_error
         end
       end
 
       context 'with badly formatted email' do
-        let (:attrs) { {:email => 'test', :password => 'password', :password_confirmation => 'password'} }
+        let (:attrs) { {:username => "testname", :email => 'test', :password => 'password', :password_confirmation => 'password'} }
         it "responds with client error" do
           expect(new_user).to be_client_error
         end
       end
 
       context 'with missing password' do
-        let (:attrs) { {:email => 'test@example.com', :password_confirmation => 'password'} }
+        let (:attrs) { {:username => "testname", :email => 'test@example.com', :password_confirmation => 'password'} }
         it "responds with client error" do
           expect(new_user).to be_client_error
         end
       end
 
       context 'with missing password confirmation' do
-        let (:attrs) { {:email => 'test@example.com', :password => 'password' } }
+        let (:attrs) { {:username => "testname", :email => 'test@example.com', :password => 'password' } }
         it "responds with client error" do
           expect(new_user).to be_client_error
         end
       end
 
       context 'with unequal passwords' do
-        let (:attrs) { {:email => 'test@example.com', :password => 'password', :password_confirmation => 'other_password'} }
+        let (:attrs) { {:username => "testname", :email => 'test@example.com', :password => 'password', :password_confirmation => 'other_password'} }
         it "responds with client error" do
           expect(new_user).to be_client_error
         end
       end
 
       context 'with empty passwords' do
-        let (:attrs) { {:email => 'test@example.com', :password => '', :password_confirmation => ''} }
+        let (:attrs) { {:username => "testname", :email => 'test@example.com', :password => '', :password_confirmation => ''} }
         it "responds with client error" do
           expect(new_user).to be_client_error
         end

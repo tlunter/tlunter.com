@@ -6,6 +6,7 @@ class User
   attr_accessor :password, :password_confirmation
 
   property :id, Serial
+  property :username, String, :length => 255, :required => true
   property :email, String, :length => 255, :required => true, :format => :email_address
   property :password_encrypted, String, :length => 255, :required => true
   property :created_at, DateTime
