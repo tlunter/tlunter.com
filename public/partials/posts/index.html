@@ -5,7 +5,7 @@
     <div class="body" ng-bind-html="post.body"></div>
     <p>&nbsp;</p>
     <a ng-href="/posts/{{ post.link }}">Comments ({{ post.comments.length }})</a>
-    <p class="line">&nbsp;</p>
+    <p ng-hide="$last" class="line">&nbsp;</p>
   </div>
 </div>
 
