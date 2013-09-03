@@ -87,13 +87,17 @@
       </div>
       <div id="content">
         <div id="content-container" ng-controller="MainController">
-          <div class="alert alert-success fade in" ng-repeat="flash in notices">
-            <a href="#" class="close" ng-click="removeNotice(flash.id)" data-dismiss="alert">&times;</a>
-            <strong>Well done!</strong>{{ flash.text }}
+          <div ng-repeat="flash in notices">
+            <div class="alert alert-success fade" ng-class="{in: !flash.toRemove}">
+              <a href="#" class="close" ng-click="removeNotice(flash.id)" data-dismiss="alert">&times;</a>
+              <strong>Well done!</strong> {{ flash.text }}
+            </div>
           </div>
-          <div class="alert alert-error fade in" ng-repeat="flash in errors">
-            <a href="#" class="close" ng-click="removeError(flash.id)" data-dismiss="alert">&times;</a>
-            <strong>Oh no!</strong> {{ flash.text }}
+          <div ng-repeat="flash in errors">
+            <div class="alert alert-error fade" ng-class="{in: !flash.toRemove}">
+              <a href="#" class="close" ng-click="removeError(flash.id)" data-dismiss="alert">&times;</a>
+              <strong>Oh no!</strong> {{ flash.text }}
+            </div>
           </div>
           <div ng-view>
           </div>

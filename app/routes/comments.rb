@@ -36,7 +36,7 @@ post %r{/comments/([\w-]+)\.json} do |post_link|
 
   halt 404 unless post
 
-  halt 400 unless session[:user]
+  halt 400, ['You must be logged in!'].to_json unless session[:user]
 
   data = JSON.parse request.body.read
   fields = data.select { |key, val| ALLOWED_FIELDS.include? key }
@@ -46,6 +46,6 @@ post %r{/comments/([\w-]+)\.json} do |post_link|
   if comment.save
     comment.to_json
   else
-    halt 400
+    halt 400, comment.errors.full_messages.to_json
   end
 end

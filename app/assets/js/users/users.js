@@ -8,9 +8,14 @@ angular.module('users').controller('UsersLoginController',
   $scope.login = function () {
     this.credentials.login(function (response) {
       $scope.$parent.$parent.current_user = new User(response.data);
+      $scope.clearFlashes();
+      $scope.addNotice("You're now logged in.");
       $location.path('/');
     }, function (response) {
-      $scope.addError('Account does not exist or email/password incorrectly spelled!');
+      $scope.clearFlashes();
+      angular.forEach(response.data||[], function (msg) {
+        $scope.addError(msg);
+      });
     });
   };
 }]);
@@ -34,7 +39,13 @@ angular.module('users').controller('UsersRegisterController',
   $scope.register = function () {
     $scope.user.$save(function () {
       $location.path('/login');
-    }, function () {
+      $scope.clearFlashes();
+      $scope.addNotice("Now login with your new account!");
+    }, function (response) {
+      $scope.clearFlashes();
+      angular.forEach(response.data||[], function (msg) {
+        $scope.addError(msg);
+      });
     });
   };
 }]);
