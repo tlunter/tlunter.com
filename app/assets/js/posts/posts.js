@@ -14,8 +14,13 @@ angular.module('posts').controller('PostsShowController',
   $scope.save = function () {
     this.comment.$save({post: this.post.link}, function(comment) {
       $route.reload();
-    }, function () {
-      $scope.addError('You seem to be missing some information!');
+      $scope.clearFlashes();
+      $scope.addNotice("Comment added.");
+    }, function (response) {
+      $scope.clearFlashes();
+      angular.forEach(response.data||[], function (msg) {
+        $scope.addError(msg);
+      });
     });
   };
 }]);
@@ -27,8 +32,13 @@ angular.module('posts').controller('PostsNewController',
   $scope.save = function () {
     this.post.$save(function(post) {
       $location.path('/posts/' + post.link);
-    }, function () {
-      $scope.addError('You seem to be missing some information!');
+      $scope.clearFlashes();
+      $scope.addNotice("Post added.");
+    }, function (response) {
+      $scope.clearFlashes();
+      angular.forEach(response.data||[], function (msg) {
+        $scope.addError(msg);
+      });
     });
   };
 }]);
