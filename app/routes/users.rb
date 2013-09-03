@@ -18,6 +18,6 @@ post '/users.json' do
   if user.save
     user.to_json
   else
-    halt 400
+    halt 400, user.errors.full_messages.to_json
   end
 end

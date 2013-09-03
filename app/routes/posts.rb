@@ -15,7 +15,7 @@ end
 
 # new
 post '/posts.json' do
-  halt 400 unless session[:user]
+  halt 400, ['You must be logged in!'].to_json unless session[:user]
 
   data = JSON.parse request.body.read
   fields = data.select { |key, val| ALLOWED_POST_FIELDS.include? key }
@@ -24,7 +24,7 @@ post '/posts.json' do
   if post.save
     post.to_json
   else
-    halt 400
+    halt 400, post.errors.full_messages.to_json
   end
 end
 
