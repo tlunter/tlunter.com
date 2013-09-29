@@ -4,7 +4,7 @@ After=syslog.target
 
 [Service]
 User=tlunter
-WorkingDirectory=/home/tlunter/Home/Projects/Ruby/tlunter.com
+WorkingDirectory=/home/tlunter/Projects/Ruby/tlunter.com
 ExecStart=/usr/bin/zsh -lc 'RACK_ENV=production rbenv exec bundle exec foreman start'
 Restart=always
 StandardInput=null
