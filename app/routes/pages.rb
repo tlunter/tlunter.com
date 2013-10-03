@@ -4,6 +4,7 @@ IP_WHITELIST_PAGES = ['/posts/new']
 IP_WHITELIST = [
   /127.0.0.1/,
   /192\.168\.1\.\d{1,3}/,
+  /192\.168\.2\.\d{1,3}/,
   /24.218.39.32/
 ]
 
@@ -20,7 +21,7 @@ IP_WHITELIST_PAGES.each do |page|
 end
 
 before '*' do
-  unless request.path_info.end_with?(".json")
+  unless request.path_info =~ /\.(\w+)$/
     request.path_info = '/'
   end
 end
