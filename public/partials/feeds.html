@@ -1,0 +1,13 @@
+        <div class="section-row">
+          <div class="section">
+            <h1><a href="{{ feedUrl }}" target="_blank">{{ feed }}</a></h1>
+            <ul class="feed-content">
+              <li ng-repeat="item in feedItems">
+              <h3>
+                  <a href="{{ item.link }}" target="_blank">{{ item.title }}</a>
+              </h3>
+              on {{ item.published }}
+              </li>
+            </ul>
+          </div>
+        </div>

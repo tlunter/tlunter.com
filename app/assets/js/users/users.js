@@ -1,4 +1,4 @@
-angular.module('users', ['resource.user']);
+angular.module('users', ['ngRoute', 'resource.user']);
 
 angular.module('users').controller('UsersLoginController',
     ['$scope', '$location', 'User', 'credentials',

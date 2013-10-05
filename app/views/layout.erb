@@ -2,12 +2,12 @@
 <html ng-app="app">
   <head>
     <title>tLunter.com</title>
-    <meta name="viewport" content="width=device-width">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
     <meta name="fragment" content="!">
-    <link href="http://fonts.googleapis.com/css?family=Source+Code+Pro:400,500|Open+Sans:300,400,600" rel="stylesheet">
+    <link href="http://fonts.googleapis.com/css?family=Source+Code+Pro:400,500|Open+Sans:300,400,600|Playball" rel="stylesheet">
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/font-awesome.min.css">
-    <link rel="stylesheet" href="/css/tlunter.com.min.css">
+    <link rel="stylesheet" href="/css/tlunter.com.min.css" >
     <script type="text/javascript" src="/js/jquery.min.js"></script>
     <script type="text/javascript" src="/js/bootstrap.js"></script>
     <script type="text/javascript" src="/js/angular.js"></script>
@@ -18,91 +18,68 @@
       <div id="nav">
         <div class="center-nav">
           <ul class="nav">
-            <li>
-              <span class="icon-3x icon-stack">
-                <i class="icon-check-empty icon-stack-base"></i>
-                <a ng-href="/">
-                  <i class="icon-home"></i>
-                </a>
-              </span>
+            <li class="header">
+              tlunter.com
             </li>
             <li>
-              <span class="icon-3x icon-stack">
-                <i class="icon-check-empty icon-stack-base"></i>
-                <a ng-href="/about">
-                  <i class="icon-info"></i>
-                </a>
-              </span>
+              <a ng-href="/">Home</a>
+            </li>
+            <li>
+              <a ng-href="/about">About</a>
+            </li>
+            <li>
+              <a ng-href="/contributions">Contributions</a>
+            </li>
+            <li>
+              <a href="mailto:tlunter@gmail.com" target="_blank">E-mail</a>
+            </li>
+            <li class="header">
+              Feeds
+            </li>
+            <li>
+              <a href="/feeds/github">GitHub</a>
+            </li>
+            <li>
+              <a href="/feeds/twitter">Twitter</a>
+            </li>
+            <li>
+              <a href="/feeds/stackoverflow">StackOverflow</a>
+            </li>
+            <li class="header">
+              Authentication
             </li>
             <li ng-show="isAuthenticated()">
-              <span class="icon-3x icon-stack">
-                <i class="icon-check-empty icon-stack-base"></i>
-                <a ng-href="/logout">
-                  <i class="icon-signout"></i>
-                </a>
-              </span>
+              <a ng-href="/logout">Logout</a>
             </li>
             <li ng-hide="isAuthenticated()">
-              <span class="icon-3x icon-stack">
-                <i class="icon-check-empty icon-stack-base"></i>
-                <a ng-href="/login">
-                  <i class="icon-signin"></i>
-                </a>
-              </span>
+              <a ng-href="/login">Login</a>
             </li>
             <li ng-hide="isAuthenticated()">
-              <span class="icon-3x icon-stack">
-                <i class="icon-check-empty icon-stack-base"></i>
-                <a ng-href="/register">
-                  <i class="icon-plus"></i>
-                </a>
-              </span>
-            </li>
-            <li>
-              <span class="icon-3x icon-stack">
-                <i class="icon-check-empty icon-stack-base"></i>
-                <a href="http://www.github.com/tlunter" target="_blank">
-                  <i class="icon-github"></i>
-                </a>
-              </span>
-            </li>
-            <li>
-              <span class="icon-3x icon-stack">
-                <i class="icon-check-empty icon-stack-base"></i>
-                <a href="http://www.twitter.com/tlunter" target="_blank">
-                  <i class="icon-twitter"></i>
-                </a>
-              </span>
-            </li>
-            <li>
-              <span class="icon-3x icon-stack">
-                <i class="icon-check-empty icon-stack-base"></i>
-                <a href="mailto:tlunter@gmail.com" target="_blank">
-                  <i class="icon-envelope"></i>
-                </a>
-              </span>
+              <a ng-href="/register">Register</a>
             </li>
           </ul>
+          <div class="copyright">
+            Copyright &copy; Todd Lunter.
+          </div>
         </div>
       </div>
-      <div id="content">
-        <div id="content-container" ng-controller="MainController">
-          <div ng-repeat="flash in notices">
-            <div class="alert alert-success fade" ng-class="{in: !flash.toRemove}">
-              <a href="#" class="close" ng-click="removeNotice(flash.id)" data-dismiss="alert">&times;</a>
-              <strong>Well done!</strong> {{ flash.text }}
-            </div>
+      <div id="content" ng-controller="MainController">
+        <div ng-repeat="flash in notices">
+          <div class="alert alert-success fade" ng-class="{in: !flash.toRemove}">
+            <a href="#" class="close" ng-click="removeNotice(flash.id)" data-dismiss="alert">&times;</a>
+            <strong>Well done!</strong> {{ flash.text }}
           </div>
-          <div ng-repeat="flash in errors">
-            <div class="alert alert-error fade" ng-class="{in: !flash.toRemove}">
-              <a href="#" class="close" ng-click="removeError(flash.id)" data-dismiss="alert">&times;</a>
-              <strong>Oh no!</strong> {{ flash.text }}
-            </div>
+        </div>
+        <div ng-repeat="flash in errors">
+          <div class="alert alert-error fade" ng-class="{in: !flash.toRemove}">
+            <a href="#" class="close" ng-click="removeError(flash.id)" data-dismiss="alert">&times;</a>
+            <strong>Oh no!</strong> {{ flash.text }}
           </div>
-          <div ng-view>
-          </div>
+        </div>
+        <div ng-view>
         </div>
       </div>
     </div>
   </body>
 </html>
+

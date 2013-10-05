@@ -1,12 +1,31 @@
 @content-font: "Open Sans";
 @content-text-color: #222222;
 @content-text-shadow-color: #eeeeee;
-@content-background-color: #f8f8f8;
+@content-background-color: #ebebeb;
 
 @nav-background-color: #222222;
 @nav-text-color: #0c91c7;
 @nav-link-color: #4dbce9;
 @nav-link-hover-color: #d1e751;
+
+/* smartphones, iPhone, portrait 480x320 phones */
+@media (min-width:320px) {
+}
+/* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */
+@media (min-width:481px) { 
+}
+/* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */
+@media (min-width:641px) { 
+}
+/* tablet, landscape iPad, lo-res laptops ands desktops */
+@media (min-width:961px) {
+}
+/* big landscape tablets, laptops, and desktops */
+@media (min-width:1025px) {
+}
+/* hi-res laptops and desktops */
+@media (min-width:1281px) {
+}
 
 html, body {
   padding: 0;
@@ -16,220 +35,166 @@ html, body {
   background: @content-background-color;
   color: @content-text-color;
 }
+
 div {
   padding: 0;
   margin: 0;
 }
+
 table {
   td, th {
     padding: 5px;
   }
 }
+
 #container {
-  width: 100%;
   height: 100%;
 
   font-family: @content-font;
   font-weight: 400;
 }
 #nav {
-  width: 94px;
-  height: 100%;
-
   margin: 0;
   padding: 0;
+
   border: 0;
 
+  color: #fff;
   background: @nav-background-color;
 
-  float: left;
-
-  @media (max-width: 640px) {
-    width: 55px;
+  @media (min-width:0px) {
   }
-  @media (max-width: 360px) {
-    width: 45px;
+  /* smartphones, iPhone, portrait 480x320 phones */
+  @media (min-width:320px) {
+    width: 100%;
+  }
+  /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */
+  @media (min-width:481px) { 
+    position: fixed;
+
+    right: 0;
+
+    height: 100%;
+    width: 150px;
+  }
+  /* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */
+  @media (min-width:641px) { 
+    width: 250px;
+  }
+  /* tablet, landscape iPad, lo-res laptops ands desktops */
+  @media (min-width:961px) {
+  }
+  /* big landscape tablets, laptops, and desktops */
+  @media (min-width:1025px) {
+  }
+  /* hi-res laptops and desktops */
+  @media (min-width:1281px) {
+    width: 350px;
   }
 
   .center-nav {
     text-align: center;
     padding-top: 9px;
-  }
+    height: 100%;
 
-  ul.nav {
-    list-style: none;
-
-    [class^="icon-"],
-    [class*=" icon-"] {
-      color: @nav-text-color;
-    }
-
-    .icon-stack {
-      @media (max-width: 640px) {
-        font-size: 1.75em;
-      }
-      @media (max-width: 360px) {
-        font-size: 1.30em;
-      }
-    }
-
-    a [class^="icon"],
-    a [class*=" icon-"] {
+    ul.nav {
+      list-style: none;
       
-      color: @nav-link-color;
+      @media (min-height:769px) {
+        /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */
+        @media (min-width:481px) {
+          margin: 75px 0 0 0;
+        }
+      }
 
-      &:hover {
-        color: @nav-link-hover-color;
-        text-decoration: none;
-      }
-    }
-    .icon-home {
-      margin-top: -3px;
+      li {
+        &.header {
+          font-family: 'Playball', cursive;
 
-      @media (max-width: 640px) {
-        margin-top: -1.5px;
-      }
-      @media (max-width: 360px) {
-        margin-top: -2px;
-      }
-    }
-    .icon-user {
-      margin-top: -3px;
-    }
-    .icon-signin {
-      margin-top: -2px;
-    }
-    .icon-signout {
-      margin-top: -3px;
-      margin-left: 1px;
-    }
-    .icon-github {
-      margin-top: -3px;
+          @media (min-height:0px) {
+            @media (min-width:0px) {
+              line-height: 18px;
 
-      @media (max-width: 640px) {
-        margin-top: -1px;
-      }
-      @media (max-width: 360px) {
-        margin-top: -2px;
+              &:not(:first-child) {
+                margin-top: 14px;
+              }
+            }
+          }
+          @media (min-height:769px) {
+            @media (min-width:0px) {
+              line-height: 16px;
+
+              font-size: 16px;
+            }
+            /* smartphones, iPhone, portrait 480x320 phones */
+            @media (min-width:320px) {
+              line-height: 24px;
+
+              font-size: 24px;
+              &:not(:first-child) {
+                margin-top: 14px;
+              }
+            }
+            /* hi-res laptops and desktops */
+            @media (min-width:1281px) {
+              line-height: 36px;
+
+              font-size: 36px;
+            }
+          }
+        }
+
+        a:hover {
+          background: @nav-background-color;
+        }
       }
     }
-    .icon-twitter {
-      margin-top: -3px;
 
-      @media (max-width: 640px) {
-        margin-top: -1.5px;
-        margin-left: -0.5px;
-      }
-      @media (max-width: 360px) {
-        margin-top: -1.5px;
-        margin-left: 0px;
-      }
-    }
-    .icon-envelope {
-      margin-top: -4.5px;
+    div.copyright {
+      font-size: 10px;
 
-      @media (max-width: 640px) {
-        margin-top: -1.5px;
-        margin-left: 0px;
+      @media (min-height:0px) {
       }
-      @media (max-width: 360px) {
+      @media (min-height:769px) {
+        /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */
+        @media (min-width:481px) {
+          position: absolute;
+          width: 100%;
+          bottom: 20px;
+        }
       }
     }
   }
 }
+
 #content {
-  border-left: 94px solid #222222;
   padding: 5px;
 
   text-shadow: 0 2px @content-text-shadow-color;
   text-align: center;
 
-  @media (max-width: 640px) {
-    border-left: 55px solid #222222;
-    text-align: left;
+  @media (min-width:0px) {
   }
-  @media (max-width: 360px) {
-    border-left: 45px solid #222222;
+  /* smartphones, iPhone, portrait 480x320 phones */
+  @media (min-width:320px) {
   }
-
-  #content-container {
-    text-align: center;
-
-    .section-row {
-      display: inline-block;
-      width: 755px;
-        
-      @media (max-width: 875px) {
-        width: 375px;
-        display: block;
-      }
-      
-      @media (max-width: 640px) {
-        width: 350px;
-      }
-
-      @media (max-width: 360px) {
-        width: 305px;
-      }
-
-      .post-section {
-        .section;
-        width: 100%;
-      }
-
-      .feeds-section {
-        .section;
-        width: 100%;
-        min-height: 460px;
-        
-        @media (max-width: 875px) {
-          min-height: 550px;
-        }
-      }
-
-      .section {
-        margin: 12.5px 7.5px 12.5px 7.5px;
-        padding: 0 5px 0 5px;
-        text-align: left;
-        vertical-align: top;
-        display: inline-block;
-        width: 350px;
-
-        word-wrap: break-word;
-
-        @media (max-width: 360px) {
-          max-width: 275px;
-          margin: 7.5px 5px 7.5px 5px;
-        }
-
-        ul:not(.nav) {
-          list-style: none;
-          > li {
-            &:last-child {
-              padding-bottom: 25px;
-            }
-          }
-        }
-
-        ul {
-          margin: 0;
-        }
-        
-        .picture {
-          img {
-            border-radius: 10px;
-          }
-          @media (max-width: 857px) {
-            display: none;
-          }
-        }
-
-        p.line {
-          border-bottom: 1px solid @content-text-color;
-          width: 100%;
-        }
-      }
-    }
+  /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */
+  @media (min-width:481px) { 
+    margin-right: 150px;
+  }
+  /* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */
+  @media (min-width:641px) { 
+    margin-right: 250px;
+  }
+  /* tablet, landscape iPad, lo-res laptops ands desktops */
+  @media (min-width:961px) {
+  }
+  /* big landscape tablets, laptops, and desktops */
+  @media (min-width:1025px) {
+  }
+  /* hi-res laptops and desktops */
+  @media (min-width:1281px) {
+    margin-right: 350px;
   }
 }
 
@@ -237,6 +202,12 @@ h1 {
   font-size: 28px;
   line-height: 30px;
   margin: 0 0 20px 0;
+
+  a,
+  a:hover {
+    color: @content-text-color;
+    text-decoration: underline;
+  }
 }
 
 h2 {
@@ -279,35 +250,6 @@ h3 {
   text-align: left;
 }
 
-.post {
-  h2.title {
-    text-decoration: underline;
-  }
-
-  .body {
-    h1 {
-      font-size: 20px;
-      line-height: 24px;
-      margin: 20px 0 10px 0;
-      font-weight: 400;
-    }
-
-    h2 {
-      font-size: 18px;
-      line-height: 22px;
-      margin: 20px 0 10px 0;
-      font-weight: 400;
-    }
-
-    h3 {
-      font-size: 16px;
-      line-height: 20px;
-      margin: 20px 0 10px 0;
-      font-weight: 400;
-    }
-  }
-}
-
 .nav-tabs {
   float: left;
   border: 0;
@@ -337,11 +279,4 @@ h3 {
     border-radius: 4px;
     border: 1px solid transparent;
   }
-}
-
-.feed-content {
-  padding-left: 10px;
-  max-width: 600px;
-  display: inline-block;
-  float: left;
 }
