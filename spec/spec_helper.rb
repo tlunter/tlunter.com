@@ -1,3 +1,5 @@
+ENV['RACK_ENV'] = 'test'
+
 require File.join(File.dirname(__FILE__), '..', 'app.rb')
 require 'rack/test'
 require 'factory_girl'
@@ -5,7 +7,6 @@ require 'factory_girl'
 FactoryGirl.find_definitions
 
 # setup test environment
-set :environment, :test
 set :run, false
 set :raise_errors, true
 set :logging, false
