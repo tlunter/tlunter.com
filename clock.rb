@@ -66,4 +66,9 @@ module Clockwork
       end
     end
   end
+
+  every(1.day, 'dumps.refresh') do
+    database_file = File.join(DUMP_LOCATION, "#{Time.now.to_i.to_s}.sql")
+    raise "Dump failed!" unless system("mysqldump -h '#{DATABASE_HOST}' -u '#{DATABASE_USER}' -p'#{DATABASE_PASSWORD}' '#{DATABASE_DB}' > #{database_file}")
+  end
 end
