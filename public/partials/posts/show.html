@@ -1,14 +1,12 @@
 <div class="section-row">
   <div class="post-section">
     <div class="post" ng-show="post">
-      <p class="clearfix">
-        <span ng-show="post.previous" style="float:left;">
-          <a ng-href="/posts/{{ post.previous }}">Previous</a>
-        </span>
-        <span ng-show="post.next" style="float:right;">
-          <a ng-href="/posts/{{ post.next }}">Next</a>
-        </span>
-      </p>
+      <span ng-show="post.previous" style="float:left;">
+        <a ng-href="/posts/{{ post.previous }}">Previous</a>
+      </span>
+      <span ng-show="post.next" style="float:right;">
+        <a ng-href="/posts/{{ post.next }}">Next</a>
+      </span>
       <h1 class="title">{{ post.title }}</h1>
       <p><small>posted on {{ post.updated_at }}</small></p>
       <div class="body" ng-bind-html="post.body"></div>

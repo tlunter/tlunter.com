@@ -14,13 +14,15 @@
     <script type="text/javascript" src="/js/tlunter.com.js"></script>
   </head>
   <body>
-    <div id="container" ng-controller="AppController">
-      <div id="nav">
-        <div class="center-nav">
+    <div class="container">
+      <header>
+        Todd Lunter
+      </header>
+    </div>
+    <div class="container" ng-controller="AppController">
+      <div id="body">
+        <div id="nav">
           <ul class="nav">
-            <li class="header">
-              tlunter.com
-            </li>
             <li>
               <a ng-href="/">Home</a>
             </li>
@@ -33,20 +35,11 @@
             <li>
               <a href="mailto:tlunter@gmail.com" target="_blank">E-mail</a>
             </li>
-            <li class="header">
-              Feeds
+            <li>
+              <a href="https://github.com/tlunter">GitHub</a>
             </li>
             <li>
-              <a href="/feeds/github">GitHub</a>
-            </li>
-            <li>
-              <a href="/feeds/twitter">Twitter</a>
-            </li>
-            <li>
-              <a href="/feeds/stackoverflow">StackOverflow</a>
-            </li>
-            <li class="header">
-              Authentication
+              <a href="https://twitter.com/tlunter">Twitter</a>
             </li>
             <li ng-show="isAuthenticated()">
               <a ng-href="/logout">Logout</a>
@@ -62,21 +55,21 @@
             Copyright &copy; Todd Lunter.
           </div>
         </div>
-      </div>
-      <div id="content" ng-controller="MainController">
-        <div ng-repeat="flash in notices">
-          <div class="alert alert-success fade" ng-class="{in: !flash.toRemove}">
-            <a href="#" class="close" ng-click="removeNotice(flash.id)" data-dismiss="alert">&times;</a>
-            <strong>Well done!</strong> {{ flash.text }}
+        <div id="content" ng-controller="MainController">
+          <div ng-repeat="flash in notices">
+            <div class="alert alert-success fade" ng-class="{in: !flash.toRemove}">
+              <a href="#" class="close" ng-click="removeNotice(flash.id)" data-dismiss="alert">&times;</a>
+              <strong>Well done!</strong> {{ flash.text }}
+            </div>
           </div>
-        </div>
-        <div ng-repeat="flash in errors">
-          <div class="alert alert-error fade" ng-class="{in: !flash.toRemove}">
-            <a href="#" class="close" ng-click="removeError(flash.id)" data-dismiss="alert">&times;</a>
-            <strong>Oh no!</strong> {{ flash.text }}
+          <div ng-repeat="flash in errors">
+            <div class="alert alert-error fade" ng-class="{in: !flash.toRemove}">
+              <a href="#" class="close" ng-click="removeError(flash.id)" data-dismiss="alert">&times;</a>
+              <strong>Oh no!</strong> {{ flash.text }}
+            </div>
           </div>
-        </div>
-        <div ng-view>
+          <div ng-view>
+          </div>
         </div>
       </div>
     </div>
