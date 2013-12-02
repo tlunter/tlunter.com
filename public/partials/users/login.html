@@ -1,23 +1,20 @@
         <div class="section-row">
           <div class="section">
-            <form class="form-horizontal" ng-submit="login()">
-              <div class="control-group">
-                <label class="control-label" for="credentials_email">Email:</label>
-                <div class="controls">
+            <h1>Login</h1>
+            <form class="pure-form pure-form-aligned" ng-submit="login()">
+              <fieldset>
+                <div class="pure-control-group">
+                  <label for="credentials_email">Email:</label>
                   <input type="text" id="credentials_email" ng-model="credentials.email">
                 </div>
-              </div>
-              <div class="control-group">
-                <label class="control-label" for="credentials_password">Password:</label>
-                <div class="controls">
+                <div class="pure-control-group">
+                  <label for="credentials_password">Password:</label>
                   <input type="password" id="credentials_password" ng-model="credentials.password">
                 </div>
-              </div>
-              <div class="control-group">
-                <div class="controls">
-                  <input type="submit" class="btn btn-primary" value="Login">
+                <div class="pure-controls">
+                  <button type="submit" class="pure-button pure-button-primary">Login</button>
                 </div>
-              </div>
+              </fieldset>
             </form>
           </div>
         </div>
