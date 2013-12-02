@@ -13,6 +13,16 @@ get '/posts.json' do
   posts.to_json
 end
 
+get %r{/posts.rss} do
+  @posts = Post.all(:order => :updated_at.desc)
+
+  @posts.each do |p|
+    p.body = App.markdown.render p.body
+  end
+  
+  erb :rss, layout: false
+end
+
 # new
 post '/posts.json' do
   halt 400, ['You must be logged in!'].to_json unless session[:user]
