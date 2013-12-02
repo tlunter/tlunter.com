@@ -1,19 +1,11 @@
         <div class="section-row">
           <div class="section">
             <h1>Login</h1>
-            <form class="pure-form pure-form-aligned" ng-submit="login()">
+            <form class="pure-form pure-form-stacked form-center" ng-submit="login()">
               <fieldset>
-                <div class="pure-control-group">
-                  <label for="credentials_email">Email:</label>
-                  <input type="text" id="credentials_email" ng-model="credentials.email">
-                </div>
-                <div class="pure-control-group">
-                  <label for="credentials_password">Password:</label>
-                  <input type="password" id="credentials_password" ng-model="credentials.password">
-                </div>
-                <div class="pure-controls">
-                  <button type="submit" class="pure-button pure-button-primary">Login</button>
-                </div>
+                <input type="text" placeholder="Email" ng-model="credentials.email">
+                <input type="password" placeholder="Password" ng-model="credentials.password">
+                <button type="submit" class="pure-button pure-button-primary">Login</button>
               </fieldset>
             </form>
           </div>
