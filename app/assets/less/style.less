@@ -9,8 +9,6 @@
 @page-background-color: #3f3f3f;
 
 @nav-background-color: #b6bdc0;
-@nav-link-hover-color: #d1e751;
-
 @nav-item-link-color: #191919;
 @nav-item-background-color: #e4e6e7;
 @nav-item-border-color: #708388;
@@ -38,25 +36,30 @@
 html, body {
   padding: 0;
   margin: 0;
+}
+
+body {
   height: 100%;
 
   background: @page-background-color;
   color: @content-text-color;
+
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 20px;
 }
 
-div {
+div, ul {
   padding: 0;
   margin: 0;
 }
 
-table {
-  td, th {
-    padding: 5px;
-  }
-}
-
 a {
   color: #0b8ea1;
+}
+
+p {
+  margin: 0 0 10px;
 }
 
 .container {
@@ -80,6 +83,14 @@ header {
   margin: 25px 0 15px 10px;
 
   color: @header-text-color;
+
+  a {
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
 }
 
 #nav {
@@ -126,20 +137,31 @@ header {
       }
     }
 
-    li > a {
-      font-size: 18px;
+    > li {
+      position: relative;
+      display: block;
 
-      color: @nav-item-link-color;
+      > a {
+        font-size: 14px;
 
-      margin: 15px 0 15px 0;
-      padding: 10px;
+        color: @nav-item-link-color;
 
-      background-color: @nav-item-background-color;
-      border-top: 1px solid @nav-item-border-color;
-      border-bottom: 1px solid @nav-item-border-color;
+        margin: 15px 0 15px 0;
+        padding: 5px;
 
-      &:hover {
-        background-color: @nav-item-hover-background-color;
+        background-color: @nav-item-background-color;
+        border-top: 1px solid @nav-item-border-color;
+        border-bottom: 1px solid @nav-item-border-color;
+
+        display: block;
+        text-decoration: none;
+
+        &:hover {
+          background-color: @nav-item-hover-background-color;
+        }
+        &:focus {
+          text-decoration: none;
+        }
       }
     }
   }
@@ -219,31 +241,71 @@ h3 {
   line-height: 18px;
 }
 
-.form-horizontal {
-  .control-label {
-    width: 100px;
-    text-align: left;
-    float: none;
-  }
+.alert {
+  padding: 15px 35px 15px 15px;
+  border: 1px solid transparent;
+  border-radius: 4px;
 
-  .control-group {
-    .controls {
-      margin-left: 0;
+  text-align: left;
 
-      textarea {
-        margin: 0;
-        padding: 0;
-        width: 100%;
-        height: 250px;
+  .close {
+    float: right;
 
-        &.comment {
-          height: 100px;
-        }
-      }
+    position: relative;
+
+    top: -2px;
+    right: -21px;
+
+    font-size: 21px;
+    font-weight: bold;
+    line-height: 1;
+
+    color: inherit;
+    background: transparent;
+    opacity: 0.2;
+    filter: alpha(opacity=20);
+
+    border: 0;
+
+    cursor: pointer;
+
+    &:hover,
+    &:focus {
+      color: #000;
+      opacity: 0.5;
+
+      cursor: pointer;
     }
   }
 }
 
-.alert {
-  text-align: left;
+.alert-success {
+  color: #3c763d;
+  background-color: #dff0d8;
+  border-color: darken(spin(#dff0d8, -10), 5%);
+}
+
+.alert-error {
+  color: #a94442;
+  background-color: #f2dede;
+  border-color: darken(spin(#f2dede, -10), 5%);
+}
+
+.pure-form input[type="text"],
+.pure-form input[type="password"],
+.pure-form input[type="email"],
+.pure-form input[type="url"],
+.pure-form input[type="date"],
+.pure-form input[type="month"],
+.pure-form input[type="time"],
+.pure-form input[type="datetime"],
+.pure-form input[type="datetime-local"],
+.pure-form input[type="week"],
+.pure-form input[type="number"],
+.pure-form input[type="search"],
+.pure-form input[type="tel"],
+.pure-form input[type="color"],
+.pure-form select,
+.pure-form textarea {
+  font-size: 1em;
 }
