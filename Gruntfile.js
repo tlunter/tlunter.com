@@ -1,3 +1,5 @@
+var path = require('path');
+
 module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-concat');
@@ -8,16 +10,6 @@ module.exports = function(grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     copy: {
-      jquery: {
-        files: [
-          {
-            expand: true,
-            cwd: 'bower_components/jquery/',
-            src: ['jquery.js', 'jquery.min.js'],
-            dest: 'public/js/'
-          }
-        ]
-      },
       angular: {
         files: [
           {
@@ -73,34 +65,55 @@ module.exports = function(grunt) {
             dest: 'public/font/'
           }
         ]
+      },
+      purecss: {
+        files: [
+          {
+            expand: true,
+            flatten: true,
+            src: [
+              'bower_components/normalize-css/normalize.css',
+              'bower_components/purecss/src/**/*.css'
+            ],
+            dest: 'tmp/purecss',
+            rename: function (dest, src) {
+              // normalize -> base
+              if (src === 'normalize.css') {
+                src = 'base.css';
+              }
+
+              return path.join(dest, src);
+            }
+          }
+        ]
       }
     },
     concat: {
       options: {
         // define a string to put between each file in the concatenated output
-        separator: ';'
+        separator: ''
       },
       angular: {
         src: ['tmp/angular/angular.js', 'tmp/angular/angular-resource.js', 'tmp/angular/angular-route.js', 'tmp/angular/angular-sanitize.js'],
         dest: 'public/js/angular.js'
       },
-      bootstrap: {
+      purecss: {
         src: [
-          'bower_components/bootstrap/js/bootstrap-transition.js',
-          'bower_components/bootstrap/js/bootstrap-alert.js',
-          'bower_components/bootstrap/js/bootstrap-button.js',
-          'bower_components/bootstrap/js/bootstrap-carousel.js',
-          'bower_components/bootstrap/js/bootstrap-collapse.js',
-          'bower_components/bootstrap/js/bootstrap-dropdown.js',
-          'bower_components/bootstrap/js/bootstrap-modal.js',
-          'bower_components/bootstrap/js/bootstrap-tooltip.js',
-          'bower_components/bootstrap/js/bootstrap-popover.js',
-          'bower_components/bootstrap/js/bootstrap-scrollspy.js',
-          'bower_components/bootstrap/js/bootstrap-tab.js',
-          'bower_components/bootstrap/js/bootstrap-typeahead.js',
-          'bower_components/bootstrap/js/bootstrap-affix.js'
+          'tmp/purecss/base.css',
+          'tmp/purecss/buttons-core.css',
+          'tmp/purecss/buttons.css',
+          'tmp/purecss/forms.css',
+          'tmp/purecss/forms-r.css',
+          'tmp/purecss/grids-core.css',
+          'tmp/purecss/grids-units.css',
+          'tmp/purecss/grids-r.css',
+          'tmp/purecss/menus-core.css',
+          'tmp/purecss/menus.css',
+          'tmp/purecss/menus-paginator.css',
+          'tmp/purecss/menus-r.css',
+          'tmp/purecss/tables.css',
         ],
-        dest: 'public/js/bootstrap.js'
+        dest: 'public/css/pure.css'
       },
       js: {
         // the files to concatenate
@@ -113,16 +126,12 @@ module.exports = function(grunt) {
       css: {
         src: ['app/assets/less/**/*.less'],
         dest: 'tmp/less/<%= pkg.name %>.less'
-      },
+      }
     },
     uglify: {
       js: {
         src: ['<%= concat.js.dest %>'],
         dest: 'public/js/<%= pkg.name %>.min.js'
-      },
-      bootstrap: {
-        src: ['<%= concat.bootstrap.dest %>'],
-        dest: 'public/js/bootstrap.min.js'
       }
     },
     watch: {
@@ -132,28 +141,6 @@ module.exports = function(grunt) {
       }
     },
     recess: {
-      bootstrap: {
-        options: {
-          compile: true
-        },
-        files: [
-          {
-            expand: true,
-            cwd: 'bower_components/bootstrap/less',
-            src: 'bootstrap.less',
-            dest: 'public/css/',
-            ext: '.css'
-          }
-        ]
-      },
-      bootstrap_min: {
-        options: {
-          compress: true
-        },
-        files: {
-          'public/css/bootstrap.min.css': 'public/css/bootstrap.css'
-        }
-      },
       dist: {
         options: {
           compile: true
@@ -167,7 +154,8 @@ module.exports = function(grunt) {
           compress: true
         },
         files: {
-          'public/css/<%= pkg.name %>.min.css': 'public/css/<%= pkg.name %>.css'
+          'public/css/<%= pkg.name %>.min.css': 'public/css/<%= pkg.name %>.css',
+          'public/css/pure.min.css': 'public/css/pure.css'
         }
       }
     }
