@@ -4,7 +4,6 @@ require 'rubygems'
 require 'sinatra'
 require 'rack/csrf'
 require 'redcarpet'
-require 'twitter'
 require 'pry'
 
 class App < Sinatra::Application
