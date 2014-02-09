@@ -1,17 +1,22 @@
+//@page-background-color: #3f3f3f;
+@page-background-color: #f9f9f9;
+
 @header-text-color: #0b8ea1;
 
 @content-border-color: #708388;
 @content-font: "Open Sans";
 @content-text-color: #222222;
 @content-text-shadow-color: #eeeeee;
-@content-background-color: #d7d7d7;
+//@content-background-color: #d7d7d7;
+@content-background-color: @page-background-color;
 
-@page-background-color: #3f3f3f;
 
-@nav-background-color: #b6bdc0;
+//@nav-background-color: #b6bdc0;
+@nav-background-color: @page-background-color;
 @nav-item-link-color: #191919;
-@nav-item-background-color: #e4e6e7;
-@nav-item-border-color: #708388;
+//@nav-item-background-color: #e4e6e7;
+@nav-item-background-color: @page-background-color;
+@nav-item-border-color: #c6cdcf;
 @nav-item-hover-background-color: #f7f7f7;
 
 /* smartphones, iPhone, portrait 480x320 phones */
@@ -45,7 +50,7 @@ body {
   color: @content-text-color;
 
   font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 14px;
+  font-size: 16px;
   line-height: 20px;
 }
 
@@ -66,21 +71,21 @@ p {
   font-family: @content-font;
   font-weight: 400;
 
-  width: 900px;
   margin: 0 auto;
 }
 
 #body {
-  min-height: 480px;
   position: relative;
 }
 
 header {
+  width: 100%;
+  text-align: center;
   font-family: Georgia, serif;
   font-size: 36px;
   line-height: normal;
 
-  margin: 25px 0 15px 10px;
+  margin: 15px 0 15px 0;
 
   color: @header-text-color;
 
@@ -94,7 +99,7 @@ header {
 }
 
 #nav {
-  width: 150px;
+  width: 250px;
   margin: 0;
 
   border: 0;
@@ -131,8 +136,8 @@ header {
   ul.nav {
     list-style: none;
 
+    /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */
     @media (min-height:769px) {
-      /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */
       @media (min-width:481px) {
       }
     }
@@ -142,7 +147,8 @@ header {
       display: block;
 
       > a {
-        font-size: 14px;
+        font-size: 18px;
+        line-height: 26px;
 
         color: @nav-item-link-color;
 
@@ -176,8 +182,8 @@ header {
 
     @media (min-height:0px) {
     }
+    /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */
     @media (min-height:769px) {
-      /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */
       @media (min-width:481px) {
       }
     }
@@ -186,12 +192,12 @@ header {
 
 #content {
   padding: 5px;
-  margin: 0 0 0 150px;
+  margin: 0 0 0 250px;
 
   text-shadow: 0 2px @content-text-shadow-color;
   text-align: center;
 
-  border-left: 1px solid @content-border-color;
+  //border-left: 1px solid @content-border-color;
 
   background-color: @content-background-color;
   min-height: 480px;
