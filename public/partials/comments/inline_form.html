@@ -1,14 +1,5 @@
-      <div name="comments_form" class="form-horizontal">
-        <div class="control-group">
-          <label class="control-label" for="comment_body">Comment:</label>
-          <div class="controls">
-            <textarea id="comment_body" name="comment_body" ng-model="comment.body" class="comment" required></textarea>
-          </div>
-          <span class="help-inline pull-right">Supports Markdown</span>
-        </div>
-        <div class="control-group">
-          <div class="controls">
-            <input name="comment" value="Comment" type="submit" class="btn btn-primary" ng-click="save()">
-          </div>
-        </div>
+      <div name="comments_form" class="pure-form pure-form-stacked">
+        <textarea id="comment_body" name="comment_body" ng-model="comment.body" class="comment" required></textarea>
+        <span class="pull-right">Supports Markdown</span>
+        <input name="comment" value="Comment" type="submit" class="pure-button pure-button-primary" ng-click="save()">
       </div>

@@ -1,23 +1,12 @@
         <div class="section-row">
           <div class="section">
-            <form class="form-horizontal" ng-submit="login()">
-              <div class="control-group">
-                <label class="control-label" for="credentials_email">Email:</label>
-                <div class="controls">
-                  <input type="text" id="credentials_email" ng-model="credentials.email">
-                </div>
-              </div>
-              <div class="control-group">
-                <label class="control-label" for="credentials_password">Password:</label>
-                <div class="controls">
-                  <input type="password" id="credentials_password" ng-model="credentials.password">
-                </div>
-              </div>
-              <div class="control-group">
-                <div class="controls">
-                  <input type="submit" class="btn btn-primary" value="Login">
-                </div>
-              </div>
+            <h1>Login</h1>
+            <form class="pure-form pure-form-stacked form-center" ng-submit="login()">
+              <fieldset>
+                <input type="text" placeholder="Email" ng-model="credentials.email">
+                <input type="password" placeholder="Password" ng-model="credentials.password">
+                <button type="submit" class="pure-button pure-button-primary">Login</button>
+              </fieldset>
             </form>
           </div>
         </div>

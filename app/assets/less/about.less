@@ -1,11 +1,7 @@
-.post {
-  text-align: left;
+.about {
+  > div.pure-g {
+    margin: 10px 0 20px 0;
 
-  h1.title {
-    text-decoration: underline;
-  }
-
-  .body {
     h1 {
       font-size: 24px;
       line-height: 24px;
@@ -28,20 +24,23 @@
       font-style: italic;
     }
 
-    ol {
-      padding: 0 0 0 30px;
+    > div {
+      vertical-align: middle;
+    }
+  }
+
+  > div.no-gap {
+    &.first {
+      margin-bottom: 0;
     }
 
-    code {
-      margin: 0 30px 0 0;
-      padding: 10px;
+    &.middle {
+      margin-top: 0;
+      margin-bottom: 0;
+    }
 
-      border-radius: 5px;
-      border: 1px solid transparent;
-
-      background: #f7f7f7;
-
-      display: block;
+    &.last {
+      margin-top: 0;
     }
   }
 }

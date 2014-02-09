@@ -1,21 +1,32 @@
+//@page-background-color: #3f3f3f;
+@page-background-color: #f9f9f9;
+
+@header-text-color: #0b8ea1;
+
+@content-border-color: #708388;
 @content-font: "Open Sans";
 @content-text-color: #222222;
 @content-text-shadow-color: #eeeeee;
-@content-background-color: #ebebeb;
+//@content-background-color: #d7d7d7;
+@content-background-color: @page-background-color;
 
-@nav-background-color: #222222;
-@nav-text-color: #0c91c7;
-@nav-link-color: #4dbce9;
-@nav-link-hover-color: #d1e751;
+
+//@nav-background-color: #b6bdc0;
+@nav-background-color: @page-background-color;
+@nav-item-link-color: #191919;
+//@nav-item-background-color: #e4e6e7;
+@nav-item-background-color: @page-background-color;
+@nav-item-border-color: #c6cdcf;
+@nav-item-hover-background-color: #f7f7f7;
 
 /* smartphones, iPhone, portrait 480x320 phones */
 @media (min-width:320px) {
 }
 /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */
-@media (min-width:481px) { 
+@media (min-width:481px) {
 }
 /* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */
-@media (min-width:641px) { 
+@media (min-width:641px) {
 }
 /* tablet, landscape iPad, lo-res laptops ands desktops */
 @media (min-width:961px) {
@@ -30,138 +41,186 @@
 html, body {
   padding: 0;
   margin: 0;
-  height: 100%;
-
-  background: @content-background-color;
-  color: @content-text-color;
 }
 
-div {
+body {
+  height: 100%;
+
+  background: @page-background-color;
+  color: @content-text-color;
+
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  line-height: 20px;
+}
+
+div, ul {
   padding: 0;
   margin: 0;
 }
 
-table {
-  td, th {
-    padding: 5px;
+a {
+  color: #0b8ea1;
+}
+
+p {
+  margin: 0 0 10px;
+}
+
+.container {
+  font-family: @content-font;
+  font-weight: 400;
+
+  margin: 0 auto;
+}
+
+#body {
+  position: relative;
+}
+
+header {
+  width: 100%;
+  text-align: center;
+  font-family: Georgia, serif;
+  font-size: 36px;
+  line-height: normal;
+
+  margin: 15px 0 15px 0;
+
+  color: @header-text-color;
+
+  a {
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
   }
 }
 
-#container {
-  height: 100%;
+div.nav-button {
+  margin: 10px 0 0 10px;
 
-  font-family: @content-font;
-  font-weight: 400;
-}
-#nav {
-  margin: 0;
-  padding: 0;
-
-  border: 0;
-
-  color: #fff;
-  background: @nav-background-color;
+  h3 {
+    margin: 0;
+  }
 
   @media (min-width:0px) {
+    display: block;
+    visibility: visible;
   }
   /* smartphones, iPhone, portrait 480x320 phones */
   @media (min-width:320px) {
-    width: 100%;
   }
   /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */
-  @media (min-width:481px) { 
-    position: fixed;
-
-    right: 0;
-
-    height: 100%;
-    width: 150px;
+  @media (min-width:481px) {
   }
   /* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */
-  @media (min-width:641px) { 
-    width: 250px;
+  @media (min-width:641px) {
   }
   /* tablet, landscape iPad, lo-res laptops ands desktops */
   @media (min-width:961px) {
+    display: none;
+    visibility: hidden;
   }
   /* big landscape tablets, laptops, and desktops */
   @media (min-width:1025px) {
   }
   /* hi-res laptops and desktops */
   @media (min-width:1281px) {
-    width: 350px;
+  }
+}
+
+div.nav {
+  margin: 0;
+
+  border: 0;
+
+  color: #fff;
+  background: @nav-background-color;
+
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+
+  @media (min-width:0px) {
+    display: none;
+    visibility: hidden;
+    width: 100%;
+  }
+  /* smartphones, iPhone, portrait 480x320 phones */
+  @media (min-width:320px) {
+  }
+  /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */
+  @media (min-width:481px) {
+  }
+  /* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */
+  @media (min-width:641px) {
+  }
+  /* tablet, landscape iPad, lo-res laptops ands desktops */
+  @media (min-width:961px) {
+    display: block;
+    visibility: visible;
+    width: 250px;
+  }
+  /* big landscape tablets, laptops, and desktops */
+  @media (min-width:1025px) {
+  }
+  /* hi-res laptops and desktops */
+  @media (min-width:1281px) {
   }
 
-  .center-nav {
-    text-align: center;
-    padding-top: 9px;
-    height: 100%;
+  ul.nav {
+    list-style: none;
 
-    ul.nav {
-      list-style: none;
-      
-      @media (min-height:769px) {
-        /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */
-        @media (min-width:481px) {
-          margin: 75px 0 0 0;
-        }
-      }
-
-      li {
-        &.header {
-          font-family: 'Playball', cursive;
-
-          @media (min-height:0px) {
-            @media (min-width:0px) {
-              line-height: 18px;
-
-              &:not(:first-child) {
-                margin-top: 14px;
-              }
-            }
-          }
-          @media (min-height:769px) {
-            @media (min-width:0px) {
-              line-height: 16px;
-
-              font-size: 16px;
-            }
-            /* smartphones, iPhone, portrait 480x320 phones */
-            @media (min-width:320px) {
-              line-height: 24px;
-
-              font-size: 24px;
-              &:not(:first-child) {
-                margin-top: 14px;
-              }
-            }
-            /* hi-res laptops and desktops */
-            @media (min-width:1281px) {
-              line-height: 36px;
-
-              font-size: 36px;
-            }
-          }
-        }
-
-        a:hover {
-          background: @nav-background-color;
-        }
+    /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */
+    @media (min-height:769px) {
+      @media (min-width:481px) {
       }
     }
 
-    div.copyright {
-      font-size: 10px;
+    > li {
+      position: relative;
+      display: block;
 
-      @media (min-height:0px) {
-      }
-      @media (min-height:769px) {
-        /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */
-        @media (min-width:481px) {
-          position: absolute;
-          width: 100%;
-          bottom: 20px;
+      > a {
+        font-size: 18px;
+        line-height: 26px;
+
+        color: @nav-item-link-color;
+
+        margin: 15px 0 15px 0;
+        padding: 5px;
+
+        background-color: @nav-item-background-color;
+        border-top: 1px solid @nav-item-border-color;
+        border-bottom: 1px solid @nav-item-border-color;
+
+        display: block;
+        text-decoration: none;
+
+        &:hover {
+          background-color: @nav-item-hover-background-color;
         }
+        &:focus {
+          text-decoration: none;
+        }
+      }
+    }
+  }
+  div.copyright {
+    color: #000;
+    font-size: 10px;
+
+    width: 100%;
+    text-align: center;
+
+    @media (min-height:0px) {
+    }
+    /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */
+    @media (min-height:769px) {
+      @media (min-width:481px) {
       }
     }
   }
@@ -173,28 +232,32 @@ table {
   text-shadow: 0 2px @content-text-shadow-color;
   text-align: center;
 
+  //border-left: 1px solid @content-border-color;
+
+  background-color: @content-background-color;
+  min-height: 480px;
+
   @media (min-width:0px) {
+    margin: 0;
   }
   /* smartphones, iPhone, portrait 480x320 phones */
   @media (min-width:320px) {
   }
   /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */
-  @media (min-width:481px) { 
-    margin-right: 150px;
+  @media (min-width:481px) {
   }
   /* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */
-  @media (min-width:641px) { 
-    margin-right: 250px;
+  @media (min-width:641px) {
   }
   /* tablet, landscape iPad, lo-res laptops ands desktops */
   @media (min-width:961px) {
+    margin: 0 0 0 250px;
   }
   /* big landscape tablets, laptops, and desktops */
   @media (min-width:1025px) {
   }
   /* hi-res laptops and desktops */
   @media (min-width:1281px) {
-    margin-right: 350px;
   }
 }
 
@@ -221,62 +284,78 @@ h3 {
   line-height: 18px;
 }
 
-.form-horizontal {
-  .control-label {
-    width: 100px;
-    text-align: left;
-    float: none;
-  }
-  
-  .control-group {
-    .controls {
-      margin-left: 0;
-
-      textarea {
-        margin: 0;
-        padding: 0;
-        width: 100%;
-        height: 250px;
-
-        &.comment {
-          height: 100px;
-        }
-      }
-    }
-  }
-}
-
 .alert {
+  padding: 15px 35px 15px 15px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+
   text-align: left;
-}
 
-.nav-tabs {
-  float: left;
-  border: 0;
-  width: auto;
+  .close {
+    float: right;
 
-  @media (max-width: 875px) {
-    width: 100%;
-  }
-      
+    position: relative;
 
-  li {
-    margin: 3px;
-    float: none;
-  }
-  
-  li.active > a {
-    border-radius: 4px;
-    border: 1px solid #ddd;
+    top: -2px;
+    right: -21px;
 
-    &:hover {
-      border-radius: 4px;
-      border: 1px solid #ddd;
+    font-size: 21px;
+    font-weight: bold;
+    line-height: 1;
+
+    color: inherit;
+    background: transparent;
+    opacity: 0.2;
+    filter: alpha(opacity=20);
+
+    border: 0;
+
+    cursor: pointer;
+
+    &:hover,
+    &:focus {
+      color: #000;
+      opacity: 0.5;
+
+      cursor: pointer;
     }
   }
+}
 
-  li > a:hover {
-    border-radius: 4px;
-    border: 1px solid transparent;
-  }
+.alert-success {
+  color: #3c763d;
+  background-color: #dff0d8;
+  border-color: darken(spin(#dff0d8, -10), 5%);
+}
+
+.alert-error {
+  color: #a94442;
+  background-color: #f2dede;
+  border-color: darken(spin(#f2dede, -10), 5%);
+}
+
+.pure-form input[type="text"],
+.pure-form input[type="password"],
+.pure-form input[type="email"],
+.pure-form input[type="url"],
+.pure-form input[type="date"],
+.pure-form input[type="month"],
+.pure-form input[type="time"],
+.pure-form input[type="datetime"],
+.pure-form input[type="datetime-local"],
+.pure-form input[type="week"],
+.pure-form input[type="number"],
+.pure-form input[type="search"],
+.pure-form input[type="tel"],
+.pure-form input[type="color"],
+.pure-form select,
+.pure-form textarea {
+  font-size: 1em;
+}
+
+.form-center {
+  margin: 0 auto;
+  text-align: center;
+
+  width: 170px;
 }

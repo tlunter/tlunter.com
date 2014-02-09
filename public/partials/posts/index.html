@@ -1,11 +1,13 @@
 <div class="section-row">
   <div class="section" ng-repeat="post in posts">
-    <h1 class="title">{{ post.title }}</h1>
-    <p><small>posted on {{ post.updated_at }} by <a href="mailto:{{ post.user.email }}">{{ post.user.username }}</a></small></p>
-    <div class="body" ng-bind-html="post.body"></div>
-    <p>&nbsp;</p>
-    <a ng-href="/posts/{{ post.link }}">Comments ({{ post.comments.length }})</a>
-    <p ng-hide="$last" class="line">&nbsp;</p>
+    <div class="post">
+      <h1 class="title">{{ post.title }}</h1>
+      <p><small>posted on {{ post.updated_at }} by <a href="mailto:{{ post.user.email }}">{{ post.user.username }}</a></small></p>
+      <div class="body" ng-bind-html="post.body"></div>
+      <p>&nbsp;</p>
+      <a ng-href="/posts/{{ post.link }}">Comments ({{ post.comments.length }})</a>
+      <p ng-hide="$last" class="line">&nbsp;</p>
+    </div>
   </div>
 </div>
 
