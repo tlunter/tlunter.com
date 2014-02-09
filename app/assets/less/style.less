@@ -98,8 +98,40 @@ header {
   }
 }
 
-#nav {
-  width: 250px;
+div.nav-button {
+  margin: 10px 0 0 10px;
+
+  h3 {
+    margin: 0;
+  }
+
+  @media (min-width:0px) {
+    display: block;
+    visibility: visible;
+  }
+  /* smartphones, iPhone, portrait 480x320 phones */
+  @media (min-width:320px) {
+  }
+  /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */
+  @media (min-width:481px) {
+  }
+  /* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */
+  @media (min-width:641px) {
+  }
+  /* tablet, landscape iPad, lo-res laptops ands desktops */
+  @media (min-width:961px) {
+    display: none;
+    visibility: hidden;
+  }
+  /* big landscape tablets, laptops, and desktops */
+  @media (min-width:1025px) {
+  }
+  /* hi-res laptops and desktops */
+  @media (min-width:1281px) {
+  }
+}
+
+div.nav {
   margin: 0;
 
   border: 0;
@@ -113,6 +145,9 @@ header {
   left: 0;
 
   @media (min-width:0px) {
+    display: none;
+    visibility: hidden;
+    width: 100%;
   }
   /* smartphones, iPhone, portrait 480x320 phones */
   @media (min-width:320px) {
@@ -125,6 +160,9 @@ header {
   }
   /* tablet, landscape iPad, lo-res laptops ands desktops */
   @media (min-width:961px) {
+    display: block;
+    visibility: visible;
+    width: 250px;
   }
   /* big landscape tablets, laptops, and desktops */
   @media (min-width:1025px) {
@@ -172,10 +210,8 @@ header {
     }
   }
   div.copyright {
+    color: #000;
     font-size: 10px;
-
-    bottom: 10px;
-    position: absolute;
 
     width: 100%;
     text-align: center;
@@ -192,7 +228,6 @@ header {
 
 #content {
   padding: 5px;
-  margin: 0 0 0 250px;
 
   text-shadow: 0 2px @content-text-shadow-color;
   text-align: center;
@@ -203,6 +238,7 @@ header {
   min-height: 480px;
 
   @media (min-width:0px) {
+    margin: 0;
   }
   /* smartphones, iPhone, portrait 480x320 phones */
   @media (min-width:320px) {
@@ -215,6 +251,7 @@ header {
   }
   /* tablet, landscape iPad, lo-res laptops ands desktops */
   @media (min-width:961px) {
+    margin: 0 0 0 250px;
   }
   /* big landscape tablets, laptops, and desktops */
   @media (min-width:1025px) {
