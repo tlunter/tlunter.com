@@ -11,6 +11,7 @@ class User
   property :password_encrypted, String, :length => 255, :required => true
   property :created_at, DateTime
   property :updated_at, DateTime
+  property :is_admin, Boolean, :default => false
 
   has n, :posts
   has n, :comments

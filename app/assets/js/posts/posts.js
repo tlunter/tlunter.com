@@ -25,7 +25,7 @@ angular.module('posts').controller('PostsShowController',
   };
 }]);
 
-angular.module('posts').controller('PostsNewController',
+angular.module('posts').controller('PostsFormController',
     ['$scope', '$location', 'post', function ($scope, $location, post) {
   $scope.post = post;
 
@@ -33,7 +33,7 @@ angular.module('posts').controller('PostsNewController',
     this.post.$save(function(post) {
       $location.path('/posts/' + post.link);
       $scope.clearFlashes();
-      $scope.addNotice("Post added.");
+      $scope.addNotice("Post saved.");
     }, function (response) {
       $scope.clearFlashes();
       angular.forEach(response.data||[], function (msg) {
@@ -66,11 +66,23 @@ angular.module('posts').config(
       }
     }).
     when('/posts/new', {
-      controller: 'PostsNewController',
-      templateUrl: '/partials/posts/new.html',
+      controller: 'PostsFormController',
+      templateUrl: '/partials/posts/form.html',
       resolve: {
         post: ['Post', function (Post) {
           return new Post({published: true});
+        }]
+      }
+    }).
+    when('/posts/:id/edit', {
+      controller: 'PostsFormController',
+      templateUrl: '/partials/posts/form.html',
+      resolve: {
+        // Get post
+        post: ['$route', 'Post',
+              function ($route, Post) {
+          var post = Post.get_clean({link: $route.current.params.id});
+          return post;
         }]
       }
     }).
