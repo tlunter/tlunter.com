@@ -1,6 +1,6 @@
 require 'json'
 
-ALLOWED_POST_FIELDS = ['title', 'body', 'published']
+ALLOWED_POST_FIELDS = [:title, :body, :published]
 
 # index
 get '/posts.json' do
@@ -23,14 +23,23 @@ get %r{/posts.rss} do
   erb :rss, layout: false
 end
 
-# new
+# new/edit
 post '/posts.json' do
   halt 400, ['You must be logged in!'].to_json unless session[:user]
 
-  data = JSON.parse request.body.read
+  data = JSON.parse request.body.read, :symbolize_names => true
   fields = data.select { |key, val| ALLOWED_POST_FIELDS.include? key }
   user = User.first(:id => session[:user])
-  post = Post.new(fields.merge(:user => user))
+
+  halt 400 unless user.is_admin
+
+  if data[:id]
+    post = Post.first(:id => data[:id])
+    post.attributes = fields
+  else
+    post = Post.new(fields.merge(:user => user))
+  end
+
   if post.save
     post.to_json
   else
@@ -38,15 +47,11 @@ post '/posts.json' do
   end
 end
 
-# edit
-#post %r{/posts/edit/} do |link|
-#end
-
 # show
 get %r{/posts/([\w-]+)\.json} do |link|
   post = Post.first(:link => link)
   halt 404 if post.nil?
 
-  post.body = App.markdown.render post.body
+  post.body = App.markdown.render post.body unless request.params["clean"] == "true"
   post.to_json
 end
