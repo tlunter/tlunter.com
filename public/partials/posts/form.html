@@ -1,26 +1,14 @@
 <div class="section-row">
-  <div class="post-section">
-    <div class="form-horizontal">
-      <div class="control-group">
-        <label for="title" class="control-label">Title:</label>
-        <div class="controls">
-          <input type="text" id="title" ng-model="post.title">
-        </div>
-      </div>
-      <div class="control-group">
-        <label for="body" class="control-label">Body:</label>
-        <div class="controls">
-          <textarea type="text" id="body" ng-model="post.body"></textarea>
-        </div>
-      </div>
-      <div class="control-group">
-        <div class="controls">
-          <label for="published" class="checkbox">
-            <input type="checkbox" id="published" ng-model="post.published"> Published?
-          </label>
-        </div>
-        <input type="submit" class="btn btn-primary" value="Save" ng-click="save()">
-      </div>
+  <div class="section">
+    <div class="post-form pure-form pure-form-stacked" ng-submit="save()">
+      <fieldset>
+        <input type="text" placeholder="Title" ng-model="post.title">
+        <textarea type="text" class="body" placeholder="Body" ng-model="post.body"></textarea>
+        <label for="published">
+          <input type="checkbox" id="published" ng-model="post.published"> Published?
+        </label>
+        <button type="submit" class="pure-button pure-button-primary" ng-click="save()">Save</button>
+      </fieldset>
     </div>
   </div>
 </div>
