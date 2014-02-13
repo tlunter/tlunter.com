@@ -4,7 +4,7 @@ ALLOWED_POST_FIELDS = [:title, :body, :published]
 
 # index
 get '/posts.json' do
-  posts = Post.all(:order => :updated_at.desc)
+  posts = Post.all(:order => :updated_at.desc, :published => true)
 
   posts.each do |p|
     p.body = App.markdown.render p.body
@@ -14,7 +14,7 @@ get '/posts.json' do
 end
 
 get %r{/posts.rss} do
-  @posts = Post.all(:order => :updated_at.desc)
+  @posts = Post.all(:order => :updated_at.desc, :published => true)
 
   @posts.each do |p|
     p.body = App.markdown.render p.body
