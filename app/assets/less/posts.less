@@ -1,35 +1,51 @@
 .post {
   text-align: left;
 
-  h1.title {
-    text-decoration: underline;
+  /* smartphones, iPhone, portrait 480x320 phones */
+  @media (min-width:0px) {
+    margin: 30px 0;
+  }
+  /* tablet, landscape iPad, lo-res laptops ands desktops */
+  @media (min-width:961px) {
+    margin: 0;
+  }
+
+  .title {
+    display: inline-block;
+  }
+
+  h1, h2, h3 {
+    margin: 10px 0;
+  }
+
+  ul.post-data {
+    list-style: none;
+
+    > li {
+      /* smartphones, iPhone, portrait 480x320 phones */
+      @media (min-width:0px) {
+        display: block;
+      }
+      /* tablet, landscape iPad, lo-res laptops ands desktops */
+      @media (min-width:961px) {
+        display: inline-block;
+      }
+    }
   }
 
   .body {
-    h1 {
-      font-size: 24px;
-      line-height: 24px;
-      margin: 20px 0 10px 0;
-      font-weight: 400;
-    }
-
-    h2 {
-      font-size: 18px;
-      line-height: 22px;
-      margin: 20px 0 10px 0;
-      font-weight: 400;
-    }
-
-    h3 {
-      font-size: 18px;
-      line-height: 20px;
-      margin: 20px 0 10px 0;
-      font-weight: 400;
-      font-style: italic;
+    h1, h2, h3 {
+      margin: 30px 0 0 0;
     }
 
     ol {
       padding: 0 0 0 30px;
+    }
+
+    p {
+      line-height: 45px;
+      font-size: 22px;
+      padding: 15px 0;
     }
 
     pre > code {
