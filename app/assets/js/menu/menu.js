@@ -1,3 +1,4 @@
+/*
 document.addEventListener('DOMContentLoaded', function() {
   var toggle_nav = function() {
     var nav = document.querySelector('div.nav')
@@ -34,3 +35,4 @@ document.addEventListener('DOMContentLoaded', function() {
   var nav_button = document.querySelector('[name="nav-button"]');
   nav_button.onclick = toggle_nav;
 });
+*/

@@ -60,9 +60,9 @@ module.exports = function(grunt) {
           },
           {
             expand: true,
-            cwd: 'bower_components/font-awesome/font/',
+            cwd: 'bower_components/font-awesome/fonts/',
             src: '**',
-            dest: 'public/font/'
+            dest: 'public/fonts/'
           }
         ]
       },

@@ -1,5 +1,5 @@
 //@page-background-color: #3f3f3f;
-@page-background-color: #f9f9f9;
+@page-background-color: #ffffff;
 
 @header-text-color: #0b8ea1;
 
@@ -67,14 +67,22 @@ p {
   margin: 0 0 10px;
 }
 
-.container {
+div.container {
   font-family: @content-font;
   font-weight: 400;
 
   margin: 0 auto;
+
+  @media (min-width:0px) {
+    width: 100%;
+  }
+  /* tablet, landscape iPad, lo-res laptops ands desktops */
+  @media (min-width:961px) {
+    width: 900px;
+  }
 }
 
-#body {
+div#body {
   position: relative;
 }
 
@@ -98,107 +106,46 @@ header {
   }
 }
 
-div.nav-button {
-  margin: 10px 0 0 10px;
-
-  h3 {
-    margin: 0;
-  }
-
-  @media (min-width:0px) {
-    display: block;
-    visibility: visible;
-  }
-  /* smartphones, iPhone, portrait 480x320 phones */
-  @media (min-width:320px) {
-  }
-  /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */
-  @media (min-width:481px) {
-  }
-  /* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */
-  @media (min-width:641px) {
-  }
-  /* tablet, landscape iPad, lo-res laptops ands desktops */
-  @media (min-width:961px) {
-    display: none;
-    visibility: hidden;
-  }
-  /* big landscape tablets, laptops, and desktops */
-  @media (min-width:1025px) {
-  }
-  /* hi-res laptops and desktops */
-  @media (min-width:1281px) {
-  }
-}
-
 div.nav {
-  margin: 0;
+  width: 100%;
+  text-align: center;
 
   border: 0;
 
   color: #fff;
   background: @nav-background-color;
 
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-
-  @media (min-width:0px) {
-    display: none;
-    visibility: hidden;
-    width: 100%;
-  }
-  /* smartphones, iPhone, portrait 480x320 phones */
-  @media (min-width:320px) {
-  }
-  /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */
-  @media (min-width:481px) {
-  }
-  /* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */
-  @media (min-width:641px) {
-  }
-  /* tablet, landscape iPad, lo-res laptops ands desktops */
-  @media (min-width:961px) {
-    display: block;
-    visibility: visible;
-    width: 250px;
-  }
-  /* big landscape tablets, laptops, and desktops */
-  @media (min-width:1025px) {
-  }
-  /* hi-res laptops and desktops */
-  @media (min-width:1281px) {
-  }
-
   ul.nav {
     list-style: none;
 
-    /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */
-    @media (min-height:769px) {
-      @media (min-width:481px) {
-      }
-    }
-
     > li {
-      position: relative;
-      display: block;
+      /* smartphones, iPhone, portrait 480x320 phones */
+      @media (min-width:320px) {
+        display: block;
+      }
+      /* tablet, landscape iPad, lo-res laptops ands desktops */
+      @media (min-width:961px) {
+        display: inline-block;
+      }
 
       > a {
+        color: @nav-item-link-color;
+
+        border-style: solid;
+        border-color: @nav-item-border-color;
+
+        background-color: @nav-item-background-color;
+
+        display: block;
+        text-decoration: none;
+
         font-size: 18px;
         line-height: 26px;
-
-        color: @nav-item-link-color;
 
         margin: 15px 0 15px 0;
         padding: 5px;
 
-        background-color: @nav-item-background-color;
-        border-top: 1px solid @nav-item-border-color;
-        border-bottom: 1px solid @nav-item-border-color;
-
-        display: block;
-        text-decoration: none;
+        border-width: 1px 0;
 
         &:hover {
           background-color: @nav-item-hover-background-color;
@@ -209,55 +156,36 @@ div.nav {
       }
     }
   }
+}
+
+div#content {
+  padding: 5px;
+
+  text-shadow: 0 2px @content-text-shadow-color;
+  text-align: center;
+
+  background-color: @content-background-color;
+
+  h1#title {
+    text-align: center;
+  }
+}
+
+footer {
+  ul {
+    list-style: none;
+
+    & > li {
+      display: inline-block;
+    }
+  }
+
   div.copyright {
     color: #000;
     font-size: 10px;
 
     width: 100%;
     text-align: center;
-
-    @media (min-height:0px) {
-    }
-    /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */
-    @media (min-height:769px) {
-      @media (min-width:481px) {
-      }
-    }
-  }
-}
-
-#content {
-  padding: 5px;
-
-  text-shadow: 0 2px @content-text-shadow-color;
-  text-align: center;
-
-  //border-left: 1px solid @content-border-color;
-
-  background-color: @content-background-color;
-  min-height: 480px;
-
-  @media (min-width:0px) {
-    margin: 0;
-  }
-  /* smartphones, iPhone, portrait 480x320 phones */
-  @media (min-width:320px) {
-  }
-  /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */
-  @media (min-width:481px) {
-  }
-  /* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */
-  @media (min-width:641px) {
-  }
-  /* tablet, landscape iPad, lo-res laptops ands desktops */
-  @media (min-width:961px) {
-    margin: 0 0 0 250px;
-  }
-  /* big landscape tablets, laptops, and desktops */
-  @media (min-width:1025px) {
-  }
-  /* hi-res laptops and desktops */
-  @media (min-width:1281px) {
   }
 }
 
@@ -356,6 +284,5 @@ h3 {
 .form-center {
   margin: 0 auto;
   text-align: center;
-
-  width: 170px;
+  width: 200px;
 }
