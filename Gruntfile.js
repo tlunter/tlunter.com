@@ -6,6 +6,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-recess');
+  grunt.loadNpmTasks('grunt-html-snapshot');
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
@@ -156,6 +157,19 @@ module.exports = function(grunt) {
         files: {
           'public/css/<%= pkg.name %>.min.css': 'public/css/<%= pkg.name %>.css',
           'public/css/pure.min.css': 'public/css/pure.css'
+        }
+      }
+    },
+    htmlSnapshot: {
+      all: {
+        options: {
+          snapshotPath: 'snapshots/',
+          sitePath: 'http://localhost/',
+          urls: [
+            '/posts/latest',
+            '/about',
+            '/contributions'
+          ]
         }
       }
     }

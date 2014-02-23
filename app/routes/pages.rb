@@ -31,6 +31,9 @@ get '/' do
 end
 
 after '*' do
+  if params.include?("_encrypted_query_")
+    body App::Services::HtmlSnapshot.new.get_page(request.path)
+  end
   response.set_cookie(:'XSRF-TOKEN', value: Rack::Csrf.token(request.env), expires: Time.now + 3600*24)
 end
 

@@ -1,11 +1,13 @@
 source 'https://rubygems.org'
 
+gem 'capybara-webkit'
 gem 'clockwork'
 gem 'daemons'
 gem 'data_mapper'
 gem 'dm-mysql-adapter'
 gem 'factory_girl'
 gem 'foreman'
+gem 'poltergeist'
 gem 'pry'
 gem 'rake'
 gem 'rack_csrf'

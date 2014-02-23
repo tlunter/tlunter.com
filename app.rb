@@ -29,6 +29,8 @@ class App < Sinatra::Application
 
   Dir[File.join(App.root, "app/routes/**/*.rb")].each {|f| require f}
 
+  require 'app/services'
+
   use Rack::Session::Cookie, :secret => 'A1 sauce 1s so good you should use 1t on a11 yr st34ksssss'
   use Rack::Csrf, :raise => true, :header => 'X_XSRF_TOKEN'
 end
