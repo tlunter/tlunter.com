@@ -19,10 +19,7 @@ angular.module('services.date').service('DateFormatter',
   this.parseDate = function(d) {
     return "" + d.getDate() +
           " " + month_names[d.getMonth()] +
-          " " + d.getFullYear() +
-       " at " + (((d.getHours() - 1) % 12) + 1) +
-          ":" + ('0' + d.getMinutes()).slice(-2) +
-          " " + (Math.floor(d.getHours() / 12) != 1 ? "AM" : "PM")
+          " " + d.getFullYear()
   };
   this.setupDate = function(model, key) {
     var date = new Date(model[key]);
