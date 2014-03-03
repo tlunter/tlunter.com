@@ -58,7 +58,6 @@ angular.module('posts').config(
             angular.forEach(posts, function (post) {
               post = DateFormatter.setupDate(post, 'updated_at');
               post.user = User.get({id: post.user_id});
-              post.comments = Comment.query({post: post.link});
             });
           });
           return posts;
