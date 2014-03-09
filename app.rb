@@ -8,11 +8,8 @@ require 'pry'
 
 if ENV['RACK_ENV'] == "production"
   require 'oboe'
-  require 'oboe/inst/rack'
 
   Oboe::Config[:tracing_mode] = 'through'
-
-  Oboe::Ruby.initialize
 end
 
 class App < Sinatra::Application
@@ -40,9 +37,5 @@ class App < Sinatra::Application
 
   use Rack::Session::Cookie, :secret => 'A1 sauce 1s so good you should use 1t on a11 yr st34ksssss'
   use Rack::Csrf, :raise => true, :header => 'X_XSRF_TOKEN'
-
-  if ENV['RACK_ENV'] == "production"
-    use Oboe::Rack
-  end
 end
 

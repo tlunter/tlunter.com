@@ -1,3 +1,11 @@
+GIT
+  remote: git://github.com/appneta/oboe-ruby.git
+  revision: a88f0cecffa7f786b577e0ea6aa34aed799034ef
+  branch: master
+  specs:
+    oboe (2.5.0.7)
+      json
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -79,8 +87,6 @@ GEM
     minitest (4.7.5)
     mono_logger (1.1.0)
     multi_json (1.7.7)
-    oboe (2.5.0.7)
-      json
     pry (0.9.12.2)
       coderay (~> 1.0.5)
       method_source (~> 0.8)
@@ -141,7 +147,7 @@ DEPENDENCIES
   dm-mysql-adapter
   factory_girl
   foreman
-  oboe
+  oboe!
   pry
   rack-test
   rack_csrf

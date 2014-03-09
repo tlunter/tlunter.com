@@ -6,7 +6,7 @@ gem 'data_mapper'
 gem 'dm-mysql-adapter'
 gem 'factory_girl'
 gem 'foreman'
-gem 'oboe'
+gem 'oboe', :github => "appneta/oboe-ruby", :branch => "master"
 gem 'pry'
 gem 'rake'
 gem 'rack_csrf'
