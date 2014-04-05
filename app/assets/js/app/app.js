@@ -1,4 +1,4 @@
-angular.module('app', ['ngRoute', 'main', 'about', 'posts', 'comments', 'users']);
+angular.module('app', ['ngRoute', 'main', 'about', 'posts', 'comments', 'users', 'analytics']);
 
 angular.module('app').config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
   $locationProvider.html5Mode(true).hashPrefix('!');
@@ -6,7 +6,7 @@ angular.module('app').config(['$locationProvider', '$routeProvider', function($l
 }]);
 
 angular.module('app').controller('AppController',
-    ['$scope', 'User',
+    ['$scope', 'User', 'analytics',
     function ($scope, User) {
 
   User.check(function (response) {
