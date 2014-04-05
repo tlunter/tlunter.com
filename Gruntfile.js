@@ -132,6 +132,10 @@ module.exports = function(grunt) {
       js: {
         src: ['<%= concat.js.dest %>'],
         dest: 'public/js/<%= pkg.name %>.min.js'
+      },
+      angular: {
+        src: ['<%= concat.angular.dest %>'],
+        dest: 'public/js/angular.min.js'
       }
     },
     watch: {
