@@ -82,11 +82,13 @@ GEM
     i18n (0.6.4)
     json (1.8.0)
     json_pure (1.8.0)
-    kgio (2.8.0)
+    kgio (2.9.2)
     method_source (0.8.1)
     minitest (4.7.5)
     mono_logger (1.1.0)
     multi_json (1.7.7)
+    prerender_rails (1.0.1)
+      rack
     pry (0.9.12.2)
       coderay (~> 1.0.5)
       method_source (~> 0.8)
@@ -98,7 +100,7 @@ GEM
       rack (>= 1.0)
     rack_csrf (2.4.0)
       rack (>= 0.9)
-    raindrops (0.11.0)
+    raindrops (0.13.0)
     rake (10.1.0)
     redcarpet (3.0.0)
     redis (3.0.4)
@@ -129,7 +131,7 @@ GEM
       atomic
     tilt (1.4.1)
     tzinfo (0.3.37)
-    unicorn (4.6.3)
+    unicorn (4.8.2)
       kgio (~> 2.6)
       rack
       raindrops (~> 0.7)
@@ -148,6 +150,7 @@ DEPENDENCIES
   factory_girl
   foreman
   oboe!
+  prerender_rails
   pry
   rack-test
   rack_csrf
