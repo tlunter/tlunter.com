@@ -5,6 +5,7 @@ require 'sinatra'
 require 'rack/csrf'
 require 'redcarpet'
 require 'pry'
+require 'prerender_rails'
 
 if ENV['RACK_ENV'] == "production"
   require 'oboe'
@@ -37,5 +38,6 @@ class App < Sinatra::Application
 
   use Rack::Session::Cookie, :secret => 'A1 sauce 1s so good you should use 1t on a11 yr st34ksssss'
   use Rack::Csrf, :raise => true, :header => 'X_XSRF_TOKEN'
+  use Rack::Prerender, :prerender_service_url => 'http://prerender.tlunter.com/?url='
 end
 
