@@ -11,6 +11,7 @@ if ENV['RACK_ENV'] == "production"
   require 'oboe'
 
   Oboe::Config[:tracing_mode] = 'through'
+  Oboe::Config[:sample_rate] = 1000000
 end
 
 class App < Sinatra::Application
