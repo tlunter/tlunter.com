@@ -57,7 +57,6 @@ angular.module('posts').config(
           var posts = Post.query(function () {
             angular.forEach(posts, function (post) {
               post = DateFormatter.setupDate(post, 'updated_at');
-              post.user = User.get({id: post.user_id});
             });
           });
           return posts;
