@@ -2,8 +2,14 @@ $LOAD_PATH << File.dirname(__FILE__)
 
 require 'rubygems'
 require 'resque'
+require 'redis'
 require 'clockwork'
 require 'app'
+
+Resque.redis = Redis.new(
+  :host => '172.17.42.1',
+  :port => 6379
+)
 
 module Clockwork
   handler { |job|
