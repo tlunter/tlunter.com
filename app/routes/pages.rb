@@ -1,11 +1,12 @@
 require 'json'
 
-IP_WHITELIST_PAGES = ['/posts/new']
+IP_WHITELIST_PAGES = ['/posts/new','/posts/new/']
 IP_WHITELIST = [
   /127.0.0.1/,
   /192\.168\.1\.\d{1,3}/,
   /192\.168\.2\.\d{1,3}/,
-  /24.218.39.32/
+  /71\.234\.113\.20/,
+  /::1/
 ]
 
 IP_WHITELIST_PAGES.each do |page|
