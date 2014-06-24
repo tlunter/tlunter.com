@@ -6,49 +6,20 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-recess');
+  grunt.loadNpmTasks('grunt-react');
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     copy: {
-      angular: {
+      react: {
         files: [
           {
             expand: true,
-            cwd: 'bower_components/angular/',
-            src: ['angular.js'],
-            dest: 'tmp/angular/'
+            cwd: 'bower_components/react/',
+            src: ['react.js','react.min.js'],
+            dest: 'public/js/'
           }
         ]
-      },
-      angular_resource: {
-        files: [
-          {
-            expand: true,
-            cwd: 'bower_components/angular-resource/',
-            src: ['angular-resource.js'],
-            dest: 'tmp/angular/'
-          }
-        ] 
-      },
-      angular_route: {
-        files: [
-          {
-            expand: true,
-            cwd: 'bower_components/angular-route/',
-            src: ['angular-route.js'],
-            dest: 'tmp/angular/'
-          }
-        ] 
-      },
-      angular_sanitize: {
-        files: [
-          {
-            expand: true,
-            cwd: 'bower_components/angular-sanitize/',
-            src: ['angular-sanitize.js'],
-            dest: 'tmp/angular/'
-          }
-        ] 
       },
       font_awesome: {
         files: [
@@ -66,24 +37,92 @@ module.exports = function(grunt) {
           }
         ]
       },
-      purecss: {
+      pure: {
         files: [
           {
             expand: true,
             flatten: true,
-            src: [
-              'bower_components/normalize-css/normalize.css',
-              'bower_components/purecss/src/**/*.css'
-            ],
-            dest: 'tmp/purecss',
-            rename: function (dest, src) {
-              // normalize -> base
-              if (src === 'normalize.css') {
-                src = 'base.css';
-              }
-
-              return path.join(dest, src);
-            }
+            cwd: 'bower_components/pure/',
+            src: ['pure.css'],
+            dest: 'public/css/',
+          }
+        ]
+      },
+      underscore: {
+        files: [
+          {
+            expand: true,
+            flatten: true,
+            cwd: 'bower_components/underscore/',
+            src: ['underscore.js'],
+            dest: 'public/js/',
+          }
+        ]
+      },
+      aviator: {
+        files: [
+          {
+            expand: true,
+            flatten: true,
+            cwd: 'bower_components/aviator/',
+            src: ['aviator.js'],
+            dest: 'public/js/',
+          }
+        ]
+      },
+      reqwest: {
+        files: [
+          {
+            expand: true,
+            flatten: true,
+            cwd: 'bower_components/reqwest/',
+            src: ['reqwest.js'],
+            dest: 'public/js/',
+          }
+        ]
+      },
+      moment: {
+        files: [
+          {
+            expand: true,
+            flatten: true,
+            cwd: 'bower_components/moment/',
+            src: ['moment.js'],
+            dest: 'public/js/',
+          }
+        ]
+      },
+      moment_timezone: {
+        files: [
+          {
+            expand: true,
+            flatten: true,
+            cwd: 'bower_components/moment-timezone/',
+            src: ['moment-timezone.js'],
+            dest: 'public/js/',
+          }
+        ]
+      },
+      js: {
+        files: [
+          {
+            expand: true,
+            cwd: 'app/assets/js/',
+            src: ['**/*.js'],
+            dest: 'tmp/js/'
+          }
+        ]
+      }
+    },
+    react: {
+      jsx: {
+        files: [
+          {
+            expand: true,
+            cwd: 'app/assets/jsx',
+            src: '**/*.jsx',
+            dest: 'tmp/js',
+            ext: '.js'
           }
         ]
       }
@@ -93,33 +132,9 @@ module.exports = function(grunt) {
         // define a string to put between each file in the concatenated output
         separator: ''
       },
-      angular: {
-        src: ['tmp/angular/angular.js', 'tmp/angular/angular-resource.js', 'tmp/angular/angular-route.js', 'tmp/angular/angular-sanitize.js'],
-        dest: 'public/js/angular.js'
-      },
-      purecss: {
-        src: [
-          'tmp/purecss/base.css',
-          'tmp/purecss/buttons-core.css',
-          'tmp/purecss/buttons.css',
-          'tmp/purecss/forms.css',
-          'tmp/purecss/forms-r.css',
-          'tmp/purecss/grids-core.css',
-          'tmp/purecss/grids-units.css',
-          'tmp/purecss/grids-r.css',
-          'tmp/purecss/menus-core.css',
-          'tmp/purecss/menus.css',
-          'tmp/purecss/menus-paginator.css',
-          'tmp/purecss/menus-r.css',
-          'tmp/purecss/tables.css',
-        ],
-        dest: 'public/css/pure.css'
-      },
       js: {
         // the files to concatenate
-        src: [
-          'app/assets/js/**/*.js'
-        ],
+        src: ['tmp/js/**/*.js'],
         // the location of the resulting JS file
         dest: 'public/js/<%= pkg.name %>.js'
       },
@@ -130,18 +145,18 @@ module.exports = function(grunt) {
     },
     uglify: {
       js: {
-        src: ['<%= concat.js.dest %>'],
-        dest: 'public/js/<%= pkg.name %>.min.js'
+        files: {
+          'public/js/<%= pkg.name %>.min.js': ['<%= concat.js.dest %>'],
+        }
       },
-      angular: {
-        src: ['<%= concat.angular.dest %>'],
-        dest: 'public/js/angular.min.js'
-      }
-    },
-    watch: {
-      all: {
-        files: ['<%= concat.js.src %>', '<%= concat.css.src %>'],
-        tasks: ['concat:js', 'concat:css', 'uglify:js', 'recess:dist', 'recess:min', 'timestamp']
+      vendor: {
+        files: {
+          'public/js/underscore.min.js': ['public/js/underscore.js'],
+          'public/js/aviator.min.js': ['public/js/aviator.js'],
+          'public/js/reqwest.min.js': ['public/js/reqwest.js'],
+          'public/js/moment.min.js': ['public/js/moment.js'],
+          'public/js/moment-timezone.min.js': ['public/js/moment-timezone.js']
+        }
       }
     },
     recess: {
@@ -159,13 +174,26 @@ module.exports = function(grunt) {
         },
         files: {
           'public/css/<%= pkg.name %>.min.css': 'public/css/<%= pkg.name %>.css',
+        }
+      },
+      vendor: {
+        options: {
+          compress: true
+        },
+        files: {
           'public/css/pure.min.css': 'public/css/pure.css'
         }
+      }
+    },
+    watch: {
+      all: {
+        files: ['app/assets/js/**/*', 'app/assets/less/**/*', 'app/assets/jsx/**/*'],
+        tasks: ['copy:js', 'react:jsx', 'concat:js', 'concat:css', 'uglify:js', 'recess:dist', 'recess:min', 'timestamp']
       }
     }
   });
 
-  grunt.registerTask('default', ['copy', 'concat', 'uglify', 'recess']);
+  grunt.registerTask('default', ['copy', 'react', 'concat', 'uglify', 'recess']);
 
   grunt.registerTask('timestamp', function() {
     grunt.log.subhead(Date());

@@ -8,12 +8,14 @@ get '/posts.json' do
 
   posts.each do |p|
     p.body = App.markdown.render p.body
+    p.updated_at = p.updated_at.new_offset(0)
+    p.created_at = p.created_at.new_offset(0)
   end
   
   posts.to_json
 end
 
-get %r{/posts.rss} do
+get '/posts.rss' do
   @posts = Post.all(:order => :updated_at.desc, :published => true)
 
   @posts.each do |p|

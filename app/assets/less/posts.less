@@ -10,27 +10,8 @@
     margin: 0;
   }
 
-  .title {
-    display: inline-block;
-  }
-
   h1, h2, h3 {
     margin: 10px 0;
-  }
-
-  ul.post-data {
-    list-style: none;
-
-    > li {
-      /* smartphones, iPhone, portrait 480x320 phones */
-      @media (min-width:0px) {
-        display: block;
-      }
-      /* tablet, landscape iPad, lo-res laptops ands desktops */
-      @media (min-width:961px) {
-        display: inline-block;
-      }
-    }
   }
 
   .body {
@@ -76,10 +57,10 @@
   }
 }
 
-.post-form {
-  width: 75%;
-  .body {
-    width: 900px;
-    height: 500px;
+ul.posts {
+  list-style: none;
+
+  li {
+    margin-bottom: 20px;
   }
 }
