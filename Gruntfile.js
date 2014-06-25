@@ -92,13 +92,13 @@ module.exports = function(grunt) {
           }
         ]
       },
-      moment_timezone: {
+      cookies: {
         files: [
           {
             expand: true,
             flatten: true,
-            cwd: 'bower_components/moment-timezone/',
-            src: ['moment-timezone.js'],
+            cwd: 'bower_components/Cookies/src',
+            src: ['cookies.js'],
             dest: 'public/js/',
           }
         ]
@@ -155,7 +155,7 @@ module.exports = function(grunt) {
           'public/js/aviator.min.js': ['public/js/aviator.js'],
           'public/js/reqwest.min.js': ['public/js/reqwest.js'],
           'public/js/moment.min.js': ['public/js/moment.js'],
-          'public/js/moment-timezone.min.js': ['public/js/moment-timezone.js']
+          'public/js/cookies.min.js': ['public/js/cookies.js']
         }
       }
     },

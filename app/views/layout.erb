@@ -16,29 +16,7 @@
         <a href="/">Todd Lunter</a>
       </header>
       <div id="body">
-        <div class="nav">
-          <ul class="nav">
-            <li>
-            </li>
-            <li>
-              <a href="/">Home</a>
-            </li>
-            <li>
-              <a href="/about">About</a>
-            </li>
-            <li>
-              <a href="/contributions">Contributions</a>
-            </li>
-            <li>
-              <a href="/logout">Logout</a>
-            </li>
-            <li>
-              <a href="/login">Login</a>
-            </li>
-            <li>
-              <a href="/register">Register</a>
-            </li>
-          </ul>
+        <div id="nav" class="nav">
         </div>
         <div id="content">
           <div id="view">
@@ -62,15 +40,20 @@
         </div>
       </div>
     </div>
+    <script type="text/javascript" src="/js/cookies.min.js"></script>
     <script type="text/javascript" src="/js/moment.min.js"></script>
     <script type="text/javascript" src="/js/reqwest.min.js"></script>
     <script type="text/javascript" src="/js/aviator.min.js"></script>
     <script type="text/javascript" src="/js/underscore.min.js"></script>
-    <script type="text/javascript" src="/js/react.min.js"></script>
-    <script type="text/javascript" src="/js/tlunter.com.min.js"></script>
+    <script type="text/javascript" src="/js/react.js"></script>
+    <script type="text/javascript" src="/js/tlunter.com.js"></script>
     <script>
-      var CONTENT_NODE = document.querySelector("#view");
+      var menuNode    = document.querySelector("#nav");
+      var contentNode = document.querySelector("#view");
+      var menu        = Menu();
+
       var app = new App();
+      React.renderComponent(menu, menuNode);
       app.dispatch();
     </script>
     <script>

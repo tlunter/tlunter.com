@@ -8,22 +8,21 @@ Views.Post = React.createClass({
       url: '/posts/' + this.props.id + '.json',
       method: 'get',
       type: 'json',
-      success: function(resp) {
+      success: function (resp) {
         this.setPost(resp);
       }.bind(this)
     });
   },
-  setPost: function(post) {
+  setPost: function (post) {
     this.setState({ post: post });
   },
   componentWillMount: function() {
     this.loadPost();
   },
-  render: function() {
-    var post;
+  renderPost: function() {
     if (this.state.post) {
       var updated_at = moment(this.state.post.updated_at).format('MMMM Do YYYY, h a z');
-      post = (
+      return (
         <div>
           <h1>{this.state.post.title}</h1>
           {updated_at}
@@ -31,9 +30,17 @@ Views.Post = React.createClass({
         </div>
       );
     }
+  },
+  render: function() {
+    var CommentList = Views.CommentList,
+        CommentForm  = Views.CommentForm;
     return (
       <div className="post">
-        {post}
+        {this.renderPost()}
+        <div className="comments">
+          <CommentList id={this.props.id} />
+          <CommentForm id={this.props.id} />
+        </div>
       </div>
     );
   }
