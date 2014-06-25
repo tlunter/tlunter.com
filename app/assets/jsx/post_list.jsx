@@ -22,7 +22,7 @@ Views.PostList = React.createClass({
   render: function() {
     var PLI = Views.PostListItem;
     var posts = this.state.posts.map(function(post) {
-      return <PLI post={post} />;
+      return <PLI key={post.id} post={post} />;
     });
     return <ul className="posts">{posts}</ul>;
   }

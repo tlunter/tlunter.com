@@ -7,6 +7,9 @@ Views.CommentList = React.createClass({
   componentWillMount: function() {
     this.loadComments();
   },
+  componentWillUnmount: function() {
+    clearTimeout(this.state.timeoutId);
+  },
   loadComments: function() {
     reqwest({
       url: '/comments/' + this.props.id + '.json',
@@ -18,9 +21,9 @@ Views.CommentList = React.createClass({
     });
   },
   setComments: function (comments) {
-    this.setState({ comments: comments });
+    var timeoutId = setTimeout(this.loadComments, 5000);
+    this.setState({ comments: comments, timeoutId: timeoutId });
     this.loadUsers();
-    setTimeout(this.loadComments, 5000);
   },
   loadUsers: function() {
     if (this.state.comments) {

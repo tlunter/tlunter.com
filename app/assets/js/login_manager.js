@@ -38,7 +38,7 @@ LoginManager.prototype.checkLogin = function() {
       _that.pushChange({});
     },
     complete: function (resp) {
-      setTimeout(_that.checkLogin.bind(_that), 5000);
+      setTimeout(_that.checkLogin.bind(_that), 10000);
     }
   });
 };
