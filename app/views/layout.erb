@@ -48,9 +48,10 @@
     <script type="text/javascript" src="/js/react.js"></script>
     <script type="text/javascript" src="/js/tlunter.com.js"></script>
     <script>
-      var menuNode    = document.querySelector("#nav");
-      var contentNode = document.querySelector("#view");
-      var menu        = Menu();
+      var menuNode     = document.querySelector("#nav");
+      var contentNode  = document.querySelector("#view");
+      var loginManager = new LoginManager();
+      var menu         = new Menu();
 
       var app = new App();
       React.renderComponent(menu, menuNode);

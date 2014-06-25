@@ -2,6 +2,22 @@
 
 var Views = Views || {};
 Views.CommentForm = React.createClass({
+  getInitialState: function() {
+    return { loggedIn: loginManager.loggedInStatus() };
+  },
+  componentDidMount: function() {
+    loginManager.register(this.checkLogin);
+  },
+  componentWillUnmount: function() {
+    loginManager.unregister(this.checkLogin);
+  },
+  checkLogin: function (user) {
+    if (user.id) {
+      this.setState({ loggedIn: true });
+    } else {
+      this.setState({ loggedIn: false });
+    }
+  },
   handleSubmit: function (evt) {
     evt.preventDefault();
 
@@ -23,7 +39,7 @@ Views.CommentForm = React.createClass({
       }
     });
   },
-  render: function() {
+  renderForm: function() {
     return (
       <div className="pure-form pure-form-stacked">
         <form onSubmit={this.handleSubmit}>
@@ -33,5 +49,12 @@ Views.CommentForm = React.createClass({
         </form>
       </div>
     );
+  },
+  render: function() {
+    if (this.state.loggedIn) {
+      return this.renderForm();
+    } else {
+      return <div></div>;
+    }
   }
 });

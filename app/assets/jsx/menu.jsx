@@ -3,21 +3,17 @@
     return { loggedIn: false };
   },
   componentDidMount: function() {
-    this.loadLogin();
+    loginManager.register(this.checkLogin);
   },
-  loadLogin: function() {
-    reqwest({
-      url: '/sessions.json',
-      method: 'get',
-      type: 'json',
-      success: function(resp) {
-        this.setState({ loggedIn: true });
-      }.bind(this),
-      error: function(err) {
-        this.setState({ loggedIn: false });
-      }.bind(this)
-    });
-    setTimeout(this.loadLogin, 5000);
+  componentWillUnmount: function() {
+    loginManager.unregister(this.checkLogin);
+  },
+  checkLogin: function(user) {
+    if (user.id) {
+      this.setState({ loggedIn: true });
+    } else {
+      this.setState({ loggedIn: false });
+    }
   },
   render: function() {
     var login, logout, register;

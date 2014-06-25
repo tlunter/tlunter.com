@@ -15,7 +15,7 @@ Views.Logout = React.createClass({
         'X-XSRF-TOKEN': xsrfToken
       },
       success: function (resp) {
-        menu.loadLogin();
+        loginManager.checkLogin();
         Aviator.navigate('/');
       },
       error: function (err) {
