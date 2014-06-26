@@ -56,7 +56,7 @@ describe 'posts' do
   end
 
   describe '#create' do
-    let (:user) { FactoryGirl.create(:user) }
+    let (:user) { FactoryGirl.create(:user, :is_admin => true) }
     let (:attrs) { {} }
     let (:env) { {} }
     let (:new_post) do

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="app">
+<html>
   <head>
     <title>tLunter.com</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,53 +9,19 @@
     <link rel="stylesheet" href="/css/pure.min.css">
     <link rel="stylesheet" href="/css/font-awesome.min.css">
     <link rel="stylesheet" href="/css/tlunter.com.min.css">
-    <script type="text/javascript" src="/js/angular.min.js"></script>
-    <script type="text/javascript" src="/js/tlunter.com.min.js"></script>
   </head>
   <body>
-    <div class="container" ng-controller="AppController">
+    <div class="container">
       <header>
-        <a ng-href="/">Todd Lunter</a>
+        <a href="/" onClick="navigateHome()">Todd Lunter</a>
       </header>
       <div id="body">
-        <div class="nav">
-          <ul class="nav">
-            <li>
-            </li>
-            <li>
-              <a ng-href="/">Home</a>
-            </li>
-            <li>
-              <a ng-href="/about">About</a>
-            </li>
-            <li>
-              <a ng-href="/contributions">Contributions</a>
-            </li>
-            <li ng-show="isAuthenticated()">
-              <a ng-href="/logout">Logout</a>
-            </li>
-            <li ng-hide="isAuthenticated()">
-              <a ng-href="/login">Login</a>
-            </li>
-            <li ng-hide="isAuthenticated()">
-              <a ng-href="/register">Register</a>
-            </li>
-          </ul>
+        <div id="nav" class="nav">
         </div>
-        <div id="content" ng-controller="MainController">
-          <div ng-repeat="flash in notices">
-            <div class="alert alert-success" ng-class="{in: !flash.toRemove}">
-              <button type="button" class="close" ng-click="removeNotice(flash.id)" data-dismiss="alert">&times;</button>
-              <strong>Well done!</strong> {{ flash.text }}
-            </div>
-          </div>
-          <div ng-repeat="flash in errors">
-            <div class="alert alert-error" ng-class="{in: !flash.toRemove}">
-              <button type="button" class="close" ng-click="removeError(flash.id)" data-dismiss="alert">&times;</button>
-              <strong>Oh no!</strong> {{ flash.text }}
-            </div>
-          </div>
-          <div ng-view>
+        <div id="flashes">
+        </div>
+        <div id="content">
+          <div id="view">
           </div>
           <footer>
             <ul>
@@ -76,6 +42,30 @@
         </div>
       </div>
     </div>
+    <script type="text/javascript" src="/js/cookies.min.js"></script>
+    <script type="text/javascript" src="/js/moment.min.js"></script>
+    <script type="text/javascript" src="/js/reqwest.min.js"></script>
+    <script type="text/javascript" src="/js/aviator.min.js"></script>
+    <script type="text/javascript" src="/js/underscore.min.js"></script>
+    <script type="text/javascript" src="/js/react.js"></script>
+    <script type="text/javascript" src="/js/tlunter.com.js"></script>
+    <script>
+      var menuNode     = document.querySelector("#nav");
+      var flashNode    = document.querySelector("#flashes");
+      var contentNode  = document.querySelector("#view");
+      var loginManager = new LoginManager();
+
+      var navigateHome = function() {
+        event.preventDefault();
+
+        Aviator.navigate('/');
+      };
+
+      var app = new App();
+      var menu = React.renderComponent(Menu(), menuNode);
+      var flash = React.renderComponent(Flash(), flashNode);
+      app.dispatch();
+    </script>
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
