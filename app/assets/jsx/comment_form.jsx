@@ -36,6 +36,11 @@ Views.CommentForm = React.createClass({
       },
       success: function (resp) {
         Aviator.refresh();
+        flash.addNotice("Nice comment!");
+      },
+      error: function (resp) {
+        var errors = JSON.parse(resp.response);
+        errors.forEach(flash.addError);
       }
     });
   },
@@ -43,7 +48,7 @@ Views.CommentForm = React.createClass({
     return (
       <div className="pure-form pure-form-stacked">
         <form onSubmit={this.handleSubmit}>
-          <textarea ref="comment" className="comment" required></textarea>
+          <textarea ref="comment" className="comment"></textarea>
           <span className="pull-right">Supports Markdown</span>
           <button type="submit" className="pure-button pure-button-primary">Comment</button>
         </form>

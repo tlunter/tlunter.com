@@ -25,9 +25,11 @@ Views.Login = React.createClass({
       success: function (resp) {
         loginManager.checkLogin();
         Aviator.navigate('/');
+        flash.addNotice("You're now logged in!");
       },
       error: function (resp) {
-        console.log("couldn't login");
+        var errors = JSON.parse(resp.response);
+        errors.forEach(flash.addError);
       }
     });
   },

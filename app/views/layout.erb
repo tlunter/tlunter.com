@@ -13,10 +13,12 @@
   <body>
     <div class="container">
       <header>
-        <a href="/">Todd Lunter</a>
+        <a href="/" onClick="navigateHome()">Todd Lunter</a>
       </header>
       <div id="body">
         <div id="nav" class="nav">
+        </div>
+        <div id="flashes">
         </div>
         <div id="content">
           <div id="view">
@@ -49,12 +51,19 @@
     <script type="text/javascript" src="/js/tlunter.com.js"></script>
     <script>
       var menuNode     = document.querySelector("#nav");
+      var flashNode    = document.querySelector("#flashes");
       var contentNode  = document.querySelector("#view");
       var loginManager = new LoginManager();
-      var menu         = new Menu();
+
+      var navigateHome = function() {
+        event.preventDefault();
+
+        Aviator.navigate('/');
+      };
 
       var app = new App();
-      React.renderComponent(menu, menuNode);
+      var menu = React.renderComponent(Menu(), menuNode);
+      var flash = React.renderComponent(Flash(), flashNode);
       app.dispatch();
     </script>
     <script>
