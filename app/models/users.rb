@@ -8,7 +8,7 @@ class User
   property :id, Serial
   property :username, String, :length => 255, :required => true
   property :email, String, :length => 255, :required => true, :unique => true, :format => :email_address
-  property :password_encrypted, String, :length => 255, :required => true
+  property :password_encrypted, String, :length => 255
   property :created_at, DateTime
   property :updated_at, DateTime
   property :is_admin, Boolean, :default => false
@@ -41,7 +41,13 @@ class User
   end
 
   before :create do |user|
+    if user.password.strip.length < 7
+      errors.add(nil, "You must supply a password greater than 7 characters")
+      throw :halt
+    end
+
     if user.password != user.password_confirmation
+      errors.add(nil, "Password and Confirmation must match")
       throw :halt
     end
 
@@ -54,6 +60,7 @@ class User
 
   before :update do |user|
     if user.password != user.password_confirmation
+      errors.add(nil, "Password and Confirmation must match")
       throw :halt
     end
 
