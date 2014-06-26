@@ -16,6 +16,7 @@ post '/users.json' do
   user = User.create(fields)
 
   if user.save
+    session[:user] = user.id
     user.to_json
   else
     halt 400, user.errors.full_messages.to_json
