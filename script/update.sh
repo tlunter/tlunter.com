@@ -10,10 +10,17 @@ if [ $? != 0 ]; then
     exit
 fi
 
-echo "Checking out master"
+echo "Checking out $branch"
 git checkout $branch > /dev/null 2>&1
 if [ $? != 0 ]; then
     echo "Failed to checkout $branch"
+    exit
+fi
+
+echo "Merging remote $branch"
+git merge origin/$branch > /dev/null 2>&1
+if [ $? != 0 ]; then
+    echo "Failed to merge origin/$branch"
     exit
 fi
 
