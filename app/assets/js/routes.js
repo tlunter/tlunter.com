@@ -7,10 +7,7 @@ Routes.prototype.dispatch = function(targets) {
     '/': 'posts',
     '/posts/:id': 'post',
     '/about': 'about',
-    '/contributions': 'contributions',
-    '/logout': 'logout',
-    '/login': 'login',
-    '/register': 'register'
+    '/contributions': 'contributions'
   });
 
   Aviator.dispatch();

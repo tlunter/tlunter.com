@@ -9,9 +9,6 @@ class Post
   property :created_at, DateTime
   property :updated_at, DateTime
 
-  belongs_to :user
-  has n, :comments
-
   def self.latest
     all(:published => true, :order => :updated_at.desc, :limit => 2)
   end

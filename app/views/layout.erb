@@ -23,6 +23,7 @@
         <div id="content">
           <div id="view">
           </div>
+          <div id="disqus_thread"></div>
           <footer>
             <ul>
               <li>
@@ -51,9 +52,7 @@
     <script type="text/javascript" src="/js/tlunter.com.js"></script>
     <script>
       var menuNode     = document.querySelector("#nav");
-      var flashNode    = document.querySelector("#flashes");
       var contentNode  = document.querySelector("#view");
-      var loginManager = new LoginManager();
 
       var navigateHome = function() {
         event.preventDefault();
@@ -63,7 +62,6 @@
 
       var app = new App();
       var menu = React.renderComponent(Menu(), menuNode);
-      var flash = React.renderComponent(Flash(), flashNode);
       app.dispatch();
     </script>
     <script>
