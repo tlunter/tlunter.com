@@ -15,9 +15,13 @@ Views.Post = React.createClass({
   },
   setPost: function (post) {
     this.setState({ post: post });
+    ShowDisqus(post.link, post.title, "http://tlunter.com/posts/" + post.link);
   },
   componentWillMount: function() {
     this.loadPost();
+  },
+  componentWillUnmount: function() {
+    HideDisqus();
   },
   renderPost: function() {
     if (this.state.post) {
@@ -32,15 +36,9 @@ Views.Post = React.createClass({
     }
   },
   render: function() {
-    var CommentList = Views.CommentList,
-        CommentForm  = Views.CommentForm;
     return (
       <div className="post">
         {this.renderPost()}
-        <div className="comments">
-          <CommentList id={this.props.id} />
-          <CommentForm id={this.props.id} />
-        </div>
       </div>
     );
   }
