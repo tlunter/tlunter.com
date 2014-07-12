@@ -16,14 +16,5 @@ RouteTargets.AppRouteTargets.prototype = {
   },
   contributions: function (request, options) {
     this.showSection(Views.Contributions());
-  },
-  logout: function (request, options) {
-    this.showSection(Views.Logout());
-  },
-  login: function (request, options) {
-    this.showSection(Views.Login());
-  },
-  register: function (request, options) {
-    this.showSection(Views.Register());
   }
 };
